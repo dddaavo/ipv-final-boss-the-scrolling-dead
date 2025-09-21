@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://x6uug6puujpo" path="res://assets/black.png" id="1_enibb"]
 [ext_resource type="Script" uid="uid://fsnrrx331gp4" path="res://src/ui/DopamineBar.gd" id="2_qfo0y"]
 
-[node name="TextureRect" type="TextureRect"]
+[node name="DopamineBar" type="TextureRect"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
