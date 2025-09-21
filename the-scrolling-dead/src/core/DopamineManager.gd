@@ -19,6 +19,17 @@ func _ready():
 func set_target(new_target: float):
 	dopamine_level.target = new_target
 	emit_signal("target_changed")
+	_check_events()
+	
+func increment_target(amount: float):
+	dopamine_level.add_tgt(amount)
+	emit_signal("target_changed")
+	_check_events()
+	
+func decrement_target(amount: float):
+	dopamine_level.add_tgt(-amount)
+	emit_signal("target_changed")
+	_check_events()
 
 func increment(amount: float):
 	dopamine_level.add(amount)

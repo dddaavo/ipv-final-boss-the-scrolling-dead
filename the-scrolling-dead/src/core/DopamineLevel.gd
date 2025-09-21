@@ -30,3 +30,6 @@ func _init(_current: float, _target: float, _maximum: float):
 
 func add(value: float):
 	set_current(current + value)
+	
+func add_tgt(value: float):
+	set_target(target + value)

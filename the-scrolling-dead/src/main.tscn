@@ -28,6 +28,22 @@ offset_bottom = 732.0
 theme_override_font_sizes/font_size = 33
 text = "Decrement"
 
+[node name="incTgt" type="Button" parent="Home/TestScreen"]
+offset_left = 448.0
+offset_top = 488.0
+offset_right = 648.0
+offset_bottom = 569.0
+theme_override_font_sizes/font_size = 30
+text = "Inc Target"
+
+[node name="decTgt" type="Button" parent="Home/TestScreen"]
+offset_left = 78.0
+offset_top = 490.0
+offset_right = 291.0
+offset_bottom = 571.0
+theme_override_font_sizes/font_size = 30
+text = "Dec Targuet"
+
 [node name="TextureRect" parent="Home" instance=ExtResource("3_5q4o7")]
 offset_left = -298.0
 offset_top = 31.0
@@ -36,3 +52,5 @@ offset_bottom = 95.0
 
 [connection signal="pressed" from="Home/TestScreen/inc" to="Home/TestScreen" method="_on_inc_pressed"]
 [connection signal="pressed" from="Home/TestScreen/dec" to="Home/TestScreen" method="_on_dec_pressed"]
+[connection signal="pressed" from="Home/TestScreen/incTgt" to="Home/TestScreen" method="_on_inc_tgt_pressed"]
+[connection signal="pressed" from="Home/TestScreen/decTgt" to="Home/TestScreen" method="_on_dec_tgt_pressed"]
