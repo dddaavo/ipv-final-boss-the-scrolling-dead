@@ -4,8 +4,8 @@ signal game_over
 signal on_target
 
 @export var start: float
-@export var target: float
-@export var maxim: float
+@export var target: float = 30
+@export var maxim: float = 100
 
 
 var dopamine_level: DopamineLevel
@@ -33,4 +33,8 @@ func is_game_over() -> bool:
 	return abs(dopamine_level.current) >= dopamine_level.maximum
 
 func is_on_target() -> bool:
-	return abs(dopamine_level.current) >= dopamine_level.target
+	return abs(dopamine_level.current) <= dopamine_level.target
+	
+func status() -> Array:
+	return	[dopamine_level.current, dopamine_level.target, dopamine_level.maximum]
+	
