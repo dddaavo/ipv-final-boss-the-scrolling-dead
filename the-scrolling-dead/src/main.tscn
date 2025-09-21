@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6gxm6trluke2"]
+[gd_scene load_steps=4 format=3 uid="uid://b6gxm6trluke2"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="Script" uid="uid://b0behk5ax1s6w" path="res://src/test_screen.gd" id="2_gh0ne"]
+[ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_eewff")
@@ -26,6 +27,12 @@ offset_right = 284.0
 offset_bottom = 732.0
 theme_override_font_sizes/font_size = 33
 text = "Decrement"
+
+[node name="TextureRect" parent="Home" instance=ExtResource("3_5q4o7")]
+offset_left = -298.0
+offset_top = 31.0
+offset_right = 302.0
+offset_bottom = 95.0
 
 [connection signal="pressed" from="Home/TestScreen/inc" to="Home/TestScreen" method="_on_inc_pressed"]
 [connection signal="pressed" from="Home/TestScreen/dec" to="Home/TestScreen" method="_on_dec_pressed"]
