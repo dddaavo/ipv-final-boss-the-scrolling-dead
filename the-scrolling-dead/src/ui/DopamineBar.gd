@@ -27,9 +27,8 @@ func _on_targuet_value_changed():
 	
 
 func _update_target_size():
-	var status = DopamineManager.status()
-	var target_value = status[1]  # dopamine_level.target
-	var maximum = status[2]       # dopamine_level.maximum
+	var target_value = DopamineManager.get_target()  # dopamine_level.target
+	var maximum = DopamineManager.get_maxim()       # dopamine_level.maximum
 	
  # Calcular el ancho proporcional del target
 	var target_ratio = target_value / maximum
@@ -42,9 +41,8 @@ func _update_target_size():
 	target_zone.position.x = center_position - (target_width / 2.0)
 
 func _update_indicator_position():
-	var status = DopamineManager.status()
-	var current_level = status[0]  # dopamine_level.current
-	var maximum = status[2]        # dopamine_level.maximum
+	var current_level = DopamineManager.get_current() 
+	var maximum = DopamineManager.get_maxim()
 	
 	# Calcular posición relativa (-1 a 1)
 	var normalized_value = current_level / maximum

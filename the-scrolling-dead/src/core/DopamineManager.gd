@@ -5,9 +5,9 @@ signal on_target
 signal value_changed
 signal target_changed
 
-@export var start: float
-@export var target: float = 30
-@export var maxim: float = 100
+@export var start: float = 0
+@export var target: float = 300
+@export var maxim: float = 1000
 
 
 var dopamine_level: DopamineLevel
@@ -15,21 +15,28 @@ var dopamine_level: DopamineLevel
 func _ready():
 	dopamine_level = DopamineLevel.new(start,target,maxim)
 	dopamine_level.connect("value_changed", Callable(self, "_on_value_changed"))
+	dopamine_level.connect("target_changed", Callable(self, "_on_target_changed"))
 
 func set_target(new_target: float):
-	dopamine_level.target = new_target
-	emit_signal("target_changed")
-	_check_events()
+	dopamine_level.set_target(new_target)
+
+func set_maxim(new_max: float):
+	dopamine_level.set_maxim(new_max)
+
+func get_target() -> float:
+	return dopamine_level.target
+
+func get_current() -> float:
+	return dopamine_level.current
+
+func get_maxim() -> float:
+	return dopamine_level.maximum
 	
 func increment_target(amount: float):
 	dopamine_level.add_tgt(amount)
-	emit_signal("target_changed")
-	_check_events()
 	
 func decrement_target(amount: float):
 	dopamine_level.add_tgt(-amount)
-	emit_signal("target_changed")
-	_check_events()
 
 func increment(amount: float):
 	dopamine_level.add(amount)
@@ -39,6 +46,10 @@ func decrement(amount: float):
 
 func _on_value_changed():
 	emit_signal("value_changed")
+	_check_events()
+
+func _on_target_changed():
+	emit_signal("target_changed")
 	_check_events()
 
 func _check_events():
@@ -55,4 +66,7 @@ func is_on_target() -> bool:
 	
 func status() -> Array:
 	return	[dopamine_level.current, dopamine_level.target, dopamine_level.maximum]
+	
+
+
 	

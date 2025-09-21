@@ -3,6 +3,7 @@ extends Node
 class_name DopamineLevel
 
 signal value_changed(new_value)
+signal target_changed(new_value)
 
 var current: float 
 var target: float 
@@ -18,7 +19,10 @@ func get_current() -> float:
 	return current
 
 func set_target(value: float):
+	var prev = target
 	target = abs(value)
+	if target != prev:
+		emit_signal("target_changed")
 
 func set_maximum(value: float):
 	maximum = abs(value)
