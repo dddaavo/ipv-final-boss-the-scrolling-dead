@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6gxm6trluke2"]
+
+[ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/main.gd" id="1_eewff"]
+[ext_resource type="Script" uid="uid://b0behk5ax1s6w" path="res://src/test_screen.gd" id="2_gh0ne"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_eewff")
+
+[node name="Home" type="Node" parent="."]
+
+[node name="TestScreen" type="Node2D" parent="Home"]
+script = ExtResource("2_gh0ne")
+
+[node name="inc" type="Button" parent="Home/TestScreen"]
+offset_left = 444.0
+offset_top = 624.0
+offset_right = 657.0
+offset_bottom = 727.0
+theme_override_font_sizes/font_size = 33
+text = "Increment"
+
+[node name="dec" type="Button" parent="Home/TestScreen"]
+offset_left = 71.0
+offset_top = 629.0
+offset_right = 284.0
+offset_bottom = 732.0
+theme_override_font_sizes/font_size = 33
+text = "Decrement"
+
+[connection signal="pressed" from="Home/TestScreen/inc" to="Home/TestScreen" method="_on_inc_pressed"]
+[connection signal="pressed" from="Home/TestScreen/dec" to="Home/TestScreen" method="_on_dec_pressed"]
