@@ -44,7 +44,7 @@ offset_bottom = 571.0
 theme_override_font_sizes/font_size = 30
 text = "Dec Targuet"
 
-[node name="TextureRect" parent="Home" instance=ExtResource("3_5q4o7")]
+[node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
 offset_left = -298.0
 offset_top = 31.0
 offset_right = 302.0
