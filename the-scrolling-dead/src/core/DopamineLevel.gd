@@ -12,7 +12,7 @@ func set_current(value: float):
 	var prev = current
 	current = value
 	if current != prev:
-		emit_signal("value_changed", current)
+		emit_signal("value_changed")
 		
 func get_current() -> float:
 	return current
