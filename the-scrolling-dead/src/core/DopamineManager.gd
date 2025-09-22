@@ -20,7 +20,7 @@ func _ready():
 	effect_manager = DopamineEffectManager.new()
 	add_child(effect_manager)
 	effect_manager.add_effect(DecayModifierEffect.new(1,-1,0.1))
-	effect_manager.add_effect(TargetModifierEffect.new(-200,5))
+	#effect_manager.add_effect(TargetModifierEffect.new(-200,5))
 
 func set_target(new_target: float):
 	dopamine_level.set_target(new_target)

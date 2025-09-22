@@ -11,7 +11,7 @@ func _init(modifier: float, effect_duration: float = 0.0):
 
 func apply():
 	original_target = DopamineManager.get_target()
-	DopamineManager.set_target(modifier_value)
+	DopamineManager.increment_target(modifier_value)
 	print("Applied target modifier: ", modifier_value, " for ", duration, " seconds")
 
 func remove():

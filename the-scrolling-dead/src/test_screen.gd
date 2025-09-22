@@ -6,7 +6,7 @@ func _ready():
 	DopamineManager.connect("target_changed", Callable(self, "_on_dopamine_manager_target_changed"))
 
 func _on_inc_pressed() -> void:
-	DopamineManager.increment(10) 
+	DopamineManager.increment(10)
 	print(DopamineManager.is_on_target())
 	print(DopamineManager.status())
 
@@ -35,3 +35,7 @@ func _on_inc_tgt_pressed() -> void:
 	
 func _on_dec_tgt_pressed() -> void:
 	DopamineManager.decrement_target(10)
+	
+	
+func _on_add_tgt_boost_pressed() -> void:
+	DopamineManager.add_effect(TargetModifierEffect.new(200,5))

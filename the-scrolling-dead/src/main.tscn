@@ -44,6 +44,14 @@ offset_bottom = 571.0
 theme_override_font_sizes/font_size = 30
 text = "Dec Targuet"
 
+[node name="addTgtBoost" type="Button" parent="Home/TestScreen"]
+offset_left = 236.0
+offset_top = 358.0
+offset_right = 473.0
+offset_bottom = 435.0
+theme_override_font_sizes/font_size = 30
+text = "Boost de tgt"
+
 [node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
 offset_left = -298.0
 offset_top = 31.0
@@ -54,3 +62,4 @@ offset_bottom = 95.0
 [connection signal="pressed" from="Home/TestScreen/dec" to="Home/TestScreen" method="_on_dec_pressed"]
 [connection signal="pressed" from="Home/TestScreen/incTgt" to="Home/TestScreen" method="_on_inc_tgt_pressed"]
 [connection signal="pressed" from="Home/TestScreen/decTgt" to="Home/TestScreen" method="_on_dec_tgt_pressed"]
+[connection signal="pressed" from="Home/TestScreen/addTgtBoost" to="Home/TestScreen" method="_on_add_tgt_boost_pressed"]

@@ -30,7 +30,6 @@ func process_effect(delta_time: float):
 		var decay_amount = 5.0 * multiplier_value 
 		DopamineManager.decrement(decay_amount)
 		accumulated_time = 0.0
-		print("Applied decay: -", decay_amount)
 
 func get_effect_type() -> String:
 	return "DecayModifierEffect"
