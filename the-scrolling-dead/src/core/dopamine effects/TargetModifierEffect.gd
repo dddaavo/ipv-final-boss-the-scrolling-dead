@@ -17,6 +17,9 @@ func apply():
 func remove():
 	DopamineManager.set_target(original_target)
 	print("Removed target modifier, restored to: ", original_target)
+	
+func process_effect(delta_time: float):
+	pass
 
 func get_effect_type() -> String:
 	return "TargetModifier"

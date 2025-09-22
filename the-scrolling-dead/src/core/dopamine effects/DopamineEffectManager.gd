@@ -5,7 +5,7 @@ class_name DopamineEffectManager
 var active_effects: Array[DopamineEffect] = []
 
 func _ready():
-	set_process(true)
+	set_process(true) #activo el procesamiento en cada frame
 
 func _process(delta):
 	_update_active_effects(delta)
@@ -19,7 +19,7 @@ func _update_active_effects(delta_time: float):
 		effect.update(delta_time)
 			   
 		# Procesar el efecto si lo necesita
-		if effect.should_process(delta_time):
+		if effect.should_process():
 			effect.process_effect(delta_time)
 		
 		# Remover efectos expirados
