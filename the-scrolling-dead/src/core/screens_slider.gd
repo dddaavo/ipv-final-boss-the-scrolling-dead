@@ -29,7 +29,15 @@ func _resize_pages() -> void:
 		if child is Control:
 			child.size = size
 			child.position = Vector2(0, i * size.y)
-			i += 1
+		elif child is Node2D:
+			child.position = Vector2(0, i * size.y)
+			var scale_factor = Vector2(
+				size.x / 480.0,   # ancho base de tu minijuego
+				size.y / 720.0    # alto base de tu minijuego
+			)
+			child.scale = scale_factor
+		
+		i += 1
 	pages.size = Vector2(size.x, size.y * i)
 
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=8 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
+[ext_resource type="PackedScene" uid="uid://1o72jcewltge" path="res://src/minigames/minigame.tscn" id="3_7mcnc"]
 [ext_resource type="Texture2D" uid="uid://dae75lndtn0vh" path="res://assets/white.png" id="3_qmnk5"]
 [ext_resource type="Texture2D" uid="uid://x6uug6puujpo" path="res://assets/black.png" id="4_eqjed"]
 [ext_resource type="Texture2D" uid="uid://cp366pq7nvsoc" path="res://assets/red.png" id="5_3ufde"]
@@ -18,15 +19,17 @@ script = ExtResource("1_n7q6m")
 [node name="ScreensSlider" type="Control" parent="."]
 clip_contents = true
 anchors_preset = 0
-offset_right = 662.0
-offset_bottom = 629.0
+offset_right = 480.0
+offset_bottom = 720.0
 size_flags_vertical = 3
 script = ExtResource("2_7mcnc")
 
 [node name="Pages" type="Control" parent="ScreensSlider"]
 anchors_preset = 0
-offset_right = 63.0
-offset_bottom = 64.0
+offset_right = 642.0
+offset_bottom = 631.0
+
+[node name="Minigame" parent="ScreensSlider/Pages" instance=ExtResource("3_7mcnc")]
 
 [node name="Page0" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
