@@ -27,6 +27,10 @@ window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/handheld/orientation=1
 
+[editor]
+
+movie_writer/movie_file="C:/Users/LeO/Documents/GitHub/videos godot/primer test.avi"
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
