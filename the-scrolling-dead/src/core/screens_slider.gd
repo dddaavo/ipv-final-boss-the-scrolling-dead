@@ -1,7 +1,6 @@
 extends Control
 
 @export var animation_time: float = 0.45
-
 @onready var pages: Control = $Pages
 @onready var button_next: Button = $Button
 
@@ -15,6 +14,8 @@ func _ready() -> void:
 	
 	_resize_pages()
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("scroll"): _on_ButtonNext_pressed()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
