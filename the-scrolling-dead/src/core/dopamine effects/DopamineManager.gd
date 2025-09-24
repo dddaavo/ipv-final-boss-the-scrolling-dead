@@ -19,8 +19,7 @@ func _ready():
 	dopamine_level.connect("target_changed", Callable(self, "_on_target_changed"))
 	effect_manager = DopamineEffectManager.new()
 	add_child(effect_manager)
-	effect_manager.add_effect(DecayModifierEffect.new(1,-1,0.1))
-	#effect_manager.add_effect(TargetModifierEffect.new(-200,5))
+	_apply_base_effects()	
 
 func set_target(new_target: float):
 	dopamine_level.set_target(new_target)
@@ -72,7 +71,13 @@ func is_on_target() -> bool:
 func status() -> Array:
 	return [dopamine_level.current, dopamine_level.target, dopamine_level.maximum]
 	
+	
+func _apply_base_effects():
+	effect_manager.add_effect(DecayModifierEffect.new(1,-1,0.1)) 
+
 func add_effect(effect: DopamineEffect):
 	effect_manager.add_effect(effect)
 
-	
+func reset_effects():
+	effect_manager.clear_all_effects()
+	_apply_base_effects()

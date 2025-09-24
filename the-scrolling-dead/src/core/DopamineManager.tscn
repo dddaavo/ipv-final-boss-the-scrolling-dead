@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bag27d6tpqysy"]
 
-[ext_resource type="Script" uid="uid://cwvich28t4mbf" path="res://src/core/DopamineManager.gd" id="1_h2v7p"]
+[ext_resource type="Script" uid="uid://cwvich28t4mbf" path="res://src/core/dopamine effects/DopamineManager.gd" id="1_h2v7p"]
 
 [node name="DopamineManager" type="Node"]
 script = ExtResource("1_h2v7p")

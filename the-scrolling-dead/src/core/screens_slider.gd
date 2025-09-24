@@ -61,4 +61,5 @@ func _on_ButtonNext_pressed() -> void:
 	go_next()
 	var rand = randf_range(10,800)
 	DopamineManager.increment(rand)
+	DopamineManager.reset_effects()
 	print(rand)
