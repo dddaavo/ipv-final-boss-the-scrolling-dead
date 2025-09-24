@@ -11,8 +11,7 @@ script = ExtResource("1_eewff")
 [node name="Home" type="Node" parent="."]
 
 [node name="TestScreen" parent="Home" instance=ExtResource("2_3cfgd")]
-visible = false
-position = Vector2(-8, 4)
+position = Vector2(44, 6)
 
 [node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
 offset_left = -298.0
