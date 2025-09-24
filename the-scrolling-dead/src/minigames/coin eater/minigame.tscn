@@ -1,0 +1,34 @@
+[gd_scene load_steps=6 format=3 uid="uid://1o72jcewltge"]
+
+[ext_resource type="Script" uid="uid://dg0av0f24jhpo" path="res://src/minigames/coin eater/minigame.gd" id="1_cxud7"]
+[ext_resource type="PackedScene" uid="uid://c1v2bydqwcfvh" path="res://src/minigames/coin eater/coin.tscn" id="2_5utvd"]
+[ext_resource type="Script" uid="uid://dd47fn7gw3amf" path="res://src/minigames/coin eater/player.gd" id="2_dnu5v"]
+[ext_resource type="Texture2D" uid="uid://c2kpio7ab1a0e" path="res://assets/icon_color_outline.png" id="2_vq4fo"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_dnu5v"]
+radius = 48.04165
+
+[node name="Minigame" type="Node2D"]
+script = ExtResource("1_cxud7")
+coin_scene = ExtResource("2_5utvd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 480.0
+offset_bottom = 720.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.16580918, 0.17224273, 0.15692696, 1)
+
+[node name="Player" type="Area2D" parent="."]
+position = Vector2(240, 360)
+script = ExtResource("2_dnu5v")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_vq4fo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("CircleShape2D_dnu5v")
