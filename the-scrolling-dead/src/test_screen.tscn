@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://d4mpjcu54856y"]
+
+[ext_resource type="Script" uid="uid://b0behk5ax1s6w" path="res://src/core/TestButtons.gd" id="1_k4oig"]
+
+[node name="TestScreen" type="Node2D"]
+visible = false
+script = ExtResource("1_k4oig")
+metadata/_edit_group_ = true
+
+[node name="inc" type="Button" parent="."]
+offset_left = 153.0
+offset_top = 175.0
+offset_right = 281.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 33
+text = "+ Dopa"
+
+[node name="dec" type="Button" parent="."]
+offset_left = 17.0
+offset_top = 175.0
+offset_right = 145.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 33
+text = "- Dopa"
+
+[node name="incTgt" type="Button" parent="."]
+offset_left = 153.0
+offset_top = 103.0
+offset_right = 281.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 30
+text = "+Target"
+
+[node name="decTgt" type="Button" parent="."]
+offset_left = 17.0
+offset_top = 103.0
+offset_right = 145.0
+offset_bottom = 168.0
+theme_override_font_sizes/font_size = 30
+text = "- Target"
+
+[node name="addTgtBoost" type="Button" parent="."]
+offset_left = 17.0
+offset_top = 247.0
+offset_right = 283.0
+offset_bottom = 303.0
+theme_override_font_sizes/font_size = 30
+text = "Boost de tgt"
+
+[connection signal="pressed" from="inc" to="." method="_on_inc_pressed"]
+[connection signal="pressed" from="dec" to="." method="_on_dec_pressed"]
+[connection signal="pressed" from="incTgt" to="." method="_on_inc_tgt_pressed"]
+[connection signal="pressed" from="decTgt" to="." method="_on_dec_tgt_pressed"]
+[connection signal="pressed" from="addTgtBoost" to="." method="_on_add_tgt_boost_pressed"]

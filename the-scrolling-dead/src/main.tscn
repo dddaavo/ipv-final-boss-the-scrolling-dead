@@ -1,59 +1,18 @@
 [gd_scene load_steps=5 format=3 uid="uid://b6gxm6trluke2"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/main.gd" id="1_eewff"]
-[ext_resource type="Script" uid="uid://b0behk5ax1s6w" path="res://src/test_screen.gd" id="2_gh0ne"]
+[ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_3cfgd"]
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
-[ext_resource type="PackedScene" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
+[ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_eewff")
 
 [node name="Home" type="Node" parent="."]
 
-[node name="TestScreen" type="Node2D" parent="Home"]
+[node name="TestScreen" parent="Home" instance=ExtResource("2_3cfgd")]
+visible = false
 position = Vector2(-8, 4)
-script = ExtResource("2_gh0ne")
-metadata/_edit_group_ = true
-
-[node name="inc" type="Button" parent="Home/TestScreen"]
-offset_left = 153.0
-offset_top = 175.0
-offset_right = 281.0
-offset_bottom = 240.0
-theme_override_font_sizes/font_size = 33
-text = "+ Dopa"
-
-[node name="dec" type="Button" parent="Home/TestScreen"]
-offset_left = 17.0
-offset_top = 175.0
-offset_right = 145.0
-offset_bottom = 240.0
-theme_override_font_sizes/font_size = 33
-text = "- Dopa"
-
-[node name="incTgt" type="Button" parent="Home/TestScreen"]
-offset_left = 153.0
-offset_top = 103.0
-offset_right = 281.0
-offset_bottom = 168.0
-theme_override_font_sizes/font_size = 30
-text = "+Target"
-
-[node name="decTgt" type="Button" parent="Home/TestScreen"]
-offset_left = 17.0
-offset_top = 103.0
-offset_right = 145.0
-offset_bottom = 168.0
-theme_override_font_sizes/font_size = 30
-text = "- Target"
-
-[node name="addTgtBoost" type="Button" parent="Home/TestScreen"]
-offset_left = 17.0
-offset_top = 247.0
-offset_right = 283.0
-offset_bottom = 303.0
-theme_override_font_sizes/font_size = 30
-text = "Boost de tgt"
 
 [node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
 offset_left = -298.0
@@ -73,9 +32,3 @@ offset_right = 230.0
 offset_bottom = -231.0
 grow_horizontal = 2
 grow_vertical = 0
-
-[connection signal="pressed" from="Home/TestScreen/inc" to="Home/TestScreen" method="_on_inc_pressed"]
-[connection signal="pressed" from="Home/TestScreen/dec" to="Home/TestScreen" method="_on_dec_pressed"]
-[connection signal="pressed" from="Home/TestScreen/incTgt" to="Home/TestScreen" method="_on_inc_tgt_pressed"]
-[connection signal="pressed" from="Home/TestScreen/decTgt" to="Home/TestScreen" method="_on_dec_tgt_pressed"]
-[connection signal="pressed" from="Home/TestScreen/addTgtBoost" to="Home/TestScreen" method="_on_add_tgt_boost_pressed"]
