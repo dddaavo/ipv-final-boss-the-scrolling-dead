@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="Script" uid="uid://b0behk5ax1s6w" path="res://src/test_screen.gd" id="2_gh0ne"]
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
-[ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
+[ext_resource type="PackedScene" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_eewff")
@@ -11,45 +11,47 @@ script = ExtResource("1_eewff")
 [node name="Home" type="Node" parent="."]
 
 [node name="TestScreen" type="Node2D" parent="Home"]
+position = Vector2(-8, 4)
 script = ExtResource("2_gh0ne")
+metadata/_edit_group_ = true
 
 [node name="inc" type="Button" parent="Home/TestScreen"]
-offset_left = 497.0
-offset_top = 200.0
-offset_right = 710.0
-offset_bottom = 303.0
+offset_left = 153.0
+offset_top = 175.0
+offset_right = 281.0
+offset_bottom = 240.0
 theme_override_font_sizes/font_size = 33
-text = "Increment"
+text = "+ Dopa"
 
 [node name="dec" type="Button" parent="Home/TestScreen"]
-offset_left = 19.0
-offset_top = 201.0
-offset_right = 232.0
-offset_bottom = 304.0
+offset_left = 17.0
+offset_top = 175.0
+offset_right = 145.0
+offset_bottom = 240.0
 theme_override_font_sizes/font_size = 33
-text = "Decrement"
+text = "- Dopa"
 
 [node name="incTgt" type="Button" parent="Home/TestScreen"]
-offset_left = 504.0
-offset_top = 111.0
-offset_right = 704.0
-offset_bottom = 192.0
+offset_left = 153.0
+offset_top = 103.0
+offset_right = 281.0
+offset_bottom = 168.0
 theme_override_font_sizes/font_size = 30
-text = "Inc Target"
+text = "+Target"
 
 [node name="decTgt" type="Button" parent="Home/TestScreen"]
 offset_left = 17.0
-offset_top = 110.0
-offset_right = 230.0
-offset_bottom = 191.0
+offset_top = 103.0
+offset_right = 145.0
+offset_bottom = 168.0
 theme_override_font_sizes/font_size = 30
-text = "Dec Targuet"
+text = "- Target"
 
 [node name="addTgtBoost" type="Button" parent="Home/TestScreen"]
-offset_left = 236.0
-offset_top = 358.0
-offset_right = 473.0
-offset_bottom = 435.0
+offset_left = 17.0
+offset_top = 247.0
+offset_right = 283.0
+offset_bottom = 303.0
 theme_override_font_sizes/font_size = 30
 text = "Boost de tgt"
 
@@ -65,10 +67,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -240.0
-offset_top = -720.0
-offset_right = 240.0
-offset_bottom = 0.0
+offset_left = -250.0
+offset_top = -951.0
+offset_right = 230.0
+offset_bottom = -231.0
 grow_horizontal = 2
 grow_vertical = 0
 
