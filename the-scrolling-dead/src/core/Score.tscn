@@ -4,6 +4,11 @@
 
 [node name="ScoreManager" type="Node"]
 script = ExtResource("1_4y0yy")
+points_per_second_in_target = null
+bonus_multiplier_threshold = null
+bonus_multiplier = null
+save_file_path = null
+max_scores_to_keep = null
 
 [node name="Label" type="Label" parent="."]
 offset_left = 626.0
