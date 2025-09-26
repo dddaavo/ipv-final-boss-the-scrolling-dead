@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6gxm6trluke2"]
+[gd_scene load_steps=6 format=3 uid="uid://b6gxm6trluke2"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_3cfgd"]
+[ext_resource type="PackedScene" uid="uid://6f3bau0egof" path="res://src/core/Score.tscn" id="2_fyndt"]
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
 [ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
 
@@ -9,6 +10,8 @@
 script = ExtResource("1_eewff")
 
 [node name="Home" type="Node" parent="."]
+
+[node name="ScoreManager" parent="Home" instance=ExtResource("2_fyndt")]
 
 [node name="TestScreen" parent="Home" instance=ExtResource("2_3cfgd")]
 position = Vector2(44, 6)
