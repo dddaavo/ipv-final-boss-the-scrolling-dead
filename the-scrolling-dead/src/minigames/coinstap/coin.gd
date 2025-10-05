@@ -14,3 +14,14 @@ func _ready() -> void:
 		sprite.texture = good_texture
 	else:
 		sprite.texture = bad_texture
+
+func _input_event(viewport, event, shape_idx):
+	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		_on_coin_clicked()
+
+func _on_coin_clicked() -> void:
+	if is_good:
+		DopamineManager.increment(100)
+	else:
+		DopamineManager.decrement(100)
+	queue_free()

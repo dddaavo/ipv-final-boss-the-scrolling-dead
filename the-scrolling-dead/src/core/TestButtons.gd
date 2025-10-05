@@ -25,7 +25,8 @@ func _on_dopamine_manager_game_over() -> void:
 	print("Game over")
 
 func _on_dopamine_manager_on_target() -> void:
-	print("On target")
+	pass
+	#print("On target")
 	
 func _on_dopamine_manager_target_changed() -> void:
 	print("Target Changed")

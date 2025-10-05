@@ -14,6 +14,7 @@ script = ExtResource("1_eewff")
 [node name="ScoreManager" parent="Home" instance=ExtResource("2_fyndt")]
 
 [node name="TestScreen" parent="Home" instance=ExtResource("2_3cfgd")]
+visible = false
 position = Vector2(44, 6)
 
 [node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
@@ -27,10 +28,8 @@ anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -250.0
-offset_top = -951.0
-offset_right = 230.0
-offset_bottom = -231.0
-grow_horizontal = 2
+offset_left = -317.0
+offset_top = -1126.0
+offset_right = 302.0
+offset_bottom = -54.0
 grow_vertical = 0

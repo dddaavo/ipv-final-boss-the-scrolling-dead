@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://1o72jcewltge"]
+
+[ext_resource type="Script" uid="uid://dg0av0f24jhpo" path="res://src/minigames/coinstap/minigame.gd" id="1_cxud7"]
+[ext_resource type="PackedScene" uid="uid://c1v2bydqwcfvh" path="res://src/minigames/coinstap/coin.tscn" id="2_5utvd"]
+
+[sub_resource type="Theme" id="Theme_6at07"]
+
+[node name="Minigame" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -720.0
+offset_bottom = -1280.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cxud7")
+coin_scene = ExtResource("2_5utvd")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4500.0
+offset_bottom = 4500.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_6at07")
+color = Color(0.24815577, 0.3786257, 0.3490225, 1)

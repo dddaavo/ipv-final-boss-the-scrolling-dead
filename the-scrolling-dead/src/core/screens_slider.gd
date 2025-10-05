@@ -1,7 +1,7 @@
 extends Control
 
 @export var animation_time: float = 0.45
-@onready var pages: Control = $Pages
+@export var pages: Control
 @onready var button_next: Button = $Button
 
 var current_index: int = 0
@@ -20,16 +20,16 @@ func _process(delta: float) -> void:
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
 		_resize_pages()
-		pages.rect_position = Vector2(0, -current_index * size.y)
-
+		pages.position = Vector2(0, -current_index * size.y)
 
 func _resize_pages() -> void:
 	# Hace que cada Page sea full-screen y las apila verticalmente
 	var i: int = 0
 	for child in pages.get_children():
 		if child is Control:
+			print("SIZE SCREENSLIDER", size)
 			child.size = size
-			child.position = Vector2(0, i * size.y)
+			child.position =Vector2(0, i * size.y)
 		elif child is Node2D:
 			child.position = Vector2(0, i * size.y)
 			var scale_factor = Vector2(
@@ -38,7 +38,7 @@ func _resize_pages() -> void:
 			)
 			child.scale = scale_factor
 		
-		i += 1
+		i += 1 # TODO: Nro de páginas infinito - Generarlas
 	pages.size = Vector2(size.x, size.y * i)
 
 

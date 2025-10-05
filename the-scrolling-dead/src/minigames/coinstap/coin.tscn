@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1v2bydqwcfvh"]
 
-[ext_resource type="Script" uid="uid://dmljid2g6pqrb" path="res://src/minigames/coin eater/coin.gd" id="1_i4628"]
+[ext_resource type="Script" uid="uid://dmljid2g6pqrb" path="res://src/minigames/coinstap/coin.gd" id="1_i4628"]
 [ext_resource type="Texture2D" uid="uid://coy8uuduftevg" path="res://assets/coin.png" id="1_jr8ap"]
 [ext_resource type="Texture2D" uid="uid://crw4nv8bfqfji" path="res://assets/red-coin.png" id="3_ncqc3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i4628"]
-radius = 25.0
+radius = 33.01515
 
 [node name="Coin" type="Area2D" groups=["coins"]]
 script = ExtResource("1_i4628")
