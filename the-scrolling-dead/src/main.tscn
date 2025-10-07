@@ -11,12 +11,17 @@
 script = ExtResource("1_eewff")
 
 [node name="TestScreen" parent="." instance=ExtResource("2_3cfgd")]
-visible = false
-position = Vector2(44, 6)
+z_index = 1
+position = Vector2(44, 31)
 
 [node name="Home" type="Node" parent="."]
 
 [node name="ScoreManager" parent="Home" instance=ExtResource("2_fyndt")]
+points_per_second_in_target = 1
+bonus_multiplier_threshold = 100
+bonus_multiplier = 1.0
+save_file_path = "user://scores_history.save"
+max_scores_to_keep = 100
 
 [node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
 offset_left = -298.0

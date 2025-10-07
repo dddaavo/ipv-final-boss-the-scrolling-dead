@@ -1,6 +1,7 @@
 extends TextureRect
 
-@onready var color_rect = $ColorRect
+@onready var sprite_neg = $SpriteNegativo
+@onready var sprite_pos = $SpritePositivo
 
 func _ready():
 	# Conectar a las señales del DopamineManager
@@ -14,12 +15,14 @@ func _on_dopamine_value_changed():
 	_update_transparency()
 
 func _on_game_over():
-	# En game over, solo mostramos el warning si es por valores negativos
+	# En game over, solo mostramos el warning correspondiente
 	var current = DopamineManager.get_current()
 	if current < 0:
-		_set_alpha(1.0)
+		_set_alpha_neg(1.0)
+		_set_alpha_pos(0.0)
 	else:
-		_set_alpha(0.0)
+		_set_alpha_neg(0.0)
+		_set_alpha_pos(1.0)
 
 func _update_transparency():
 	var current = DopamineManager.get_current()
@@ -28,29 +31,48 @@ func _update_transparency():
 	
 	var alpha = 0.0
 	
-	# Solo se activa cuando los valores son negativos
-	if current >= 0:
-		# Valores positivos o cero: completamente transparente
-		alpha = 0.0
-	elif current >= -target:
-		# Valores negativos pero dentro del target: completamente transparente
-		alpha = 0.0
-	elif current <= -maximum:
-		# En el máximo negativo (game over): completamente opaco
-		alpha = 1.0
+	if current < 0:
+		# Valores negativos: activar SpriteNegativo
+		_set_alpha_pos(0.0)  # Ocultar el positivo
+		
+		if current >= -target:
+			# Valores negativos pero dentro del target: completamente transparente
+			alpha = 0.0
+		elif current <= -maximum:
+			# En el máximo negativo (game over): completamente opaco
+			alpha = 1.0
+		else:
+			# Fuera del target negativo pero antes del máximo: interpolación
+			var distance_from_target = abs(current) - target
+			var distance_range = maximum - target
+			alpha = distance_from_target / distance_range
+			alpha = clamp(alpha, 0.0, 1.0)
+		
+		_set_alpha_neg(alpha)
+		
 	else:
-		# Fuera del target negativo pero antes del máximo: interpolación
-		# Calculamos qué tan lejos estamos del target hacia el máximo (en valores negativos)
-		var distance_from_target = abs(current) - target
-		var distance_range = maximum - target
-		alpha = distance_from_target / distance_range
-		# Aseguramos que esté entre 0 y 1
-		alpha = clamp(alpha, 0.0, 1.0)
-	
-	_set_alpha(alpha)
+		# Valores positivos o cero: activar SpritePositivo
+		_set_alpha_neg(0.0)  # Ocultar el negativo
+		
+		if current <= target:
+			# Dentro del target: completamente transparente
+			alpha = 0.0
+		elif current >= maximum:
+			# En el máximo positivo (game over): completamente opaco
+			alpha = 1.0
+		else:
+			# Fuera del target positivo pero antes del máximo: interpolación
+			var distance_from_target = current - target
+			var distance_range = maximum - target
+			alpha = distance_from_target / distance_range
+			alpha = clamp(alpha, 0.0, 1.0)
+		
+		_set_alpha_pos(alpha)
 
-func _set_alpha(alpha: float):
-	if color_rect:
-		var current_color = color_rect.color
-		current_color.a = alpha
-		color_rect.color = current_color
+func _set_alpha_neg(alpha: float):
+	if sprite_neg:
+		sprite_neg.modulate.a = alpha
+
+func _set_alpha_pos(alpha: float):
+	if sprite_pos:
+		sprite_pos.modulate.a = alpha

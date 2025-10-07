@@ -9,7 +9,7 @@ func _ready():
 	
 
 func _on_inc_pressed() -> void:
-	DopamineManager.increment(10)
+	DopamineManager.increment(100)
 	print(DopamineManager.is_on_target())
 	print(DopamineManager.status())
 
