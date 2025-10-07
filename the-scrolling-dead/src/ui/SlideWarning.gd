@@ -4,8 +4,8 @@ extends TextureRect
 
 func _ready():
 	# Conectar a las señales del DopamineManager
-	DopamineManager.connect("value_changed", Callable(self, "_on_dopamine_value_changed"))
-	DopamineManager.connect("game_over", Callable(self, "_on_game_over"))
+	DopamineManager.value_changed.connect(_on_dopamine_value_changed)
+	DopamineManager.game_over.connect(_on_game_over)
 	
 	# Actualizar transparencia inicial
 	_update_transparency()
@@ -14,26 +14,34 @@ func _on_dopamine_value_changed():
 	_update_transparency()
 
 func _on_game_over():
-	# En game over, el warning es completamente opaco (0% transparencia)
-	_set_alpha(1.0)
+	# En game over, solo mostramos el warning si es por valores negativos
+	var current = DopamineManager.get_current()
+	if current < 0:
+		_set_alpha(1.0)
+	else:
+		_set_alpha(0.0)
 
 func _update_transparency():
-	var current = abs(DopamineManager.get_current())
+	var current = DopamineManager.get_current()
 	var target = DopamineManager.get_target()
 	var maximum = DopamineManager.get_maxim()
 	
 	var alpha = 0.0
 	
-	if current <= target:
-		# Dentro del target: completamente transparente
+	# Solo se activa cuando los valores son negativos
+	if current >= 0:
+		# Valores positivos o cero: completamente transparente
 		alpha = 0.0
-	elif current >= maximum:
-		# En el máximo (game over): completamente opaco
+	elif current >= -target:
+		# Valores negativos pero dentro del target: completamente transparente
+		alpha = 0.0
+	elif current <= -maximum:
+		# En el máximo negativo (game over): completamente opaco
 		alpha = 1.0
 	else:
-		# Fuera del target pero antes del máximo: interpolación
-		# Calculamos qué tan lejos estamos del target hacia el máximo
-		var distance_from_target = current - target
+		# Fuera del target negativo pero antes del máximo: interpolación
+		# Calculamos qué tan lejos estamos del target hacia el máximo (en valores negativos)
+		var distance_from_target = abs(current) - target
 		var distance_range = maximum - target
 		alpha = distance_from_target / distance_range
 		# Aseguramos que esté entre 0 y 1

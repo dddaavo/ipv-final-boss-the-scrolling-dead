@@ -15,8 +15,8 @@ var effect_manager: DopamineEffectManager
 
 func _ready():
 	dopamine_level = DopamineLevel.new(start,target,maxim)
-	dopamine_level.connect("value_changed", Callable(self, "_on_value_changed"))
-	dopamine_level.connect("target_changed", Callable(self, "_on_target_changed"))
+	dopamine_level.value_changed.connect(_on_value_changed)
+	dopamine_level.target_changed.connect(_on_target_changed)
 	effect_manager = DopamineEffectManager.new()
 	add_child(effect_manager)
 	_apply_base_effects()	

@@ -42,7 +42,7 @@ func _process(delta):
 
 func _connect_dopamine_signals():
 	if DopamineManager:
-		DopamineManager.connect("game_over", Callable(self, "_on_game_over"))
+		DopamineManager.game_over.connect(_on_game_over)
 		print("Connected to DopamineManager signals")
 	else:
 		print("Warning: DopamineManager not found")

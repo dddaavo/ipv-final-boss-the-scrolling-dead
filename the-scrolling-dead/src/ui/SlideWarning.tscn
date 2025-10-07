@@ -5,7 +5,16 @@
 [node name="SlideWarning" type="TextureRect"]
 script = ExtResource("1_xcdck")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRectNegativo" type="ColorRect" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = 865.0
+offset_right = 674.0
+offset_bottom = 1205.0
+color = Color(0.21176471, 0.42745098, 1, 1)
+
+[node name="ColorRectPositivo" type="ColorRect" parent="."]
 top_level = true
 layout_mode = 0
 offset_left = 55.0

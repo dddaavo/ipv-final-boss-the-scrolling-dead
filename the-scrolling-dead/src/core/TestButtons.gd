@@ -3,9 +3,9 @@ extends Node2D
 @onready var timer: Timer = Timer.new()
 
 func _ready():
-	DopamineManager.connect("game_over", Callable(self, "_on_dopamine_manager_game_over"))
-	DopamineManager.connect("on_target", Callable(self, "_on_dopamine_manager_on_target"))
-	DopamineManager.connect("target_changed", Callable(self, "_on_dopamine_manager_target_changed"))
+	DopamineManager.game_over.connect(_on_dopamine_manager_game_over)
+	DopamineManager.on_target.connect(_on_dopamine_manager_on_target)
+	DopamineManager.target_changed.connect(_on_dopamine_manager_target_changed)
 	
 
 func _on_inc_pressed() -> void:
