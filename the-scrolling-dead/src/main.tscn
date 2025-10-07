@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6gxm6trluke2"]
+[gd_scene load_steps=7 format=3 uid="uid://b6gxm6trluke2"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_3cfgd"]
 [ext_resource type="PackedScene" uid="uid://6f3bau0egof" path="res://src/core/Score.tscn" id="2_fyndt"]
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
 [ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
+[ext_resource type="PackedScene" uid="uid://dgrwmhcn1kvrt" path="res://src/ui/SlideWarning.tscn" id="6_kmhfv"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_eewff")
@@ -28,8 +29,10 @@ anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -317.0
-offset_top = -1126.0
-offset_right = 302.0
-offset_bottom = -54.0
+offset_left = -304.0
+offset_top = -1149.0
+offset_right = 315.0
+offset_bottom = -77.0
 grow_vertical = 0
+
+[node name="SlideWarning" parent="." instance=ExtResource("6_kmhfv")]

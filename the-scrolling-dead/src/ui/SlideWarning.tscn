@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgrwmhcn1kvrt"]
+
+[ext_resource type="Script" uid="uid://rbm1glf5yfpe" path="res://src/ui/SlideWarning.gd" id="1_xcdck"]
+
+[node name="SlideWarning" type="TextureRect"]
+script = ExtResource("1_xcdck")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+top_level = true
+layout_mode = 0
+offset_left = 55.0
+offset_top = 865.0
+offset_right = 674.0
+offset_bottom = 1205.0
+color = Color(0.7529412, 0.13725491, 0.16862746, 0.19607843)
