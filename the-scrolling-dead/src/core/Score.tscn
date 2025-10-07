@@ -11,9 +11,9 @@ save_file_path = null
 max_scores_to_keep = null
 
 [node name="Label" type="Label" parent="."]
-offset_left = 626.0
-offset_top = 156.0
-offset_right = 666.0
-offset_bottom = 201.0
+offset_left = 685.0
+offset_top = 38.0
+offset_right = 725.0
+offset_bottom = 83.0
 theme_override_font_sizes/font_size = 32
 text = "0"

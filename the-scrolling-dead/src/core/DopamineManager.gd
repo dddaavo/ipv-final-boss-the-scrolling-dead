@@ -73,7 +73,14 @@ func status() -> Array:
 	
 	
 func _apply_base_effects():
-	effect_manager.add_effect(DecayModifierEffect.new(1,-1,0.1)) 
+	# Crear el efecto de decay acelerado
+	var decay_modifier_effect = DecayAccelerationEffect.new(
+		5.0,   # base_decay_rate
+		0.1,   # decay_interval
+		0.5,  # acceleration_rate 
+		10.0    # max_multiplier
+	)
+	effect_manager.add_effect(decay_modifier_effect)
 
 func add_effect(effect: DopamineEffect):
 	effect_manager.add_effect(effect)
