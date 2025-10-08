@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpa5cbcsj0mtt"]
 
-[ext_resource type="Texture2D" uid="uid://x6uug6puujpo" path="res://assets/black.png" id="1_enibb"]
+[ext_resource type="Texture2D" uid="uid://bwreh6mrwqax5" path="res://assets/DopaBar.png" id="2_87man"]
 [ext_resource type="Script" uid="uid://fsnrrx331gp4" path="res://src/ui/DopamineBar.gd" id="2_qfo0y"]
 
 [node name="DopamineBar" type="TextureRect"]
@@ -11,8 +11,12 @@ offset_left = -300.0
 offset_right = 300.0
 offset_bottom = 64.0
 grow_horizontal = 2
-texture = ExtResource("1_enibb")
 script = ExtResource("2_qfo0y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(300, 34)
+scale = Vector2(1.05, 1)
+texture = ExtResource("2_87man")
 
 [node name="Target" type="ColorRect" parent="."]
 layout_mode = 1
@@ -20,10 +24,11 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -82.5
+offset_top = 18.0
 offset_right = 82.5
-offset_bottom = 64.0
+offset_bottom = 53.0
 grow_horizontal = 2
-color = Color(0.113794126, 0.59778434, 0.29878396, 1)
+color = Color(0.11372549, 0.59607846, 0.29803923, 0.58431375)
 
 [node name="Indicator" type="ColorRect" parent="."]
 layout_mode = 1
