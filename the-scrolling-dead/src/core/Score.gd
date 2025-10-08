@@ -4,6 +4,7 @@ class_name ScoreManager
 signal score_changed(new_score: int)
 signal high_score_achieved(new_high_score: int)
 signal points_earned(points: int)
+signal game_over_with_score(final_score: int)
 
 @export var points_per_second_in_target: int = 1
 @export var bonus_multiplier_threshold: int = 100
@@ -120,6 +121,9 @@ func _on_game_over():
 	save_scores_data()
 	print("Game Over - Final Score: ", current_score)
 	print("Game Duration: ", game_record.duration, " seconds")
+	
+	# Emitir señal con el puntaje final
+	emit_signal("game_over_with_score", current_score)
 
 func reset_score():
 	current_score = 0

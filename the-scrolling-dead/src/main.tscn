@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b6gxm6trluke2"]
+[gd_scene load_steps=8 format=3 uid="uid://b6gxm6trluke2"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/main.gd" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_3cfgd"]
@@ -6,11 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
 [ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
 [ext_resource type="PackedScene" uid="uid://dgrwmhcn1kvrt" path="res://src/ui/SlideWarning.tscn" id="6_kmhfv"]
+[ext_resource type="PackedScene" path="res://src/ui/ScoreScreen.tscn" id="7_score"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_eewff")
 
 [node name="TestScreen" parent="." instance=ExtResource("2_3cfgd")]
+visible = false
 z_index = 1
 position = Vector2(44, 31)
 
@@ -41,3 +43,6 @@ offset_bottom = -77.0
 grow_vertical = 0
 
 [node name="SlideWarning" parent="." instance=ExtResource("6_kmhfv")]
+
+[node name="ScoreScreen" parent="." instance=ExtResource("7_score")]
+z_index = 100

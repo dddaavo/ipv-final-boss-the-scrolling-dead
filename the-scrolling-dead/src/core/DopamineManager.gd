@@ -77,8 +77,8 @@ func _apply_base_effects():
 	var decay_modifier_effect = DecayAccelerationEffect.new(
 		5.0,   # base_decay_rate
 		0.1,   # decay_interval
-		0.4,  # acceleration_rate 
-		10.0    # max_multiplier
+		0.4,   # acceleration_rate 
+		12.0   # max_multiplier
 	)
 	effect_manager.add_effect(decay_modifier_effect)
 
@@ -88,3 +88,14 @@ func add_effect(effect: DopamineEffect):
 func reset_effects():
 	effect_manager.clear_all_effects()
 	_apply_base_effects()
+
+func reset_game():
+	# Resetear el nivel de dopamina a los valores iniciales
+	dopamine_level.set_current(start)
+	dopamine_level.set_target(target)
+	dopamine_level.set_maximum(maxim)
+	
+	# Resetear efectos
+	reset_effects()
+	
+	print("DopamineManager reset - Current: ", dopamine_level.current, " Target: ", dopamine_level.target)
