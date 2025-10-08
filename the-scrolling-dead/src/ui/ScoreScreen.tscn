@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cg8jv2xk3h8py"]
+[gd_scene load_steps=4 format=3 uid="uid://dctldbokblq55"]
 
-[ext_resource type="Script" path="res://src/ui/ScoreScreen.gd" id="1_score_screen"]
+[ext_resource type="Script" uid="uid://dhpsp35ncq6dy" path="res://src/ui/ScoreScreen.gd" id="1_score_screen"]
+[ext_resource type="Texture2D" uid="uid://c035w6p4l0mjc" path="res://assets/PantallaRota.png" id="2_7vf3f"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_7vf3f"]
+diffuse_texture = ExtResource("2_7vf3f")
 
 [node name="ScoreScreen" type="Control"]
 layout_mode = 3
@@ -12,6 +16,7 @@ grow_vertical = 2
 script = ExtResource("1_score_screen")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -19,6 +24,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.8)
+
+[node name="PantallaRota" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.84705883)
+position = Vector2(361, 640)
+texture = SubResource("CanvasTexture_7vf3f")
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 1
@@ -28,9 +38,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -400.0
+offset_top = -538.0
 offset_right = 300.0
-offset_bottom = 400.0
+offset_bottom = 526.0
 grow_horizontal = 2
 grow_vertical = 2
 

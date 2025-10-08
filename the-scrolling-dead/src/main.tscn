@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
 [ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
 [ext_resource type="PackedScene" uid="uid://dgrwmhcn1kvrt" path="res://src/ui/SlideWarning.tscn" id="6_kmhfv"]
-[ext_resource type="PackedScene" path="res://src/ui/ScoreScreen.tscn" id="7_score"]
+[ext_resource type="PackedScene" uid="uid://dctldbokblq55" path="res://src/ui/ScoreScreen.tscn" id="7_score"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_eewff")
@@ -19,11 +19,6 @@ position = Vector2(44, 31)
 [node name="Home" type="Node" parent="."]
 
 [node name="ScoreManager" parent="Home" instance=ExtResource("2_fyndt")]
-points_per_second_in_target = 1
-bonus_multiplier_threshold = 100
-bonus_multiplier = 1.0
-save_file_path = "user://scores_history.save"
-max_scores_to_keep = 100
 
 [node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
 offset_left = -298.0
