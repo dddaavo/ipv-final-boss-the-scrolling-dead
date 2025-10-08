@@ -15,7 +15,6 @@ script = ExtResource("2_qfo0y")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(300, 34)
-scale = Vector2(1.05, 1)
 texture = ExtResource("2_87man")
 
 [node name="Target" type="ColorRect" parent="."]

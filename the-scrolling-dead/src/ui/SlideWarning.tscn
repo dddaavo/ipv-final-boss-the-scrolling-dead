@@ -29,10 +29,12 @@ color = Color(0.7529412, 0.13725491, 0.16862746, 1)
 
 [node name="SpriteNegativo" type="Sprite2D" parent="."]
 top_level = true
-position = Vector2(366, 1091)
+position = Vector2(358.75, 987.5)
+scale = Vector2(1.1542811, 1.1869565)
 texture = ExtResource("2_d8ts3")
 
 [node name="SpritePositivo" type="Sprite2D" parent="."]
 top_level = true
-position = Vector2(366, 1091)
+position = Vector2(357.75, 988.5)
+scale = Vector2(1.1542811, 1.2043478)
 texture = ExtResource("3_qv4bc")
