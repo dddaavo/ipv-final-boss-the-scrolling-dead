@@ -78,7 +78,7 @@ func _apply_base_effects():
 		5.0,   # base_decay_rate
 		0.1,   # decay_interval
 		0.4,   # acceleration_rate 
-		12.0   # max_multiplier
+		200.0   # max_multiplier
 	)
 	effect_manager.add_effect(decay_modifier_effect)
 
