@@ -8,19 +8,26 @@ signal retry_pressed
 @onready var retry_button: Button = $Panel/MarginContainer/VBoxContainer/RetryButton
 @onready var top10_message: Label = $Panel/MarginContainer/VBoxContainer/Top10Message
 
-var last_final_score: int = 0
+@export var top_font_size:int = 30
+
+var last_final_score: float = 0.0
+var pixel_font: Font = null
 
 func _ready():
 	retry_button.pressed.connect(_on_retry_button_pressed)
 	if top10_message:
 		top10_message.hide()
+	
+	# Cargar la fuente pixel
+	pixel_font = load("res://fonts/PublicPixel.ttf")
+	
 	hide()
 
-func show_score_screen(final_score: int):
+func show_score_screen(final_score: float):
 	last_final_score = final_score
 	
-	# Mostrar puntaje actual con "s" al final
-	current_score_label.text = str(final_score) + "s"
+	# Mostrar puntaje actual con decimales y unidad Metros
+	current_score_label.text = "%.1f Metros" % final_score
 	
 	# Cargar y mostrar top 10
 	var top10_info = _display_top_scores(final_score)
@@ -45,7 +52,7 @@ func show_score_screen(final_score: int):
 	# Mostrar la pantalla
 	show()
 
-func _display_top_scores(current_final_score: int) -> Dictionary:
+func _display_top_scores(current_final_score: float) -> Dictionary:
 	# Limpiar scores previos
 	for child in top_scores_container.get_children():
 		child.queue_free()
@@ -65,7 +72,8 @@ func _display_top_scores(current_final_score: int) -> Dictionary:
 	# Buscar el score más reciente que coincida (el último agregado)
 	var latest_time = 0.0
 	for i in range(top_scores.size()):
-		if top_scores[i].score == current_final_score:
+		# Comparar floats con tolerancia
+		if abs(top_scores[i].score - current_final_score) < 0.01:
 			is_in_top10 = true
 			var score_time = top_scores[i].get("end_time", 0.0)
 			if score_time > latest_time:
@@ -76,14 +84,20 @@ func _display_top_scores(current_final_score: int) -> Dictionary:
 	for i in range(top_scores.size()):
 		var score_entry = top_scores[i]
 		var label = Label.new()
-		label.add_theme_font_size_override("font_size", 30)
+		
+		# Aplicar la fuente pixel
+		if pixel_font:
+			label.add_theme_font_override("font", pixel_font)
+		
+		label.add_theme_font_size_override("font_size", top_font_size)
 		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		
-		# Formato: "1. 150s"
-		var score_text = str(i + 1) + ". " + str(score_entry.score) + "s"
+		# Formato: "1. 150.5 MxS" con decimales
+		var score_value = score_entry.score
+		var score_text = str(i + 1) + ". " + ("%.1f Mxs" % score_value)
 		
 		# Determinar si es el score actual del jugador
-		var is_current_player_score = (i == latest_score_index and score_entry.score == current_final_score)
+		var is_current_player_score = (i == latest_score_index and abs(score_entry.score - current_final_score) < 0.01)
 		
 		# Agregar indicador si es el puntaje actual del jugador
 		if is_current_player_score:
@@ -109,7 +123,12 @@ func _display_top_scores(current_final_score: int) -> Dictionary:
 	# Si no hay scores, mostrar mensaje
 	if top_scores.is_empty():
 		var empty_label = Label.new()
-		empty_label.add_theme_font_size_override("font_size", 30)
+		
+		# Aplicar la fuente pixel
+		if pixel_font:
+			empty_label.add_theme_font_override("font", pixel_font)
+		
+		empty_label.add_theme_font_size_override("font_size", 60)
 		empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 		empty_label.text = "No hay puntajes aún"
 		top_scores_container.add_child(empty_label)

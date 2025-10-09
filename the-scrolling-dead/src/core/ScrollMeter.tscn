@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://byyl8ofefmw2r"]
+
+[ext_resource type="Script" path="res://src/core/ScrollMeter.gd" id="1_w8h4x"]
+
+[node name="ScrollMeter" type="Node"]
+script = ExtResource("1_w8h4x")
