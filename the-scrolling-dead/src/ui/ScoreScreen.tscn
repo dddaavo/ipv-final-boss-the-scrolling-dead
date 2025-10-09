@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dctldbokblq55"]
+[gd_scene load_steps=4 format=3 uid="uid://dctldbokblq55"]
 
 [ext_resource type="Script" uid="uid://dhpsp35ncq6dy" path="res://src/ui/ScoreScreen.gd" id="1_score_screen"]
 [ext_resource type="Texture2D" uid="uid://wtfrws4v4llu" path="res://assets/PantallaRota2.png" id="2_7vf3f"]
+[ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="3_font"]
 
 [node name="ScoreScreen" type="Control"]
 layout_mode = 3
@@ -11,6 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_score_screen")
+top_font_size = 43
 
 [node name="PantallaRota" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.84705883)
@@ -27,7 +29,7 @@ anchor_bottom = 0.5
 offset_left = -300.0
 offset_top = -468.0
 offset_right = 300.0
-offset_bottom = 497.0
+offset_bottom = 431.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -36,8 +38,13 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.999992
+offset_top = 8.0
+offset_right = 141.0
+offset_bottom = 221.74988
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.8, 0.8)
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -45,10 +52,11 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 20
+theme_override_constants/separation = 40
 
 [node name="TitleLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 48
 text = "GAME OVER"
 horizontal_alignment = 1
@@ -59,20 +67,23 @@ theme_override_constants/separation = 10
 
 [node name="CurrentScoreTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer/CurrentScoreContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 32
-text = "Tu Puntaje"
+text = "Scrolleaste"
 horizontal_alignment = 1
 
 [node name="CurrentScoreLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer/CurrentScoreContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 64
-text = "0s"
+theme_override_fonts/font = ExtResource("3_font")
+theme_override_font_sizes/font_size = 54
+text = "0.0 Metros"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Top10Message" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.5, 1, 0.3, 1)
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 28
 text = "🎉 ¡Entraste al TOP 10! 🎉"
 horizontal_alignment = 1
@@ -82,6 +93,7 @@ layout_mode = 2
 
 [node name="TopScoresTitle" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 36
 text = "TOP 10"
 horizontal_alignment = 1
@@ -95,10 +107,11 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme_override_constants/separation = 5
+theme_override_constants/separation = 15
 
 [node name="RetryButton" type="Button" parent="Panel/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_font")
 theme_override_font_sizes/font_size = 32
 text = "REINTENTAR"

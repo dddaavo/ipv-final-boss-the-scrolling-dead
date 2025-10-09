@@ -1,5 +1,7 @@
 extends Control
 
+signal scrolled  # Nueva señal que se emite cada vez que se hace scroll
+
 @export var animation_time: float = 0.45
 @export var pages: Control
 @onready var button_next: Button = $Button
@@ -62,4 +64,8 @@ func _on_ButtonNext_pressed() -> void:
 	var rand = randf_range(10,800)
 	DopamineManager.increment(rand)
 	DopamineManager.reset_effects()
+	
+	# Emitir señal de scroll para que ScoreManager la capture
+	emit_signal("scrolled")
+	
 	print(rand)
