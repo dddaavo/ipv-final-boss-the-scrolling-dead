@@ -7,13 +7,14 @@ signal meters_changed(meters: float)
 signal seconds_changed(seconds: float)
 signal game_over_with_score(final_score: float)
 
-# Configuración del scoring basado en metros
-@export var meters_per_scroll: float = 0.15  # Aproximado de altura de móvil de 6 pulgadas en metros
+# Configuración del scoring
 @export var save_file_path: String = "user://scores_history.save"
 @export var max_scores_to_keep: int = 100
 
+# Referencias a componentes
+@onready var scroll_meter: ScrollMeter = $ScrollMeter
+
 # Variables de puntuación
-var total_meters: float = 0.0  # Total de metros acumulados
 var total_seconds_in_target: float = 0.0  # Total de segundos en target
 var current_score: float = 0.0  # metros × segundos
 var high_score: float = 0.0
@@ -27,6 +28,7 @@ var scores_history: Array = []
 func _ready():
 	load_scores_data()
 	_connect_dopamine_signals()
+	_connect_scroll_meter_signals()
 	_start_new_game()
 	print("ScoreManager initialized - High Score: ", high_score)
 	print("Total games played: ", scores_history.size())
@@ -47,12 +49,27 @@ func _connect_dopamine_signals():
 	else:
 		print("Warning: DopamineManager not found")
 
+func _connect_scroll_meter_signals():
+	if scroll_meter:
+		scroll_meter.meters_changed.connect(_on_scroll_meter_changed)
+		print("Connected to ScrollMeter signals")
+	else:
+		print("Warning: ScrollMeter not found")
+
+func _on_scroll_meter_changed(meters: float):
+	"""Callback cuando el ScrollMeter actualiza los metros"""
+	emit_signal("meters_changed", meters)
+	_update_display()
+
 func _start_new_game():
 	game_start_time = Time.get_unix_time_from_system()
 	is_game_active = true
-	total_meters = 0.0
 	total_seconds_in_target = 0.0
 	current_score = 0
+	
+	# Resetear el scroll meter
+	if scroll_meter:
+		scroll_meter.reset()
 
 func _check_target_status():
 	var currently_in_target = DopamineManager.is_on_target()
@@ -76,19 +93,18 @@ func add_scroll():
 	if not is_game_active:
 		return
 	
-	total_meters += meters_per_scroll
-	emit_signal("meters_changed", total_meters)
-	_update_display()
-	print("Scroll! Total meters: %.2f" % total_meters)
+	# Delegar al ScrollMeter
+	if scroll_meter:
+		scroll_meter.register_scroll()
 
 func _update_display():
-	"""Actualiza el label con el formato X.X metros x Y s"""
-	if $Label:
-		$Label.text = "%.1f m × %.0f s" % [total_meters, total_seconds_in_target]
+	$Segundos.text = "%.0fs" % total_seconds_in_target
+	$Metros.text = "%.1fm" % scroll_meter.get_total_meters()
 
 func _calculate_final_score() -> float:
 	"""Calcula el score final como metros × segundos"""
-	return total_meters * total_seconds_in_target
+	var meters = scroll_meter.get_total_meters() if scroll_meter else 0.0
+	return meters * total_seconds_in_target
 
 func add_points(_points: int):
 	"""Función legacy - ya no se usa el sistema de puntos directos"""
@@ -110,9 +126,10 @@ func _on_game_over():
 		emit_signal("high_score_achieved", high_score)
 	
 	# Crear registro de la partida
+	var meters = scroll_meter.get_total_meters() if scroll_meter else 0.0
 	var game_record = {
 		"score": current_score,
-		"meters": total_meters,
+		"meters": meters,
 		"seconds_in_target": total_seconds_in_target,
 		"start_time": game_start_time,
 		"end_time": Time.get_unix_time_from_system(),
@@ -130,7 +147,7 @@ func _on_game_over():
 	
 	save_scores_data()
 	print("Game Over - Final Score: ", current_score)
-	print("Meters: %.1f, Seconds in target: %.1f" % [total_meters, total_seconds_in_target])
+	print("Meters: %.1f, Seconds in target: %.1f" % [meters, total_seconds_in_target])
 	print("Game Duration: ", game_record.duration, " seconds")
 	
 	# Emitir señal con el puntaje final
@@ -138,7 +155,6 @@ func _on_game_over():
 
 func reset_score():
 	current_score = 0
-	total_meters = 0.0
 	total_seconds_in_target = 0.0
 	is_in_target = false
 	_start_new_game()
@@ -152,7 +168,7 @@ func get_high_score() -> float:
 	return high_score
 
 func get_meters() -> float:
-	return total_meters
+	return scroll_meter.get_total_meters() if scroll_meter else 0.0
 
 func get_seconds_in_target() -> float:
 	return total_seconds_in_target
@@ -199,10 +215,11 @@ func _initialize_empty_data():
 	scores_history = []
 
 func get_score_info() -> Dictionary:
+	var meters = scroll_meter.get_total_meters() if scroll_meter else 0.0
 	return {
 		"current_score": _calculate_final_score(),
 		"high_score": high_score,
-		"meters": total_meters,
+		"meters": meters,
 		"seconds_in_target": total_seconds_in_target,
 		"is_scoring": is_scoring()
 	}

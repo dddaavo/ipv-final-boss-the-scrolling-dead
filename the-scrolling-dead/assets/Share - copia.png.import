@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jvhlgoh0l2od"
-path="res://.godot/imported/Compartir.png-50f2abc4350ef39c658b76a420757fba.ctex"
+uid="uid://bga31mphijsuq"
+path="res://.godot/imported/Share - copia.png-a672cef0239d80b50d9e72aaf9f54aee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Compartir.png"
-dest_files=["res://.godot/imported/Compartir.png-50f2abc4350ef39c658b76a420757fba.ctex"]
+source_file="res://assets/Share - copia.png"
+dest_files=["res://.godot/imported/Share - copia.png-a672cef0239d80b50d9e72aaf9f54aee.ctex"]
 
 [params]
 

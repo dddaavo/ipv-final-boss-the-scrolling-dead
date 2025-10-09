@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://6f3bau0egof"]
+
+[ext_resource type="Script" uid="uid://etoqcwktlrqg" path="res://src/core/ScoreManager.gd" id="1_4y0yy"]
+[ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="2_6mkhf"]
+[ext_resource type="PackedScene" uid="uid://byyl8ofefmw2r" path="res://src/core/ScrollMeter.tscn" id="3_q8hnk"]
+
+[node name="ScoreManager" type="Node"]
+script = ExtResource("1_4y0yy")
+
+[node name="ScrollMeter" parent="." instance=ExtResource("3_q8hnk")]
+
+[node name="Segundos" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 265.0
+offset_top = 786.0
+offset_right = 329.0
+offset_bottom = 823.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.75686276)
+theme_override_fonts/font = ExtResource("2_6mkhf")
+theme_override_font_sizes/font_size = 32
+text = "0s"
+horizontal_alignment = 1
+
+[node name="Metros" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 223.0
+offset_top = 592.0
+offset_right = 351.0
+offset_bottom = 659.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.6862745)
+theme_override_fonts/font = ExtResource("2_6mkhf")
+theme_override_font_sizes/font_size = 32
+text = "0.0m"
+horizontal_alignment = 1
+vertical_alignment = 1
