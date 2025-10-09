@@ -31,7 +31,6 @@ position = Vector2(44, 31)
 [node name="ScoreManager" parent="Home" instance=ExtResource("2_fyndt")]
 
 [node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
-visible = false
 modulate = Color(1, 1, 1, 0.64705884)
 top_level = true
 offset_left = -304.0

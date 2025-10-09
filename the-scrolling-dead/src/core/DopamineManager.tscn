@@ -4,3 +4,4 @@
 
 [node name="DopamineManager" type="Node"]
 script = ExtResource("1_h2v7p")
+target = 200.0

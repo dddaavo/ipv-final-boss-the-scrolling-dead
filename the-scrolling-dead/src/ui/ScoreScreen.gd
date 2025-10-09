@@ -26,8 +26,8 @@ func _ready():
 func show_score_screen(final_score: float):
 	last_final_score = final_score
 	
-	# Mostrar puntaje actual con decimales y unidad MxS
-	current_score_label.text = "%.1f MxS" % final_score
+	# Mostrar puntaje actual con decimales y unidad Metros
+	current_score_label.text = "%.1f Metros" % final_score
 	
 	# Cargar y mostrar top 10
 	var top10_info = _display_top_scores(final_score)
@@ -94,7 +94,7 @@ func _display_top_scores(current_final_score: float) -> Dictionary:
 		
 		# Formato: "1. 150.5 MxS" con decimales
 		var score_value = score_entry.score
-		var score_text = str(i + 1) + ". " + ("%.1f MxS" % score_value)
+		var score_text = str(i + 1) + ". " + ("%.1f Mxs" % score_value)
 		
 		# Determinar si es el score actual del jugador
 		var is_current_player_score = (i == latest_score_index and abs(score_entry.score - current_final_score) < 0.01)

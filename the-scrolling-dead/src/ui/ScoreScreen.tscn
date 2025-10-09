@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dctldbokblq55"]
 
 [ext_resource type="Script" uid="uid://dhpsp35ncq6dy" path="res://src/ui/ScoreScreen.gd" id="1_score_screen"]
-[ext_resource type="Texture2D" uid="uid://c035w6p4l0mjc" path="res://assets/PantallaRota.png" id="2_idydw"]
+[ext_resource type="Texture2D" uid="uid://bapjdn6iaagqv" path="res://assets/PantallaRota.png" id="2_idydw"]
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="3_font"]
 
 [node name="ScoreScreen" type="Control"]
@@ -27,9 +27,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -449.5
+offset_top = -466.0
 offset_right = 300.0
-offset_bottom = 449.5
+offset_bottom = 466.0
 grow_horizontal = 2
 grow_vertical = 2
 
