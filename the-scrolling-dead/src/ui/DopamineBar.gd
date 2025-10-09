@@ -12,8 +12,8 @@ func _ready():
 	center_position = size.x / 2.0
 	
 	# Conectar a las señales del DopamineManager
-	DopamineManager.connect("value_changed", Callable(self, "_on_dopamine_value_changed"))
-	DopamineManager.connect("target_changed", Callable(self, "_on_targuet_value_changed"))
+	DopamineManager.value_changed.connect(_on_dopamine_value_changed)
+	DopamineManager.target_changed.connect(_on_targuet_value_changed)
 	
 	# Actualizar tamaño inicial del target y posición del indicador
 	_update_target_size()

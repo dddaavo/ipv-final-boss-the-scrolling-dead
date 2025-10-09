@@ -31,4 +31,4 @@ func _spawn_coin() -> void:
 		disappear_timer.one_shot = true
 		disappear_timer.autostart = true
 		coin.add_child(disappear_timer)
-		disappear_timer.timeout.connect(Callable(coin, "queue_free"))
+		disappear_timer.timeout.connect(coin.queue_free)

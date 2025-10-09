@@ -10,7 +10,7 @@ func _ready() -> void:
 	clip_contents = true
 	
 	if button_next:
-		button_next.connect("pressed", Callable(self, "_on_ButtonNext_pressed"))
+		button_next.pressed.connect(_on_ButtonNext_pressed)
 	
 	_resize_pages()
 

@@ -4,16 +4,18 @@
 
 [node name="ScoreManager" type="Node"]
 script = ExtResource("1_4y0yy")
-points_per_second_in_target = null
-bonus_multiplier_threshold = null
-bonus_multiplier = null
-save_file_path = null
-max_scores_to_keep = null
 
 [node name="Label" type="Label" parent="."]
-offset_left = 626.0
-offset_top = 156.0
-offset_right = 666.0
-offset_bottom = 201.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -15.5
+offset_top = -45.0
+offset_right = 15.5
+grow_horizontal = 2
+grow_vertical = 0
 theme_override_font_sizes/font_size = 32
 text = "0"
+horizontal_alignment = 1
