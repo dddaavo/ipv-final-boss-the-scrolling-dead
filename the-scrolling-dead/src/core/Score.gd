@@ -12,6 +12,7 @@ signal game_over_with_score(final_score: int)
 @export var save_file_path: String = "user://scores_history.save"
 @export var max_scores_to_keep: int = 100  # Limitar para no llenar demasiado
 
+
 var current_score: int = 0
 var high_score: int = 0
 var is_in_target: bool = false

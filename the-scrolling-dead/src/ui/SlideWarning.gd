@@ -1,4 +1,4 @@
-extends TextureRect
+extends Node
 
 @onready var sprite_neg = $SpriteNegativo
 @onready var sprite_pos = $SpritePositivo

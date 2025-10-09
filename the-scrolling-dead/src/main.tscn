@@ -53,7 +53,6 @@ grow_vertical = 0
 [node name="SlideWarning" parent="." instance=ExtResource("6_kmhfv")]
 
 [node name="ScoreScreen" parent="." instance=ExtResource("7_score")]
-visible = false
 z_index = 100
 
 [node name="Footer" type="Sprite2D" parent="."]
