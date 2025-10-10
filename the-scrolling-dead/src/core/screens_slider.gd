@@ -8,10 +8,10 @@ signal scrolled  # Nueva señal que se emite cada vez que se hace scroll
 
 var current_index: int = 0
 
-# PARA MOBILE
-var start_touch_pos: Vector2
-var end_touch_pos: Vector2
-var swipe_threshold: float = 100.0  # distancia mínima vertical para swipe
+var length = 100
+var startPos: Vector2
+var curPos: Vector2
+var swiping = false
 
 func _ready() -> void:
 	clip_contents = true
@@ -23,6 +23,20 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("scroll"): _on_ButtonNext_pressed()
+	if Input.is_action_just_pressed("press"):
+		if !swiping:
+			swiping = true
+			startPos = get_global_mouse_position()
+			print("START POSITION", startPos)
+	if Input.is_action_pressed("press"):
+			if swiping:
+				curPos = get_global_mouse_position()
+				if startPos.distance_to(curPos) >= length:
+					_on_ButtonNext_pressed()
+					print("Swipe Detected:")
+					swiping = false
+	else:
+		swiping = false
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
@@ -74,18 +88,3 @@ func _on_ButtonNext_pressed() -> void:
 	emit_signal("scrolled")
 	
 	print(rand)
-	
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
-		if event.pressed:
-			start_touch_pos = event.position
-		else:
-			end_touch_pos = event.position
-			_handle_swipe()
-
-func _handle_swipe() -> void:
-	var delta = end_touch_pos - start_touch_pos
-	if abs(delta.y) > swipe_threshold and abs(delta.y) > abs(delta.x):
-		if delta.y <= 0:
-			go_next()
