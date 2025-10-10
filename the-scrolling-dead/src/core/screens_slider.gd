@@ -1,12 +1,16 @@
 extends Control
 
-signal scrolled  # Nueva señal que se emite cada vez que se hace scroll
+signal scrolled
 
 @export var animation_time: float = 0.45
 @export var pages: Control
 @onready var button_next: Button = $Button
 
 var current_index: int = 0
+
+var swipe_start_pos: Vector2
+var swipe_min_distance := 100.0
+var swipe_active := false
 
 func _ready() -> void:
 	clip_contents = true
@@ -15,9 +19,6 @@ func _ready() -> void:
 		button_next.pressed.connect(_on_ButtonNext_pressed)
 	
 	_resize_pages()
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("scroll"): _on_ButtonNext_pressed()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
@@ -35,14 +36,13 @@ func _resize_pages() -> void:
 		elif child is Node2D:
 			child.position = Vector2(0, i * size.y)
 			var scale_factor = Vector2(
-				size.x / 480.0,   # ancho base de tu minijuego
-				size.y / 720.0    # alto base de tu minijuego
+				size.x / 480.0,
+				size.y / 720.0
 			)
 			child.scale = scale_factor
 		
 		i += 1 # TODO: Nro de páginas infinito - Generarlas
 	pages.size = Vector2(size.x, size.y * i)
-
 
 func go_next() -> void:
 	# Avanza sólo hacia abajo (si hay más páginas)
@@ -69,3 +69,21 @@ func _on_ButtonNext_pressed() -> void:
 	emit_signal("scrolled")
 	
 	print(rand)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+		_on_ButtonNext_pressed()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			swipe_start_pos = event.position
+			swipe_active = true
+		else:
+			swipe_active = false
+	elif event is InputEventScreenDrag and swipe_active:
+		var delta = event.position - swipe_start_pos
+		if abs(delta.y) > swipe_min_distance:
+			if delta.y < 0:
+				_on_ButtonNext_pressed()
+			swipe_active = false  # evita múltiples disparos
