@@ -2,6 +2,9 @@ extends Control
 
 signal scrolled
 
+@export var max_pages := 4
+var page_index := 0 
+
 @export var animation_time: float = 0.45
 @export var pages: Control
 @onready var button_next: Button = $Button
@@ -26,38 +29,37 @@ func _notification(what: int) -> void:
 		pages.position = Vector2(0, -current_index * size.y)
 
 func _resize_pages() -> void:
-	# Hace que cada Page sea full-screen y las apila verticalmente
 	var i: int = 0
 	for child in pages.get_children():
 		if child is Control:
 			print("SIZE SCREENSLIDER", size)
 			child.size = size
 			child.position =Vector2(0, i * size.y)
-		elif child is Node2D:
-			child.position = Vector2(0, i * size.y)
-			var scale_factor = Vector2(
-				size.x / 480.0,
-				size.y / 720.0
-			)
-			child.scale = scale_factor
-		
-		i += 1 # TODO: Nro de páginas infinito - Generarlas
-	pages.size = Vector2(size.x, size.y * i)
+		i += 1
+	pages.size = size
 
 func go_next() -> void:
-	# Avanza sólo hacia abajo (si hay más páginas)
-	var count := pages.get_child_count()
-	if current_index >= count - 1:
-		return # en la última
-	current_index += 1
+	current_index = (current_index + 1) % max_pages
+	page_index += 1  # index lógico
+	
+	for child in pages.get_children():
+		child.position.y -= size.y
 
-	var vs := size
-	var target := Vector2(0, -current_index * vs.y)
+	# Detectar cuál page salió de la pantalla
+	for child in pages.get_children():
+		if child.position.y < -size.y * 0.5:
+			# Va al final
+			child.position.y += size.y * max_pages
+			_refresh_page(child)
 
-	# ANIMACIÓN
+	# TODO: Pérdida de animación
 	var tw = create_tween()
-	tw.tween_property(pages, "position", target, animation_time).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-
+	tw.tween_property(pages, "position:y", pages.position.y, animation_time)
+	
+func _refresh_page(page: Control) -> void:
+	# TODO: Randomizar contenido
+	if page.has_method("reset_content"):
+		page.reset_content()
 
 func _on_ButtonNext_pressed() -> void:
 	go_next()
