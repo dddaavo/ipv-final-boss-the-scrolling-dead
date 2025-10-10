@@ -8,6 +8,11 @@ signal scrolled  # Nueva señal que se emite cada vez que se hace scroll
 
 var current_index: int = 0
 
+# PARA MOBILE
+var start_touch_pos: Vector2
+var end_touch_pos: Vector2
+var swipe_threshold: float = 100.0  # distancia mínima vertical para swipe
+
 func _ready() -> void:
 	clip_contents = true
 	
@@ -69,3 +74,18 @@ func _on_ButtonNext_pressed() -> void:
 	emit_signal("scrolled")
 	
 	print(rand)
+	
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			start_touch_pos = event.position
+		else:
+			end_touch_pos = event.position
+			_handle_swipe()
+
+func _handle_swipe() -> void:
+	var delta = end_touch_pos - start_touch_pos
+	if abs(delta.y) > swipe_threshold and abs(delta.y) > abs(delta.x):
+		if delta.y <= 0:
+			go_next()
