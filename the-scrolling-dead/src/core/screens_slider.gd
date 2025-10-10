@@ -8,10 +8,9 @@ signal scrolled  # Nueva señal que se emite cada vez que se hace scroll
 
 var current_index: int = 0
 
-var length = 100
-var startPos: Vector2
-var curPos: Vector2
-var swiping = false
+var swipe_start_pos: Vector2
+var swipe_min_distance := 100.0
+var swipe_active := false
 
 func _ready() -> void:
 	clip_contents = true
@@ -23,20 +22,6 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("scroll"): _on_ButtonNext_pressed()
-	if Input.is_action_just_pressed("press"):
-		if !swiping:
-			swiping = true
-			startPos = get_global_mouse_position()
-			print("START POSITION", startPos)
-	if Input.is_action_pressed("press"):
-			if swiping:
-				curPos = get_global_mouse_position()
-				if startPos.distance_to(curPos) >= length:
-					_on_ButtonNext_pressed()
-					print("Swipe Detected:")
-					swiping = false
-	else:
-		swiping = false
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
@@ -88,3 +73,17 @@ func _on_ButtonNext_pressed() -> void:
 	emit_signal("scrolled")
 	
 	print(rand)
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			swipe_start_pos = event.position
+			swipe_active = true
+		else:
+			swipe_active = false
+	elif event is InputEventScreenDrag and swipe_active:
+		var delta = event.position - swipe_start_pos
+		if abs(delta.y) > swipe_min_distance:
+			if delta.y < 0:
+				_on_ButtonNext_pressed()
+			swipe_active = false  # evita múltiples disparos
