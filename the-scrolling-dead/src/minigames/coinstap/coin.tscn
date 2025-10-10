@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://crw4nv8bfqfji" path="res://assets/red-coin.png" id="3_ncqc3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i4628"]
-radius = 33.01515
+radius = 56.008926
 
 [node name="Coin" type="Area2D" groups=["coins"]]
 script = ExtResource("1_i4628")
@@ -13,7 +13,7 @@ good_texture = ExtResource("1_jr8ap")
 bad_texture = ExtResource("3_ncqc3")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i4628")
