@@ -3,7 +3,7 @@ extends Control
 signal scrolled
 
 @export var max_pages := 4
-var page_index := 0 
+var page_index := 0
 
 @export var animation_time: float = 0.45
 @export var pages: Control
@@ -17,10 +17,10 @@ var swipe_active := false
 
 func _ready() -> void:
 	clip_contents = true
-	
+
 	if button_next:
 		button_next.pressed.connect(_on_ButtonNext_pressed)
-	
+
 	_resize_pages()
 
 func _notification(what: int) -> void:
@@ -32,44 +32,42 @@ func _resize_pages() -> void:
 	var i: int = 0
 	for child in pages.get_children():
 		if child is Control:
-			print("SIZE SCREENSLIDER", size)
 			child.size = size
-			child.position =Vector2(0, i * size.y)
-		i += 1
+			child.position = Vector2(0, i * size.y)
+			i += 1
 	pages.size = size
 
 func go_next() -> void:
 	current_index = (current_index + 1) % max_pages
-	page_index += 1  # index lógico
-	
+	page_index += 1
+
+	var start_y := pages.position.y
+	var end_y := pages.position.y - size.y
+
+	var tween := create_tween()
+	tween.tween_property(pages, "position:y", end_y, animation_time).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.finished.connect(_on_scroll_finished)
+
+func _on_scroll_finished() -> void:
+	pages.position.y = 0
+
 	for child in pages.get_children():
 		child.position.y -= size.y
 
-	# Detectar cuál page salió de la pantalla
 	for child in pages.get_children():
 		if child.position.y < -size.y * 0.5:
-			# Va al final
 			child.position.y += size.y * max_pages
 			_refresh_page(child)
 
-	# TODO: Pérdida de animación
-	var tw = create_tween()
-	tw.tween_property(pages, "position:y", pages.position.y, animation_time)
-	
 func _refresh_page(page: Control) -> void:
-	# TODO: Randomizar contenido
 	if page.has_method("reset_content"):
 		page.reset_content()
 
 func _on_ButtonNext_pressed() -> void:
 	go_next()
-	var rand = randf_range(10,800)
+	var rand = randf_range(10, 800)
 	DopamineManager.increment(rand)
-	#DopamineManager.reset_effects()
-	
-	# Emitir señal de scroll para que ScoreManager la capture
 	emit_signal("scrolled")
-	
 	print(rand)
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -83,9 +81,10 @@ func _input(event: InputEvent) -> void:
 			swipe_active = true
 		else:
 			swipe_active = false
+
 	elif event is InputEventScreenDrag and swipe_active:
 		var delta = event.position - swipe_start_pos
 		if abs(delta.y) > swipe_min_distance:
 			if delta.y < 0:
 				_on_ButtonNext_pressed()
-			swipe_active = false  # evita múltiples disparos
+			swipe_active = false
