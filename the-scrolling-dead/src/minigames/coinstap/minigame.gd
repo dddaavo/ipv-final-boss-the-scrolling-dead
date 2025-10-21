@@ -23,7 +23,7 @@ func _spawn_coin() -> void:
 
 		var viewport_size = get_parent().size
 		var random_x = randf_range(0, viewport_size.x)
-		var random_y = randf_range(0, viewport_size.y / 4) # TODO: Workaround NRO DE PÁGINAS 4
+		var random_y = randf_range(0, viewport_size.y / 5) # TODO: Workaround NRO DE PÁGINAS 5
 		coin.position = Vector2(random_x, random_y)
 
 		var disappear_timer = Timer.new()

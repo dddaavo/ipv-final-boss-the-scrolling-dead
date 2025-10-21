@@ -1,6 +1,8 @@
 extends Control
 
 signal scrolled
+signal first_scroll  # Nueva señal para el primer scroll
+signal reset_requested  # Nueva señal para resetear al segundo slide
 
 @export var animation_time: float = 0.45
 @export var pages: Control
@@ -8,6 +10,7 @@ signal scrolled
 
 var current_index := 0
 var total_pages := 0
+var game_started := false  # Nueva variable para controlar el inicio del juego
 
 var swipe_start_pos := Vector2.ZERO
 var swipe_min_distance := 100.0
@@ -92,9 +95,21 @@ func _refresh_page(page: Control) -> void:
 
 
 func _on_ButtonNext_pressed() -> void:
+	# Si es el primer scroll, emitir señal
+	if not game_started:
+		game_started = true
+		emit_signal("first_scroll")
+	
 	go_next()
 	var rand = randf_range(25, 300)
 	DopamineManager.increment(rand)
+
+func reset_to_start():
+	"""Resetea el slider pero va al segundo slide"""
+	game_started = false
+	_position_pages_initial()
+	# Emitir señal para que el manager maneje la lógica
+	emit_signal("reset_requested")
 
 
 func _unhandled_input(event: InputEvent) -> void:

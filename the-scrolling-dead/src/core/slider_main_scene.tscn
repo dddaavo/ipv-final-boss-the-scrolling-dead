@@ -43,19 +43,19 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Minigame" parent="ScreensSlider/Pages" instance=ExtResource("3_7mcnc")]
-layout_mode = 1
-offset_right = 0.0
-offset_bottom = 0.0
-
 [node name="Page0" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
 offset_right = 412.0
-offset_bottom = 393.0
+offset_bottom = 548.1039
 mouse_filter = 2
 texture = ExtResource("4_n7q6m")
 expand_mode = 5
 stretch_mode = 6
+
+[node name="Minigame" parent="ScreensSlider/Pages" instance=ExtResource("3_7mcnc")]
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
 
 [node name="Page1" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
@@ -67,8 +67,8 @@ stretch_mode = 3
 
 [node name="Page2" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
-offset_right = 434.0
-offset_bottom = 385.0
+offset_right = 545.0
+offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("6_n7q6m")
 stretch_mode = 6
