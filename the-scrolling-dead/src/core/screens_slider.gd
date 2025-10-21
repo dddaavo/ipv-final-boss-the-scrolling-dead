@@ -7,10 +7,14 @@ signal reset_requested  # Nueva señal para resetear al segundo slide
 @export var animation_time: float = 0.45
 @export var pages: Control
 @onready var button_next: Button = $Button
+@onready var tutorial: TextureRect = $Pages/Tutorial
+
 
 var current_index := 0
 var total_pages := 0
 var game_started := false  # Nueva variable para controlar el inicio del juego
+var tutorial_removed := false  # Para saber si ya se eliminó el tutorial
+
 
 var swipe_start_pos := Vector2.ZERO
 var swipe_min_distance := 100.0
@@ -60,7 +64,7 @@ func go_next() -> void:
 		.set_trans(Tween.TRANS_CUBIC)
 
 	tween.finished.connect(_on_scroll_finished)
-	emit_signal("scrolled")
+	scrolled.emit()
 
 func _prepare_next_page() -> void:
 	var last_child := pages.get_child(pages.get_child_count() - 1)
@@ -98,11 +102,23 @@ func _on_ButtonNext_pressed() -> void:
 	# Si es el primer scroll, emitir señal
 	if not game_started:
 		game_started = true
-		emit_signal("first_scroll")
-	
+		first_scroll.emit()
+		_remove_tutorial()
+		
 	go_next()
-	var rand = randf_range(25, 300)
+	var rand = randf_range(25, 300) #TODO: llevar a DopamineManager lógia de random
 	DopamineManager.increment(rand)
+
+func _remove_tutorial():
+	#Elimina el nodo Tutorial si existe
+	if not tutorial_removed and pages:
+		if tutorial:
+			tutorial.queue_free()
+			tutorial_removed = true
+			# Recalcular el número de páginas
+			await get_tree().process_frame
+			total_pages = pages.get_child_count()
+			_resize_pages()
 
 func reset_to_start():
 	"""Resetea el slider pero va al segundo slide"""
