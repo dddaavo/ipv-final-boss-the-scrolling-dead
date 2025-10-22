@@ -1,11 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://b6gxm6trluke2"]
+[gd_scene load_steps=11 format=3 uid="uid://b6gxm6trluke2"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_eewff"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_3cfgd"]
 [ext_resource type="PackedScene" uid="uid://6f3bau0egof" path="res://src/core/ScoreManager.tscn" id="2_fyndt"]
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
 [ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
-[ext_resource type="PackedScene" uid="uid://dgrwmhcn1kvrt" path="res://src/ui/SlideWarning.tscn" id="6_kmhfv"]
 [ext_resource type="PackedScene" uid="uid://dctldbokblq55" path="res://src/ui/ScoreScreen.tscn" id="7_score"]
 [ext_resource type="Texture2D" uid="uid://crosegadfidlf" path="res://assets/Footer.png" id="8_5mrjc"]
 [ext_resource type="Texture2D" uid="uid://pkiw6cs8v6ts" path="res://assets/Share.png" id="9_kf8lf"]
@@ -49,8 +48,6 @@ offset_top = -1205.0
 offset_right = 360.0
 offset_bottom = -155.0
 grow_vertical = 0
-
-[node name="SlideWarning" parent="." instance=ExtResource("6_kmhfv")]
 
 [node name="ScoreScreen" parent="." instance=ExtResource("7_score")]
 visible = false

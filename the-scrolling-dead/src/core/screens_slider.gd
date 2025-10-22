@@ -1,23 +1,27 @@
 extends Control
 
 signal scrolled
+signal first_scroll  # Nueva señal para el primer scroll
+var scrolling := false
+signal reset_requested  # Nueva señal para resetear al segundo slide
 
 @export var animation_time: float = 0.45
 @export var pages: Control
-@onready var button_next: Button = $Button
 
 var current_index := 0
 var total_pages := 0
+var game_started := false  # Nueva variable para controlar el inicio del juego
+@onready var tutorial: TextureRect = $Pages/Tutorial
+var tutorial_removed := false  # Para saber si ya se eliminó el tutorial
 
 var swipe_start_pos := Vector2.ZERO
 var swipe_min_distance := 100.0
 var swipe_active := false
+@export var input_cooldown: float = 1
+var last_input_time: float = -100.0
 
 func _ready() -> void:
 	clip_contents = true
-
-	if button_next:
-		button_next.pressed.connect(_on_ButtonNext_pressed)
 
 	total_pages = pages.get_child_count()
 	_resize_pages()
@@ -42,22 +46,22 @@ func _position_pages_initial() -> void:
 	current_index = 0
 
 func go_next() -> void:
-	if total_pages == 0:
+	if total_pages == 0 or scrolling:
 		return
-
-	# "RENDER" de siguiente página
+	scrolling = true
 	_prepare_next_page()
-
-	var start_y := pages.position.y
-	var end_y := start_y - size.y
+	await get_tree().process_frame
 
 	var tween := create_tween()
-	tween.tween_property(pages, "position:y", end_y, animation_time) \
+	tween.tween_property(pages, "position:y", pages.position.y - size.y, animation_time) \
 		.set_ease(Tween.EASE_IN_OUT) \
 		.set_trans(Tween.TRANS_CUBIC)
+	tween.finished.connect(func():
+		scrolling = false
+		_on_scroll_finished()
+	)
+	scrolled.emit()
 
-	tween.finished.connect(_on_scroll_finished)
-	emit_signal("scrolled")
 
 func _prepare_next_page() -> void:
 	var last_child := pages.get_child(pages.get_child_count() - 1)
@@ -66,8 +70,6 @@ func _prepare_next_page() -> void:
 
 	next_page.position.y = last_child.position.y + size.y
 	_refresh_page(next_page)
-
-	await get_tree().process_frame
 
 
 func _on_scroll_finished() -> void:
@@ -92,18 +94,60 @@ func _refresh_page(page: Control) -> void:
 
 
 func _on_ButtonNext_pressed() -> void:
+	# Si es el primer scroll, emitir señal
+	if not game_started:
+		game_started = true
+		first_scroll.emit()
+		_remove_tutorial()
+	
 	go_next()
-	var rand = randf_range(25, 300)
+	var rand = randf_range(25, 300)  #TODO: llevar a DopamineManager lógia de random
 	DopamineManager.increment(rand)
 
+func _remove_tutorial():
+	#Elimina el nodo Tutorial si existe
+	if not tutorial_removed and pages:
+		if tutorial:
+			tutorial.queue_free()
+			tutorial_removed = true
+			# Recalcular el número de páginas
+			await get_tree().process_frame
+			total_pages = pages.get_child_count()
+			_resize_pages()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-		_on_ButtonNext_pressed()
+func reset_to_start():
+	"""Resetea el slider pero va al segundo slide"""
+	game_started = false
+	_position_pages_initial()
+	# Emitir señal para que el manager maneje la lógica
+	emit_signal("reset_requested")
+
+
+func spoiler_scroll(strength: float = 0.40) -> void:
+	if scrolling:
+		return
+	scrolling = true
+
+	var offset := -size.y * strength
+	var start_y := pages.position.y
+
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(pages, "position:y", start_y + offset, animation_time)
+	tween.tween_property(pages, "position:y", start_y, animation_time)
+	tween.finished.connect(func(): scrolling = false)
 
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
+	var now = Time.get_ticks_msec() / 1000.0
+	if now - last_input_time < input_cooldown:
+		return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+		_trigger_next()
+		last_input_time = now
+
+	elif event is InputEventScreenTouch:
 		if event.pressed:
 			swipe_start_pos = event.position
 			swipe_active = true
@@ -114,5 +158,9 @@ func _input(event: InputEvent) -> void:
 		var delta = event.position - swipe_start_pos
 		if abs(delta.y) > swipe_min_distance:
 			if delta.y < 0:
-				_on_ButtonNext_pressed()
+				_trigger_next()
+				last_input_time = now
 			swipe_active = false
+
+func _trigger_next() -> void:
+	_on_ButtonNext_pressed()

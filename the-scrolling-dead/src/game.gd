@@ -18,23 +18,37 @@ func _ready() -> void:
 	# Conectar señal de scroll directamente al score manager
 	if slider_main_scene and score_manager:
 		slider_main_scene.scrolled.connect(score_manager.add_scroll)
-		
-	call_deferred("start_game")
 	
-func start_game():
-	if game_started:
-		return
-	game_started = true
-	print("¡Juego empezado!")
+	# Conectar señal de primer scroll
+	if slider_main_scene:
+		slider_main_scene.first_scroll.connect(_on_first_scroll)
+		slider_main_scene.reset_requested.connect(_on_reset_requested)
+
+func _on_first_scroll():
+	"""Manejar el primer scroll del juego"""
+	print("First scroll detected - Starting game!")
 	
+	# Iniciar DopamineManager
 	if DopamineManager:
-		DopamineManager.reset_game()
+		DopamineManager.start_game()
 	
-	if score_manager:
-		score_manager.reset_score()
-	
-	if score_screen:
-		score_screen.hide_score_screen()
+	# Iniciar ScoreManager
+	if score_manager and score_manager.has_method("start_game"):
+		score_manager.start_game()
+
+func _on_reset_requested():
+	"""Manejar el reset - ir al segundo slide"""
+	await get_tree().create_timer(0.1).timeout
+	if slider_main_scene and slider_main_scene.has_node("ScreensSlider"):
+		var screens_slider = slider_main_scene.get_node("ScreensSlider")
+		if screens_slider.has_method("go_next"):
+			screens_slider.go_next()
+			# Marcar que el juego ha comenzado
+			screens_slider.game_started = true
+			# Después de ir al segundo slide, iniciar el juego automáticamente
+			_on_first_scroll()
+
+		
 
 func _on_game_over(final_score: float):
 	print("Game Over! Final Score: ", final_score)
@@ -56,5 +70,8 @@ func _on_retry_pressed():
 	if score_screen:
 		score_screen.hide_score_screen()
 	
-	# Recargar la escena para reiniciar todo lo demás
-	get_tree().reload_current_scene()
+	# Resetear el slider (esto emitirá la señal reset_requested)
+	if slider_main_scene and slider_main_scene.has_node("ScreensSlider"):
+		var screens_slider = slider_main_scene.get_node("ScreensSlider")
+		if screens_slider.has_method("reset_to_start"):
+			screens_slider.reset_to_start()

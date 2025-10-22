@@ -98,4 +98,13 @@ func reset_game():
 	# Resetear efectos
 	reset_effects()
 	
+	# Pausar el juego hasta el primer scroll
+	if effect_manager:
+		effect_manager.stop_game()
+	
 	print("DopamineManager reset - Current: ", dopamine_level.current, " Target: ", dopamine_level.target)
+
+func start_game():
+	if effect_manager:
+		effect_manager.start_game()
+	print("DopamineManager started")

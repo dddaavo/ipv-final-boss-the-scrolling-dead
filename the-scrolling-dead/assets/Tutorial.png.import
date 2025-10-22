@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://josycvrkwijm"
-path="res://.godot/imported/flechasf2.png-53ea5fecd518c74ec97652e9fc563120.ctex"
+uid="uid://dihsqqcof6w7a"
+path="res://.godot/imported/Tutorial.png-7bebb9db6417c35de80ac463d5327aaa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/flechasf2.png"
-dest_files=["res://.godot/imported/flechasf2.png-53ea5fecd518c74ec97652e9fc563120.ctex"]
+source_file="res://assets/Tutorial.png"
+dest_files=["res://.godot/imported/Tutorial.png-7bebb9db6417c35de80ac463d5327aaa.ctex"]
 
 [params]
 

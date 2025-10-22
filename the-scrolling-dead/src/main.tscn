@@ -1,10 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://c0wroa1sk1xif"]
 
-[ext_resource type="Script" uid="uid://ca4cvyxtqu2h" path="res://src/menu.gd" id="1_5q4o7"]
-[ext_resource type="PackedScene" uid="uid://b6gxm6trluke2" path="res://src/game.tscn" id="2_3cfgd"]
-[ext_resource type="Texture2D" uid="uid://i07ngvxv8ynd" path="res://assets/icon.jpg" id="3_fyndt"]
+[ext_resource type="Script" uid="uid://ca4cvyxtqu2h" path="res://src/menu.gd" id="1_b315k"]
+[ext_resource type="PackedScene" uid="uid://b6gxm6trluke2" path="res://src/game.tscn" id="2_kh7ii"]
+[ext_resource type="Texture2D" uid="uid://i07ngvxv8ynd" path="res://assets/icon.jpg" id="3_t0oki"]
 
 [sub_resource type="SystemFont" id="SystemFont_7vrkn"]
+subpixel_positioning = 0
 
 [sub_resource type="LabelSettings" id="LabelSettings_jix8l"]
 font = SubResource("SystemFont_7vrkn")
@@ -27,8 +28,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_5q4o7")
-main_scene = ExtResource("2_3cfgd")
+script = ExtResource("1_b315k")
+main_scene = ExtResource("2_kh7ii")
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -65,7 +66,7 @@ offset_bottom = -193.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Iniciar juego!"
-icon = ExtResource("3_fyndt")
+icon = ExtResource("3_t0oki")
 expand_icon = true
 
 [node name="Rules" type="Label" parent="."]

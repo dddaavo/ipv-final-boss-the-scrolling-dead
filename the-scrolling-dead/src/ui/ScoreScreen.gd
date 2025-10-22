@@ -136,7 +136,7 @@ func _display_top_scores(current_final_score: float) -> Dictionary:
 	return {"is_in_top10": is_in_top10, "position": latest_score_index}
 
 func _on_retry_button_pressed():
-	emit_signal("retry_pressed")
+	retry_pressed.emit()
 	hide()
 
 func hide_score_screen():

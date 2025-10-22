@@ -21,7 +21,8 @@ var high_score: float = 0.0
 
 # Variables de estado del juego
 var is_in_target: bool = false
-var is_game_active: bool = true
+var is_game_active: bool = false
+var game_started: bool = false
 var game_start_time: float
 var scores_history: Array = []
 
@@ -34,7 +35,7 @@ func _ready():
 	print("Total games played: ", scores_history.size())
 
 func _process(delta):
-	if is_game_active:
+	if is_game_active and game_started:
 		_check_target_status()
 		
 		if is_in_target:
@@ -63,13 +64,21 @@ func _on_scroll_meter_changed(meters: float):
 
 func _start_new_game():
 	game_start_time = Time.get_unix_time_from_system()
-	is_game_active = true
+	is_game_active = false  # Esperar al primer scroll
+	game_started = false
 	total_seconds_in_target = 0.0
 	current_score = 0
 	
 	# Resetear el scroll meter
 	if scroll_meter:
 		scroll_meter.reset()
+
+func start_game():
+	if not game_started:
+		game_started = true
+		is_game_active = true
+		game_start_time = Time.get_unix_time_from_system()
+		print("Game started!")
 
 func _check_target_status():
 	var currently_in_target = DopamineManager.is_on_target()
