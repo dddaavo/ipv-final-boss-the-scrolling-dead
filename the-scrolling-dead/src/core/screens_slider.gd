@@ -6,7 +6,6 @@ signal reset_requested  # Nueva señal para resetear al segundo slide
 
 @export var animation_time: float = 0.45
 @export var pages: Control
-@onready var button_next: Button = $Button
 
 var current_index := 0
 var total_pages := 0
@@ -15,12 +14,11 @@ var game_started := false  # Nueva variable para controlar el inicio del juego
 var swipe_start_pos := Vector2.ZERO
 var swipe_min_distance := 100.0
 var swipe_active := false
+@export var input_cooldown: float = 1
+var last_input_time: float = -100.0
 
 func _ready() -> void:
 	clip_contents = true
-
-	if button_next:
-		button_next.pressed.connect(_on_ButtonNext_pressed)
 
 	total_pages = pages.get_child_count()
 	_resize_pages()
@@ -112,13 +110,16 @@ func reset_to_start():
 	emit_signal("reset_requested")
 
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-		_on_ButtonNext_pressed()
-
-
 func _input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
+	var now = Time.get_ticks_msec() / 1000.0
+	if now - last_input_time < input_cooldown:
+		return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+		_trigger_next()
+		last_input_time = now
+
+	elif event is InputEventScreenTouch:
 		if event.pressed:
 			swipe_start_pos = event.position
 			swipe_active = true
@@ -129,5 +130,9 @@ func _input(event: InputEvent) -> void:
 		var delta = event.position - swipe_start_pos
 		if abs(delta.y) > swipe_min_distance:
 			if delta.y < 0:
-				_on_ButtonNext_pressed()
+				_trigger_next()
+				last_input_time = now
 			swipe_active = false
+
+func _trigger_next() -> void:
+	_on_ButtonNext_pressed()
