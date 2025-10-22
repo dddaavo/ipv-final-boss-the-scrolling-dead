@@ -2,6 +2,7 @@ extends Control
 
 signal scrolled
 signal first_scroll  # Nueva señal para el primer scroll
+var scrolling := false
 signal reset_requested  # Nueva señal para resetear al segundo slide
 
 @export var animation_time: float = 0.45
@@ -43,22 +44,22 @@ func _position_pages_initial() -> void:
 	current_index = 0
 
 func go_next() -> void:
-	if total_pages == 0:
+	if total_pages == 0 or scrolling:
 		return
-
-	# "RENDER" de siguiente página
+	scrolling = true
 	_prepare_next_page()
-
-	var start_y := pages.position.y
-	var end_y := start_y - size.y
+	await get_tree().process_frame
 
 	var tween := create_tween()
-	tween.tween_property(pages, "position:y", end_y, animation_time) \
+	tween.tween_property(pages, "position:y", pages.position.y - size.y, animation_time) \
 		.set_ease(Tween.EASE_IN_OUT) \
 		.set_trans(Tween.TRANS_CUBIC)
-
-	tween.finished.connect(_on_scroll_finished)
+	tween.finished.connect(func():
+		scrolling = false
+		_on_scroll_finished()
+	)
 	emit_signal("scrolled")
+
 
 func _prepare_next_page() -> void:
 	var last_child := pages.get_child(pages.get_child_count() - 1)
@@ -67,8 +68,6 @@ func _prepare_next_page() -> void:
 
 	next_page.position.y = last_child.position.y + size.y
 	_refresh_page(next_page)
-
-	await get_tree().process_frame
 
 
 func _on_scroll_finished() -> void:
@@ -108,6 +107,21 @@ func reset_to_start():
 	_position_pages_initial()
 	# Emitir señal para que el manager maneje la lógica
 	emit_signal("reset_requested")
+
+
+func spoiler_scroll(strength: float = 0.40) -> void:
+	if scrolling:
+		return
+	scrolling = true
+
+	var offset := -size.y * strength
+	var start_y := pages.position.y
+
+	var tween := create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	tween.tween_property(pages, "position:y", start_y + offset, animation_time)
+	tween.tween_property(pages, "position:y", start_y, animation_time)
+	tween.finished.connect(func(): scrolling = false)
 
 
 func _input(event: InputEvent) -> void:

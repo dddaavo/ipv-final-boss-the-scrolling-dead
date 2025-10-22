@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=8 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://bhckldtl7e8cx" path="res://assets/screenSlider/perro.jpg" id="4_n7q6m"]
 [ext_resource type="Texture2D" uid="uid://c345tomdwtlby" path="res://assets/screenSlider/gato.jpeg" id="5_n7q6m"]
 [ext_resource type="Texture2D" uid="uid://bb4b3j3yufp1n" path="res://assets/screenSlider/tralalero.jpeg" id="6_n7q6m"]
+[ext_resource type="Script" uid="uid://cuvmc30vu32ny" path="res://src/core/spoiler_scroll_trigger.gd" id="7_7mcnc"]
 
 [node name="SliderMainScene" type="Control"]
 clip_contents = true
@@ -31,6 +32,7 @@ grow_vertical = 2
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("2_7mcnc")
+animation_time = 0.25
 pages = NodePath("Pages")
 
 [node name="Pages" type="Control" parent="ScreensSlider"]
@@ -52,10 +54,11 @@ texture = ExtResource("4_n7q6m")
 expand_mode = 5
 stretch_mode = 6
 
-[node name="Minigame" parent="ScreensSlider/Pages" instance=ExtResource("3_7mcnc")]
+[node name="Minigame" parent="ScreensSlider/Pages" node_paths=PackedStringArray("pages") instance=ExtResource("3_7mcnc")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
+pages = NodePath("..")
 
 [node name="Page1" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
@@ -72,3 +75,7 @@ offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("6_n7q6m")
 stretch_mode = 6
+
+[node name="SpoilerScrollTrigger" type="Node" parent="ScreensSlider" node_paths=PackedStringArray("slider")]
+script = ExtResource("7_7mcnc")
+slider = NodePath("..")

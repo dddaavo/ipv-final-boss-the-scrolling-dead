@@ -2,11 +2,12 @@ extends Control
 
 @export var coin_scene: PackedScene
 @onready var spawn_timer: Timer = Timer.new()
+@export var pages: Control
 
 func _ready() -> void:
 	randomize()
 
-	build_timer(spawn_timer, 0.75)
+	build_timer(spawn_timer, 0.5)
 	add_child(spawn_timer)
 	spawn_timer.timeout.connect(_spawn_coin)
 
@@ -23,7 +24,7 @@ func _spawn_coin() -> void:
 
 		var viewport_size = get_parent().size
 		var random_x = randf_range(0, viewport_size.x)
-		var random_y = randf_range(0, viewport_size.y / 5) # TODO: Workaround NRO DE PÁGINAS 5
+		var random_y = randf_range(0, viewport_size.y / pages.get_child_count())
 		coin.position = Vector2(random_x, random_y)
 
 		var disappear_timer = Timer.new()
