@@ -21,8 +21,8 @@ var high_score: float = 0.0
 
 # Variables de estado del juego
 var is_in_target: bool = false
-var is_game_active: bool = false  # Empieza pausado
-var game_started: bool = false  # Nueva variable para detectar primer scroll
+var is_game_active: bool = false
+var game_started: bool = false
 var game_start_time: float
 var scores_history: Array = []
 
@@ -74,7 +74,6 @@ func _start_new_game():
 		scroll_meter.reset()
 
 func start_game():
-	"""Llamar cuando el jugador haga el primer scroll"""
 	if not game_started:
 		game_started = true
 		is_game_active = true
