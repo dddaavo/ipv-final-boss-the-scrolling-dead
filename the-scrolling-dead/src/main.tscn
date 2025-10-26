@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://df7d5dg4xkyjh" path="res://src/Options.tscn" id="3_kmhfv"]
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="4_fyndt"]
 [ext_resource type="Texture2D" uid="uid://dmngdrca3d6fy" path="res://assets/MainBackground.png" id="5_kmhfv"]
-[ext_resource type="AudioStream" uid="uid://cbtatlftq32jk" path="res://audio/Main.mp3" id="7_rlaii"]
+[ext_resource type="AudioStream" uid="uid://byg0bxsr72mua" path="res://audio/Main.ogg" id="7_rlaii"]
 
 [sub_resource type="SystemFont" id="SystemFont_7vrkn"]
 subpixel_positioning = 0
@@ -690,8 +690,7 @@ horizontal_alignment = 1
 position = Vector2(397.5, 704.0125)
 scale = Vector2(2.704167, 2.7041667)
 sprite_frames = SubResource("SpriteFrames_njwso")
-frame = 18
-frame_progress = 0.8335473
+frame_progress = 0.66828865
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("7_rlaii")
