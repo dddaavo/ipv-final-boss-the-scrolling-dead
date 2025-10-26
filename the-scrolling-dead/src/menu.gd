@@ -5,6 +5,7 @@ extends Control
 @export var option_scene: PackedScene
 @export var credit_scene: PackedScene
 @onready var audio_stream_player: AudioStreamPlayer = $AudioStreamPlayer
+@onready var full_screen_button: Button = $Button
 
 
 
@@ -21,3 +22,12 @@ func _on_options_pressed() -> void:
 
 func _on_credits_pressed() -> void:
 	get_tree().change_scene_to_packed(credit_scene)
+
+
+func _on_button_pressed() -> void:
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		full_screen_button.text = "Fullscreen"
+	else:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		full_screen_button.text = "Exit Fullscreen"
