@@ -1,0 +1,95 @@
+[gd_scene load_steps=5 format=3 uid="uid://d04r287od4jxf"]
+
+[ext_resource type="Script" uid="uid://jm7v0ydq2t57" path="res://src/Credits.gd" id="1_bnll1"]
+[ext_resource type="PackedScene" uid="uid://d0oil5f17c368" path="res://src/ui/MarcoCelular.tscn" id="1_lprdc"]
+[ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="2_bnll1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vfe36"]
+
+[node name="Credits" type="Node"]
+script = ExtResource("1_bnll1")
+
+[node name="MarcoCelular" parent="." instance=ExtResource("1_lprdc")]
+
+[node name="Título" type="Label" parent="MarcoCelular"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -144.0
+offset_top = 120.0
+offset_right = 144.0
+offset_bottom = 156.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_bnll1")
+theme_override_font_sizes/font_size = 40
+text = "CRÉDITOS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Back" type="Button" parent="MarcoCelular"]
+offset_left = 34.0
+offset_top = 91.0
+offset_right = 102.0
+offset_bottom = 180.0
+theme_override_fonts/font = ExtResource("2_bnll1")
+theme_override_font_sizes/font_size = 60
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vfe36")
+action_mode = 0
+text = "←"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarcoCelular"]
+anchors_preset = -1
+offset_left = 21.0
+offset_top = 217.0
+offset_right = 703.0
+offset_bottom = 1005.0
+theme_override_fonts/normal_font = ExtResource("2_bnll1")
+theme_override_fonts/bold_font = ExtResource("2_bnll1")
+theme_override_fonts/bold_italics_font = ExtResource("2_bnll1")
+theme_override_fonts/italics_font = ExtResource("2_bnll1")
+theme_override_fonts/mono_font = ExtResource("2_bnll1")
+theme_override_font_sizes/normal_font_size = 32
+theme_override_font_sizes/bold_font_size = 32
+theme_override_font_sizes/bold_italics_font_size = 32
+theme_override_font_sizes/italics_font_size = 32
+theme_override_font_sizes/mono_font_size = 32
+text = "The Scrolling Dead es un juego
+en el que se simula ser un adicto
+a las redes sociales.
+
+El objetivo es lograr mantener el
+equilibrio de la dopamina el mayor tiempo posible,
+antes de alcanzar el aburrimiento extremo…
+o peor…
+LA ZOMBIFICACIÓN.
+
+Pero detrás del humor, el juego es una
+caricatura de un fenómeno real:
+el zombie scroll, esa costumbre de deslizar
+sin pensar, atrapados por un flujo infinito
+de contenido diseñado para mantenernos mirando.
+
+Cada “like” y cada “notificación”
+son pequeñas dosis de dopamina
+que nos empujan a seguir, incluso cuando
+ya no sentimos placer, solo inercia.
+
+The Scrolling Dead exagera esta rutina
+hasta el absurdo, mostrando cómo la búsqueda
+de validación digital puede transformar
+a las personas en versiones vacías de sí mismas,
+siempre conectadas, pero cada vez más desconectadas
+de la realidad."
+
+[node name="footer" type="Label" parent="MarcoCelular"]
+offset_left = 140.0
+offset_top = 1066.0
+offset_right = 582.0
+offset_bottom = 1100.0
+theme_override_fonts/font = ExtResource("2_bnll1")
+theme_override_font_sizes/font_size = 34
+text = "by Davo y LeO"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="MarcoCelular/Back" to="." method="_on_back_pressed"]
