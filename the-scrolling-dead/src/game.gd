@@ -3,10 +3,16 @@ extends Node
 @onready var score_manager = $Home/ScoreManager
 @onready var score_screen = $ScoreScreen
 @onready var slider_main_scene = $SliderMainScene
+@onready var game_over_video: VideoStreamPlayer = $GameOverVideo
 
 var game_started: bool = false
+var final_score: float
 
 func _ready() -> void:
+	# Pass ScoreManager reference to ScoreScreen
+	if score_screen and score_manager:
+		score_screen.set_score_manager(score_manager)
+	
 	# Conectar señal de game over del score manager
 	if score_manager:
 		score_manager.game_over_with_score.connect(_on_game_over)
@@ -50,13 +56,12 @@ func _on_reset_requested():
 
 		
 
-func _on_game_over(final_score: float):
-	print("Game Over! Final Score: ", final_score)
-	if score_screen:
-		score_screen.show_score_screen(final_score)
+func _on_game_over(score: float):
+	game_over_video.visible = true
+	game_over_video.play()
+	final_score = score
 
 func _on_retry_pressed():
-	print("Restarting game...")
 	
 	# Resetear el DopamineManager (es un autoload, no se reinicia con la escena)
 	if DopamineManager:
@@ -75,3 +80,9 @@ func _on_retry_pressed():
 		var screens_slider = slider_main_scene.get_node("ScreensSlider")
 		if screens_slider.has_method("reset_to_start"):
 			screens_slider.reset_to_start()
+	
+
+
+func _on_game_over_video_finished() -> void:
+	game_over_video.visible = false
+	score_screen.show_score_screen(final_score)
