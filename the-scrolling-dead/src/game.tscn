@@ -16,6 +16,7 @@
 script = ExtResource("1_x2540")
 
 [node name="TestScreen" parent="." instance=ExtResource("2_dlhd6")]
+visible = false
 z_index = 1
 position = Vector2(44, 31)
 

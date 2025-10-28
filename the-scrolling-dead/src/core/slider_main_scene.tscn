@@ -1,13 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=15 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
 [ext_resource type="PackedScene" uid="uid://1o72jcewltge" path="res://src/minigames/coinstap/minigame.tscn" id="3_7mcnc"]
 [ext_resource type="Texture2D" uid="uid://dihsqqcof6w7a" path="res://assets/Tutorial.png" id="3_qmnk5"]
-[ext_resource type="Texture2D" uid="uid://bhckldtl7e8cx" path="res://assets/screenSlider/perro.jpg" id="4_n7q6m"]
-[ext_resource type="Texture2D" uid="uid://c345tomdwtlby" path="res://assets/screenSlider/gato.jpeg" id="5_n7q6m"]
-[ext_resource type="Texture2D" uid="uid://bb4b3j3yufp1n" path="res://assets/screenSlider/tralalero.jpeg" id="6_n7q6m"]
+[ext_resource type="Texture2D" uid="uid://b4ngc3lkqv02e" path="res://assets/screenSlider/78dc84cf-3480-4a51-96f2-095b5daebd2c.jpeg" id="5_5xma1"]
+[ext_resource type="Texture2D" uid="uid://dtkq2lspcmm63" path="res://assets/screenSlider/2f80e031-c20f-48ad-a7c1-d2769c9e960a.jpeg" id="6_dyxjg"]
 [ext_resource type="Script" uid="uid://cuvmc30vu32ny" path="res://src/core/spoiler_scroll_trigger.gd" id="7_7mcnc"]
+[ext_resource type="Texture2D" uid="uid://b03xxr3kd6cjt" path="res://assets/screenSlider/1.jpeg" id="7_lrnjy"]
+[ext_resource type="Texture2D" uid="uid://cnhc65yo8oeby" path="res://assets/screenSlider/2.jpeg" id="8_dt6fh"]
+[ext_resource type="Texture2D" uid="uid://blwdbtbqcfh1a" path="res://assets/screenSlider/3.jpeg" id="9_4n2ai"]
+[ext_resource type="Texture2D" uid="uid://dp2wdmtvkiu6b" path="res://assets/screenSlider/5.jpeg" id="10_5xma1"]
+[ext_resource type="Texture2D" uid="uid://cko3wfhy6ofcb" path="res://assets/screenSlider/6.jpeg" id="11_mw3n6"]
+[ext_resource type="Texture2D" uid="uid://bdsmihgya065" path="res://assets/screenSlider/7.jpeg" id="12_g5i6e"]
+[ext_resource type="Texture2D" uid="uid://b6cylffrxfkt8" path="res://assets/screenSlider/8.jpeg" id="13_q1dtc"]
 
 [node name="SliderMainScene" type="Control"]
 clip_contents = true
@@ -39,11 +45,7 @@ pages = NodePath("Pages")
 [node name="Pages" type="Control" parent="ScreensSlider"]
 clip_contents = true
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 mouse_filter = 2
 
 [node name="Tutorial" type="TextureRect" parent="ScreensSlider/Pages"]
@@ -55,18 +57,12 @@ texture = ExtResource("3_qmnk5")
 expand_mode = 5
 stretch_mode = 6
 
-[node name="Minigame" parent="ScreensSlider/Pages" node_paths=PackedStringArray("pages") instance=ExtResource("3_7mcnc")]
-layout_mode = 1
-offset_right = 0.0
-offset_bottom = 0.0
-pages = NodePath("..")
-
 [node name="Page0" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
 offset_right = 412.0
 offset_bottom = 548.1039
 mouse_filter = 2
-texture = ExtResource("4_n7q6m")
+texture = ExtResource("5_5xma1")
 expand_mode = 5
 stretch_mode = 6
 
@@ -75,16 +71,66 @@ layout_mode = 0
 offset_right = 449.0
 offset_bottom = 362.0
 mouse_filter = 2
-texture = ExtResource("5_n7q6m")
+texture = ExtResource("6_dyxjg")
 stretch_mode = 3
+
+[node name="Minigame1" parent="ScreensSlider/Pages" node_paths=PackedStringArray("pages") instance=ExtResource("3_7mcnc")]
+layout_mode = 1
+offset_right = 0.0
+offset_bottom = 0.0
+pages = NodePath("..")
 
 [node name="Page2" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
 offset_right = 545.0
 offset_bottom = 765.0
 mouse_filter = 2
-texture = ExtResource("6_n7q6m")
+texture = ExtResource("7_lrnjy")
 stretch_mode = 6
+
+[node name="Page3" type="TextureRect" parent="ScreensSlider/Pages"]
+layout_mode = 0
+offset_right = 545.0
+offset_bottom = 765.0
+mouse_filter = 2
+texture = ExtResource("8_dt6fh")
+stretch_mode = 6
+
+[node name="Page4" type="TextureRect" parent="ScreensSlider/Pages"]
+layout_mode = 0
+offset_right = 545.0
+offset_bottom = 765.0
+mouse_filter = 2
+texture = ExtResource("9_4n2ai")
+stretch_mode = 6
+
+[node name="Page5" type="TextureRect" parent="ScreensSlider/Pages"]
+layout_mode = 1
+offset_right = 784.0
+offset_bottom = 1168.0
+mouse_filter = 2
+texture = ExtResource("10_5xma1")
+
+[node name="Page6" type="TextureRect" parent="ScreensSlider/Pages"]
+layout_mode = 1
+offset_right = 784.0
+offset_bottom = 1168.0
+mouse_filter = 2
+texture = ExtResource("11_mw3n6")
+
+[node name="Page7" type="TextureRect" parent="ScreensSlider/Pages"]
+layout_mode = 1
+offset_right = 784.0
+offset_bottom = 1168.0
+mouse_filter = 2
+texture = ExtResource("12_g5i6e")
+
+[node name="Page8" type="TextureRect" parent="ScreensSlider/Pages"]
+layout_mode = 1
+offset_right = 784.0
+offset_bottom = 1168.0
+mouse_filter = 2
+texture = ExtResource("13_q1dtc")
 
 [node name="SpoilerScrollTrigger" type="Node" parent="ScreensSlider" node_paths=PackedStringArray("slider")]
 script = ExtResource("7_7mcnc")
