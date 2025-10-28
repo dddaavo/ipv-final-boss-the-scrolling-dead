@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dctldbokblq55"]
 
 [ext_resource type="Script" uid="uid://dhpsp35ncq6dy" path="res://src/ui/ScoreScreen.gd" id="1_score_screen"]
-[ext_resource type="Texture2D" uid="uid://bapjdn6iaagqv" path="res://assets/PantallaRota.png" id="2_idydw"]
+[ext_resource type="Texture2D" uid="uid://dxh4x37bqk16b" path="res://assets/GameOver2 - frame at 0m5s.jpg" id="2_idydw"]
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="3_font"]
 
 [node name="ScoreScreen" type="Control"]
@@ -16,7 +16,8 @@ top_font_size = 43
 
 [node name="PantallaRota" type="Sprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.84705883)
-position = Vector2(361, 640)
+position = Vector2(361, 639.00006)
+scale = Vector2(0.7861111, 0.7861111)
 texture = ExtResource("2_idydw")
 
 [node name="Panel" type="Panel" parent="."]
