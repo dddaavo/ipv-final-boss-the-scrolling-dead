@@ -4,9 +4,11 @@ extends Node
 @onready var score_screen = $ScoreScreen
 @onready var slider_main_scene = $SliderMainScene
 @onready var game_over_video: VideoStreamPlayer = $GameOverVideo
+@onready var top3_video: VideoStreamPlayer = $Top3Video
 
 var game_started: bool = false
 var final_score: float
+var is_top3: bool = false  # Flag para saber si el jugador quedó en top 3
 
 func _ready() -> void:
 	# Pass ScoreManager reference to ScoreScreen
@@ -16,6 +18,7 @@ func _ready() -> void:
 	# Conectar señal de game over del score manager
 	if score_manager:
 		score_manager.game_over_with_score.connect(_on_game_over)
+		score_manager.top3_achieved.connect(_on_top3_achieved)
 	
 	# Conectar señal de retry del score screen
 	if score_screen:
@@ -56,10 +59,31 @@ func _on_reset_requested():
 
 		
 
+func _on_top3_achieved(score: float, position: int):
+	"""Se llama cuando el jugador logra quedar en el top 3"""
+	is_top3 = true
+	print("¡Jugador en TOP 3! Posición: ", position + 1, " con score: ", score)
+	
 func _on_game_over(score: float):
-	game_over_video.visible = true
-	game_over_video.play()
 	final_score = score
+	# NO resetear is_top3 aquí, se procesará después
+	
+	# Esperar un frame para asegurarnos de que top3_achieved se haya procesado
+	await get_tree().process_frame
+	
+	print("Game over - is_top3: ", is_top3)
+	
+	if is_top3:
+		# Reproducir video de Top 3
+		print("Reproduciendo Top3Video")
+		top3_video.visible = true
+		top3_video.play()
+		is_top3 = false  # Resetear para la próxima partida
+	else:
+		# Reproducir video de Game Over normal
+		print("Reproduciendo GameOverVideo")
+		game_over_video.visible = true
+		game_over_video.play()
 
 func _on_retry_pressed():
 	
@@ -85,4 +109,8 @@ func _on_retry_pressed():
 
 func _on_game_over_video_finished() -> void:
 	game_over_video.visible = false
+	score_screen.show_score_screen(final_score)
+
+func _on_top3_video_finished() -> void:
+	top3_video.visible = false
 	score_screen.show_score_screen(final_score)
