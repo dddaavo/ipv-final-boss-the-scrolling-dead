@@ -3,6 +3,7 @@ class_name Coin
 
 @export var good_texture: Texture2D
 @export var bad_texture: Texture2D
+@onready var sfx_click: AudioStreamPlayer = $SfxClick
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -15,11 +16,15 @@ func _ready() -> void:
 	else:
 		sprite.texture = bad_texture
 
+
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		_on_coin_clicked()
 
+
 func _on_coin_clicked() -> void:
+	sfx_click.play()
+	print(sfx_click)
 	if is_good:
 		DopamineManager.increment(100)
 	else:

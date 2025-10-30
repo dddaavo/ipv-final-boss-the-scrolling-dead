@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c1v2bydqwcfvh"]
+[gd_scene load_steps=6 format=3 uid="uid://c1v2bydqwcfvh"]
 
 [ext_resource type="Script" uid="uid://dmljid2g6pqrb" path="res://src/minigames/coinstap/coin.gd" id="1_i4628"]
 [ext_resource type="Texture2D" uid="uid://coy8uuduftevg" path="res://assets/coin.png" id="1_jr8ap"]
 [ext_resource type="Texture2D" uid="uid://crw4nv8bfqfji" path="res://assets/red-coin.png" id="3_ncqc3"]
+[ext_resource type="AudioStream" uid="uid://b3ly5ukobasoe" path="res://audio/coin-click.wav" id="4_c37c8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_i4628"]
 radius = 56.008926
@@ -17,3 +18,6 @@ scale = Vector2(0.25, 0.25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_i4628")
+
+[node name="SfxClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_c37c8")
