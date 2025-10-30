@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://b6gxm6trluke2"]
 
-[ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/Game.gd" id="1_x2540"]
+[ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_x2540"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_dlhd6"]
 [ext_resource type="PackedScene" uid="uid://6f3bau0egof" path="res://src/core/ScoreManager.tscn" id="3_72vyi"]
 [ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="4_at4if"]
