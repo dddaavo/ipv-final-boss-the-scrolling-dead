@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=65 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
@@ -61,6 +61,8 @@
 [ext_resource type="Texture2D" uid="uid://cq1o8rdnaws4i" path="res://assets/swipe/swipe_045.png" id="50_n58wn"]
 [ext_resource type="Texture2D" uid="uid://bqai07g783up6" path="res://assets/swipe/swipe_046.png" id="51_wddp1"]
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="52_madsm"]
+[ext_resource type="AudioStream" uid="uid://os2ufdsfbq63" path="res://audio/start-game.wav" id="62_madsm"]
+[ext_resource type="AudioStream" uid="uid://e5x1hblariwb" path="res://audio/game-music.ogg" id="63_qket4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8rcej"]
 animations = [{
@@ -391,3 +393,12 @@ texture = ExtResource("13_q1dtc")
 [node name="SpoilerScrollTrigger" type="Node" parent="ScreensSlider" node_paths=PackedStringArray("slider")]
 script = ExtResource("7_7mcnc")
 slider = NodePath("..")
+
+[node name="StartGame" type="AudioStreamPlayer" parent="ScreensSlider"]
+stream = ExtResource("62_madsm")
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="ScreensSlider"]
+stream = ExtResource("63_qket4")
+parameters/looping = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ScreensSlider"]

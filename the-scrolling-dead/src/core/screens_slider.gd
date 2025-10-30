@@ -8,6 +8,8 @@ signal reset_requested  # Nueva señal para resetear al segundo slide
 @export var animation_time: float = 0.45
 @export var pages: Control
 
+@onready var start_game_sound = $StartGame
+
 var current_index := 0
 var total_pages := 0
 var game_started := false  # Nueva variable para controlar el inicio del juego
@@ -99,6 +101,7 @@ func _on_ButtonNext_pressed() -> void:
 		game_started = true
 		first_scroll.emit()
 		_remove_tutorial()
+		start_game_sound.play()
 	
 	go_next()
 	var rand = randf_range(25, 300)  #TODO: llevar a DopamineManager lógia de random
