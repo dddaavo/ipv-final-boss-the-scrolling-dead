@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2pcr8xxbrlmw"]
+
+[ext_resource type="FontFile" uid="uid://bkivcohrhixyi" path="res://fonts/title.ttf" id="1_jwh3y"]
+[ext_resource type="Script" uid="uid://b00t2e7idrlla" path="res://src/ui/labels_group.gd" id="1_kq5d5"]
+[ext_resource type="FontFile" uid="uid://blsgagq65edxl" path="res://fonts/description.ttf" id="2_kq5d5"]
+
+[node name="PageText" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 3.0
+offset_top = 850.0
+offset_right = 603.0
+offset_bottom = 890.0
+script = ExtResource("1_kq5d5")
+
+[node name="PageName" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = -40.0
+offset_right = 178.0
+offset_bottom = 7.0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("1_jwh3y")
+theme_override_font_sizes/font_size = 36
+text = "Tap Coin!"
+
+[node name="PageDescription" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 35.0
+offset_right = 554.0
+offset_bottom = 102.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("2_kq5d5")
+theme_override_font_sizes/font_size = 24
+text = "Las monedas doradas aumentan tu dopamina!!!
+Pero cuidado con las rojas..."
+
+[node name="Hashtags" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 105.0
+offset_right = 347.0
+offset_bottom = 142.0
+grow_vertical = 0
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 1
+theme_override_fonts/font = ExtResource("2_kq5d5")
+theme_override_font_sizes/font_size = 24
+text = "#fyp #minigame #coins #fun"

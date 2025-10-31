@@ -7,7 +7,7 @@ extends Node
 @export var slider: Control
 
 # Intervalo entre repeticiones del spoiler scroll (en segundos)
-@export var repeat_interval := 3.0
+@export var repeat_interval := 3
 
 var low_dopamine := false
 # Timer interno para repetir el spoiler scroll

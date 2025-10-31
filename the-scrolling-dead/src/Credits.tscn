@@ -22,7 +22,7 @@ offset_bottom = 156.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_bnll1")
 theme_override_font_sizes/font_size = 40
-text = "CRÉDITOS"
+text = "CREDITOS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -38,7 +38,6 @@ action_mode = 0
 text = "←"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="MarcoCelular"]
-anchors_preset = -1
 offset_left = 21.0
 offset_top = 217.0
 offset_right = 703.0

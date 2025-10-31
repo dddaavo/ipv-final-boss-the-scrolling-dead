@@ -1,13 +1,14 @@
-[gd_scene load_steps=89 format=3 uid="uid://c0wroa1sk1xif"]
+[gd_scene load_steps=90 format=3 uid="uid://c0wroa1sk1xif"]
 
 [ext_resource type="Script" uid="uid://ca4cvyxtqu2h" path="res://src/Main.gd" id="1_vjwby"]
 [ext_resource type="Texture2D" uid="uid://3o8e5tif2xep" path="res://assets/logo.png" id="2_8ec3e"]
-[ext_resource type="PackedScene" uid="uid://b6gxm6trluke2" path="res://src/Game.tscn" id="2_fh42b"]
+[ext_resource type="PackedScene" uid="uid://b6gxm6trluke2" path="res://src/game.tscn" id="2_fh42b"]
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="3_38a0m"]
 [ext_resource type="PackedScene" uid="uid://df7d5dg4xkyjh" path="res://src/Options.tscn" id="3_insap"]
-[ext_resource type="AudioStream" uid="uid://byg0bxsr72mua" path="res://audio/Main.ogg" id="4_fh42b"]
 [ext_resource type="PackedScene" uid="uid://d04r287od4jxf" path="res://src/Credits.tscn" id="4_w32tk"]
 [ext_resource type="Texture2D" uid="uid://dmngdrca3d6fy" path="res://assets/MainBackground.png" id="5_insap"]
+[ext_resource type="AudioStream" uid="uid://24oxh5x680c8" path="res://audio/menu.ogg" id="7_5mrjc"]
+[ext_resource type="AudioStream" uid="uid://8qnwx3xracx2" path="res://audio/click-impact.wav" id="9_kf8lf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rlaii"]
 atlas = ExtResource("5_insap")
@@ -651,11 +652,11 @@ offset_bottom = -341.0
 grow_vertical = 2
 theme_override_fonts/font = ExtResource("3_38a0m")
 theme_override_font_sizes/font_size = 20
-text = "CRÉDITOS"
+text = "CREDITOS"
 expand_icon = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_fh42b")
+stream = ExtResource("7_5mrjc")
 autoplay = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -672,6 +673,18 @@ offset_right = 167.0
 offset_bottom = 1256.0
 theme_override_font_sizes/font_size = 27
 text = "FullScreen"
+
+[node name="FlashRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_kf8lf")
 
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="Options" to="." method="_on_options_pressed"]

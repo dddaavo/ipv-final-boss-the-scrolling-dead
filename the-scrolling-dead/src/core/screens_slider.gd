@@ -8,16 +8,18 @@ signal reset_requested  # Nueva señal para resetear al segundo slide
 @export var animation_time: float = 0.45
 @export var pages: Control
 
+@onready var start_game_sound = $StartGame
+
 var current_index := 0
 var total_pages := 0
 var game_started := false  # Nueva variable para controlar el inicio del juego
-@onready var tutorial: TextureRect = $Pages/Tutorial
+@onready var tutorial: Control = $Pages/Tutorial
 var tutorial_removed := false  # Para saber si ya se eliminó el tutorial
 
 var swipe_start_pos := Vector2.ZERO
 var swipe_min_distance := 100.0
 var swipe_active := false
-@export var input_cooldown: float = 1
+@export var input_cooldown: float = 0.45
 var last_input_time: float = -100.0
 
 func _ready() -> void:
@@ -85,6 +87,11 @@ func _on_scroll_finished() -> void:
 
 	pages.position.y = 0
 
+	# Activar evento si la nueva página visible es un EventPage
+	var current_page := pages.get_child(0)
+	if current_page is EventPage:
+		current_page.trigger_event_effect()
+
 
 func _refresh_page(page: Control) -> void:
 	if page.has_method("reset_content"):
@@ -99,6 +106,7 @@ func _on_ButtonNext_pressed() -> void:
 		game_started = true
 		first_scroll.emit()
 		_remove_tutorial()
+		start_game_sound.play()
 	
 	go_next()
 	var rand = randf_range(25, 300)  #TODO: llevar a DopamineManager lógia de random
@@ -123,7 +131,7 @@ func reset_to_start():
 	emit_signal("reset_requested")
 
 
-func spoiler_scroll(strength: float = 0.40) -> void:
+func spoiler_scroll(strength: float = 0.30) -> void:
 	if scrolling:
 		return
 	scrolling = true

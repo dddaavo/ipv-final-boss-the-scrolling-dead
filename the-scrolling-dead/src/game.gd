@@ -5,6 +5,9 @@ extends Node
 @onready var slider_main_scene = $SliderMainScene
 @onready var game_over_video: VideoStreamPlayer = $GameOverVideo
 
+signal game_over_triggered
+signal retry_triggered
+
 var game_started: bool = false
 var final_score: float
 
@@ -54,12 +57,13 @@ func _on_reset_requested():
 			# Después de ir al segundo slide, iniciar el juego automáticamente
 			_on_first_scroll()
 
-		
 
 func _on_game_over(score: float):
 	game_over_video.visible = true
 	game_over_video.play()
 	final_score = score
+	emit_signal("game_over_triggered", score)
+
 
 func _on_retry_pressed():
 	
@@ -81,6 +85,7 @@ func _on_retry_pressed():
 		if screens_slider.has_method("reset_to_start"):
 			screens_slider.reset_to_start()
 	
+	emit_signal("retry_triggered")
 
 
 func _on_game_over_video_finished() -> void:

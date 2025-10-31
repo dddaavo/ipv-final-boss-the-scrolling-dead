@@ -28,4 +28,4 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 theme = SubResource("Theme_6at07")
-color = Color(0.24815577, 0.3786257, 0.3490225, 1)
+color = Color(0.15294118, 0.21568628, 0.27450982, 1)
