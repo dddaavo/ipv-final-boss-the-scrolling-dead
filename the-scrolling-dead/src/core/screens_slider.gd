@@ -19,7 +19,7 @@ var tutorial_removed := false  # Para saber si ya se eliminó el tutorial
 var swipe_start_pos := Vector2.ZERO
 var swipe_min_distance := 100.0
 var swipe_active := false
-@export var input_cooldown: float = 0.45
+@export var input_cooldown: float = 0.25
 var last_input_time: float = -100.0
 
 func _ready() -> void:

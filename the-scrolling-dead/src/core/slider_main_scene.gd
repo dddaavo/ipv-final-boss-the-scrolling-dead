@@ -7,7 +7,6 @@ signal reset_requested  # Retransmitir señal de reset
 @onready var slider = $ScreensSlider
 @onready var bgm: AudioStreamPlayer = $ScreensSlider/BackgroundMusic
 
-
 func _ready() -> void:
 	var game = get_parent()
 	if game.has_signal("game_over_triggered"):

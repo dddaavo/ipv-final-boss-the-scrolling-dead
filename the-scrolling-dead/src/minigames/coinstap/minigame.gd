@@ -33,7 +33,7 @@ func _spawn_coin() -> void:
 
 		var viewport_size = get_viewport_rect().size
 		var random_x = randf_range(0, viewport_size.x)
-		var random_y = randf_range(0, viewport_size.y - 600)
+		var random_y = randf_range(100, viewport_size.y - 600)
 
 		coin.position = Vector2(random_x, random_y)
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=70 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=71 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
 [ext_resource type="PackedScene" uid="uid://1o72jcewltge" path="res://src/minigames/coinstap/minigame.tscn" id="3_7mcnc"]
+[ext_resource type="Script" uid="uid://clleet0ol782r" path="res://src/core/tutorial.gd" id="3_ehk5b"]
 [ext_resource type="Texture2D" uid="uid://b4ngc3lkqv02e" path="res://assets/screenSlider/78dc84cf-3480-4a51-96f2-095b5daebd2c.jpeg" id="5_5xma1"]
 [ext_resource type="Texture2D" uid="uid://cvnp5s4qyyx10" path="res://assets/swipe/swipe_000.png" id="5_38k6h"]
 [ext_resource type="Texture2D" uid="uid://dtkq2lspcmm63" path="res://assets/screenSlider/2f80e031-c20f-48ad-a7c1-d2769c9e960a.jpeg" id="6_dyxjg"]
@@ -253,6 +254,7 @@ mouse_filter = 2
 
 [node name="Tutorial" type="Control" parent="ScreensSlider/Pages"]
 anchors_preset = 0
+script = ExtResource("3_ehk5b")
 
 [node name="ColorRect" type="ColorRect" parent="ScreensSlider/Pages/Tutorial"]
 layout_mode = 1
@@ -271,6 +273,7 @@ sprite_frames = SubResource("SpriteFrames_8rcej")
 autoplay = "default"
 
 [node name="Main" type="Label" parent="ScreensSlider/Pages/Tutorial"]
+visible = false
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -289,6 +292,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="FirstText" type="Label" parent="ScreensSlider/Pages/Tutorial"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -305,6 +309,7 @@ con los minijuegos!"
 vertical_alignment = 1
 
 [node name="SecondText" type="Label" parent="ScreensSlider/Pages/Tutorial"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
