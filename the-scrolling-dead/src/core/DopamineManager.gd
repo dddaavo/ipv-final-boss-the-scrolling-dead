@@ -75,8 +75,8 @@ func status() -> Array:
 func _apply_base_effects():
 	# Crear el efecto de decay acelerado
 	var decay_modifier_effect = DecayAccelerationEffect.new(
-		5.0,   # base_decay_rate
-		0.1,   # decay_interval
+		1.2,   # base_decay_rate
+		0.25,   # decay_interval
 		0.4,   # acceleration_rate 
 		200.0   # max_multiplier
 	)

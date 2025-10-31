@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=70 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
@@ -17,11 +17,8 @@
 [ext_resource type="Texture2D" uid="uid://dp2wdmtvkiu6b" path="res://assets/screenSlider/5.jpeg" id="10_5xma1"]
 [ext_resource type="Texture2D" uid="uid://crdh4ripe8t5q" path="res://assets/swipe/swipe_005.png" id="10_seluu"]
 [ext_resource type="Texture2D" uid="uid://bn60lvjiv2fc5" path="res://assets/swipe/swipe_006.png" id="11_8k2aw"]
-[ext_resource type="Texture2D" uid="uid://cko3wfhy6ofcb" path="res://assets/screenSlider/6.jpeg" id="11_mw3n6"]
 [ext_resource type="Texture2D" uid="uid://7030xf1ntolh" path="res://assets/swipe/swipe_007.png" id="12_1lfd4"]
-[ext_resource type="Texture2D" uid="uid://bdsmihgya065" path="res://assets/screenSlider/7.jpeg" id="12_g5i6e"]
 [ext_resource type="Texture2D" uid="uid://bwbkneuu6vnn4" path="res://assets/swipe/swipe_008.png" id="13_ehk5b"]
-[ext_resource type="Texture2D" uid="uid://b6cylffrxfkt8" path="res://assets/screenSlider/8.jpeg" id="13_q1dtc"]
 [ext_resource type="Texture2D" uid="uid://djl25v2ytruw4" path="res://assets/swipe/swipe_009.png" id="14_sxjdb"]
 [ext_resource type="Texture2D" uid="uid://dvaxkkhkit6wc" path="res://assets/swipe/swipe_010.png" id="15_1rani"]
 [ext_resource type="Texture2D" uid="uid://2rq1ax5tjcae" path="res://assets/swipe/swipe_011.png" id="16_we10l"]
@@ -60,9 +57,17 @@
 [ext_resource type="Texture2D" uid="uid://64twori2bj6d" path="res://assets/swipe/swipe_044.png" id="49_yy0f0"]
 [ext_resource type="Texture2D" uid="uid://cq1o8rdnaws4i" path="res://assets/swipe/swipe_045.png" id="50_n58wn"]
 [ext_resource type="Texture2D" uid="uid://bqai07g783up6" path="res://assets/swipe/swipe_046.png" id="51_wddp1"]
+[ext_resource type="Script" uid="uid://dqmwcx6b7bepa" path="res://src/core/page_0.gd" id="52_1lfd4"]
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="52_madsm"]
+[ext_resource type="Script" uid="uid://1v1udbyiali6" path="res://src/core/page_1.gd" id="53_ptj23"]
+[ext_resource type="Script" uid="uid://86ieyvl11buq" path="res://src/core/page_2.gd" id="56_ltaej"]
+[ext_resource type="Script" uid="uid://bkg52ip5qp2ud" path="res://src/minigames/guessemoji/guess_emoji.gd" id="58_ehk5b"]
+[ext_resource type="Script" uid="uid://blov14jc5wv6u" path="res://src/core/page_3.gd" id="58_seluu"]
+[ext_resource type="PackedScene" uid="uid://dy77ivss7rbpn" path="res://src/events/event_page.tscn" id="58_sxjdb"]
+[ext_resource type="Script" uid="uid://dfaw3gwjdpxun" path="res://src/core/page_4.gd" id="60_8k2aw"]
 [ext_resource type="AudioStream" uid="uid://os2ufdsfbq63" path="res://audio/start-game.wav" id="62_madsm"]
 [ext_resource type="AudioStream" uid="uid://e5x1hblariwb" path="res://audio/game-music.ogg" id="63_qket4"]
+[ext_resource type="Script" uid="uid://cltuwdbks3p0y" path="res://src/core/page_5.gd" id="65_1lfd4"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8rcej"]
 animations = [{
@@ -323,6 +328,7 @@ mouse_filter = 2
 texture = ExtResource("5_5xma1")
 expand_mode = 5
 stretch_mode = 6
+script = ExtResource("52_1lfd4")
 
 [node name="Page1" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
@@ -331,8 +337,9 @@ offset_bottom = 362.0
 mouse_filter = 2
 texture = ExtResource("6_dyxjg")
 stretch_mode = 3
+script = ExtResource("53_ptj23")
 
-[node name="Minigame1" parent="ScreensSlider/Pages" node_paths=PackedStringArray("pages") instance=ExtResource("3_7mcnc")]
+[node name="TapCoins" parent="ScreensSlider/Pages" node_paths=PackedStringArray("pages") instance=ExtResource("3_7mcnc")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
@@ -345,6 +352,10 @@ offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("7_lrnjy")
 stretch_mode = 6
+script = ExtResource("56_ltaej")
+
+[node name="EventPage1" parent="ScreensSlider/Pages" instance=ExtResource("58_sxjdb")]
+layout_mode = 0
 
 [node name="Page3" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
@@ -353,6 +364,56 @@ offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("8_dt6fh")
 stretch_mode = 6
+script = ExtResource("58_seluu")
+
+[node name="GuessEmoji" type="Control" parent="ScreensSlider/Pages"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("58_ehk5b")
+
+[node name="LabelQuestion" type="Label" parent="ScreensSlider/Pages/GuessEmoji"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -66.0
+offset_top = 95.0
+offset_right = 66.0
+offset_bottom = 121.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("52_madsm")
+theme_override_font_sizes/font_size = 26
+
+[node name="Option1" type="TextureButton" parent="ScreensSlider/Pages/GuessEmoji"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 150.0
+offset_right = 480.0
+offset_bottom = 400.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Option2" type="TextureButton" parent="ScreensSlider/Pages/GuessEmoji"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 380.0
+offset_right = 480.0
+offset_bottom = 630.0
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Option3" type="TextureButton" parent="ScreensSlider/Pages/GuessEmoji"]
+layout_mode = 0
+offset_left = 230.0
+offset_top = 600.0
+offset_right = 480.0
+offset_bottom = 850.0
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="Page4" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
@@ -361,6 +422,10 @@ offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("9_4n2ai")
 stretch_mode = 6
+script = ExtResource("60_8k2aw")
+
+[node name="EventPage2" parent="ScreensSlider/Pages" instance=ExtResource("58_sxjdb")]
+layout_mode = 0
 
 [node name="Page5" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 1
@@ -368,27 +433,10 @@ offset_right = 784.0
 offset_bottom = 1168.0
 mouse_filter = 2
 texture = ExtResource("10_5xma1")
+script = ExtResource("65_1lfd4")
 
-[node name="Page6" type="TextureRect" parent="ScreensSlider/Pages"]
-layout_mode = 1
-offset_right = 784.0
-offset_bottom = 1168.0
-mouse_filter = 2
-texture = ExtResource("11_mw3n6")
-
-[node name="Page7" type="TextureRect" parent="ScreensSlider/Pages"]
-layout_mode = 1
-offset_right = 784.0
-offset_bottom = 1168.0
-mouse_filter = 2
-texture = ExtResource("12_g5i6e")
-
-[node name="Page8" type="TextureRect" parent="ScreensSlider/Pages"]
-layout_mode = 1
-offset_right = 784.0
-offset_bottom = 1168.0
-mouse_filter = 2
-texture = ExtResource("13_q1dtc")
+[node name="EventPage3" parent="ScreensSlider/Pages" instance=ExtResource("58_sxjdb")]
+layout_mode = 0
 
 [node name="SpoilerScrollTrigger" type="Node" parent="ScreensSlider" node_paths=PackedStringArray("slider")]
 script = ExtResource("7_7mcnc")
@@ -400,5 +448,3 @@ stream = ExtResource("62_madsm")
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="ScreensSlider"]
 stream = ExtResource("63_qket4")
 parameters/looping = true
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="ScreensSlider"]

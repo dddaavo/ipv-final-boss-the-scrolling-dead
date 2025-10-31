@@ -87,6 +87,11 @@ func _on_scroll_finished() -> void:
 
 	pages.position.y = 0
 
+	# Activar evento si la nueva página visible es un EventPage
+	var current_page := pages.get_child(0)
+	if current_page is EventPage:
+		current_page.trigger_event_effect()
+
 
 func _refresh_page(page: Control) -> void:
 	if page.has_method("reset_content"):

@@ -19,14 +19,22 @@ func _ready() -> void:
 
 func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
+		print("xddd")
 		_on_coin_clicked()
-
 
 func _on_coin_clicked() -> void:
 	sfx_click.play()
-	print(sfx_click)
 	if is_good:
 		DopamineManager.increment(100)
 	else:
 		DopamineManager.decrement(100)
-	queue_free()
+
+	var tween = create_tween()
+	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(sprite, "modulate:a", 0.0, 0.4)
+	tween.parallel().tween_property(sprite, "scale", Vector2(0, 0), 0.4)
+
+	tween.finished.connect(func ():
+		await get_tree().create_timer(sfx_click.stream.get_length() - sfx_click.get_playback_position()).timeout
+		queue_free()
+	)
