@@ -24,7 +24,7 @@ position = Vector2(44, 31)
 [node name="ScoreManager" parent="Home" instance=ExtResource("3_72vyi")]
 
 [node name="DopamineBar" parent="Home" instance=ExtResource("4_at4if")]
-modulate = Color(1, 1, 1, 0.64705884)
+modulate = Color(1, 1, 1, 0.8784314)
 top_level = true
 offset_left = -304.0
 offset_top = 89.0
@@ -44,6 +44,7 @@ offset_bottom = -155.0
 grow_vertical = 0
 
 [node name="GameOverVideo" type="VideoStreamPlayer" parent="."]
+visible = false
 top_level = true
 anchors_preset = 8
 anchor_left = 0.5
