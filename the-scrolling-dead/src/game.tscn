@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b6gxm6trluke2"]
+[gd_scene load_steps=11 format=3 uid="uid://dv0a7bjrpnnag"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_x2540"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_dlhd6"]
@@ -44,7 +44,6 @@ offset_bottom = -155.0
 grow_vertical = 0
 
 [node name="GameOverVideo" type="VideoStreamPlayer" parent="."]
-visible = false
 top_level = true
 anchors_preset = 8
 anchor_left = 0.5
@@ -58,7 +57,8 @@ offset_bottom = 640.0
 grow_horizontal = 2
 grow_vertical = 2
 stream = ExtResource("9_8c8jm")
-speed_scale = 2.0
+speed_scale = 1.2
+expand = true
 
 [node name="GameOver" type="Label" parent="GameOverVideo"]
 layout_mode = 1
@@ -68,9 +68,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -225.0
-offset_top = -25.0
+offset_top = 306.0
 offset_right = 225.0
-offset_bottom = 25.0
+offset_bottom = 356.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95686275)
