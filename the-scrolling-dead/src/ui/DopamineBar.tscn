@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dpa5cbcsj0mtt"]
 
-[ext_resource type="Texture2D" uid="uid://bwreh6mrwqax5" path="res://assets/DopaBar.png" id="2_87man"]
+[ext_resource type="Texture2D" uid="uid://b0v7pkywj35dv" path="res://assets/DopaBarBrain.png" id="2_87man"]
 [ext_resource type="Script" uid="uid://fsnrrx331gp4" path="res://src/ui/DopamineBar.gd" id="2_qfo0y"]
 
 [node name="DopamineBar" type="TextureRect"]
@@ -23,9 +23,9 @@ anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -82.5
-offset_top = 18.0
+offset_top = 7.0
 offset_right = 82.5
-offset_bottom = 53.0
+offset_bottom = 60.0
 grow_horizontal = 2
 color = Color(0.11372549, 0.59607846, 0.29803923, 0.58431375)
 
@@ -39,4 +39,4 @@ offset_top = 2.0
 offset_right = 5.0
 offset_bottom = 66.0
 grow_horizontal = 2
-color = Color(1, 0, 0, 1)
+color = Color(0.6, 0, 0.1764706, 1)
