@@ -396,27 +396,27 @@ theme_override_font_sizes/font_size = 26
 [node name="Option1" type="TextureButton" parent="ScreensSlider/Pages/GuessEmoji"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 150.0
+offset_top = 146.0
 offset_right = 480.0
-offset_bottom = 400.0
+offset_bottom = 396.0
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Option2" type="TextureButton" parent="ScreensSlider/Pages/GuessEmoji"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 380.0
+offset_top = 403.0
 offset_right = 480.0
-offset_bottom = 630.0
+offset_bottom = 653.0
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Option3" type="TextureButton" parent="ScreensSlider/Pages/GuessEmoji"]
 layout_mode = 0
 offset_left = 230.0
-offset_top = 600.0
+offset_top = 650.0
 offset_right = 480.0
-offset_bottom = 850.0
+offset_bottom = 900.0
 ignore_texture_size = true
 stretch_mode = 0
 
