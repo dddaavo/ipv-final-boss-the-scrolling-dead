@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crosegadfidlf"
-path="res://.godot/imported/Footer.png-0ba455b21dcf65991405beee6c64b309.ctex"
+uid="uid://0p187ik5ca6p"
+path="res://.godot/imported/4.png-678a8bd6f4825419413ffb2c449dae86.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Footer.png"
-dest_files=["res://.godot/imported/Footer.png-0ba455b21dcf65991405beee6c64b309.ctex"]
+source_file="res://assets/userStatus/4.png"
+dest_files=["res://.godot/imported/4.png-678a8bd6f4825419413ffb2c449dae86.ctex"]
 
 [params]
 

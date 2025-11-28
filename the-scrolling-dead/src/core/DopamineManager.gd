@@ -49,6 +49,7 @@ func decrement(amount: float):
 	dopamine_level.add(-amount)
 
 func _on_value_changed():
+	print(dopamine_level.current)
 	emit_signal("value_changed")
 	_check_events()
 

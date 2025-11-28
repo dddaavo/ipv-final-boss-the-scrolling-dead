@@ -130,22 +130,6 @@ func reset_to_start():
 	# Emitir señal para que el manager maneje la lógica
 	emit_signal("reset_requested")
 
-
-func spoiler_scroll(strength: float = 0.30) -> void:
-	if scrolling:
-		return
-	scrolling = true
-
-	var offset := -size.y * strength
-	var start_y := pages.position.y
-
-	var tween := create_tween()
-	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	tween.tween_property(pages, "position:y", start_y + offset, animation_time)
-	tween.tween_property(pages, "position:y", start_y, animation_time)
-	tween.finished.connect(func(): scrolling = false)
-
-
 func _input(event: InputEvent) -> void:
 	var now = Time.get_ticks_msec() / 1000.0
 	if now - last_input_time < input_cooldown:

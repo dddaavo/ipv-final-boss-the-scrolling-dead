@@ -158,9 +158,6 @@ func _on_game_over():
 	print("Game Over - Final Score: ", current_score)
 	print("Meters: %.1f, Seconds in target: %.1f" % [meters, total_seconds_in_target])
 	print("Game Duration: ", game_record.duration, " seconds")
-	
-	# Emitir señal con el puntaje final
-	emit_signal("game_over_with_score", current_score)
 
 func reset_score():
 	current_score = 0
