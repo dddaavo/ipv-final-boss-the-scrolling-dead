@@ -95,10 +95,10 @@ func play_collapse_animation(frame_index: int):
 		.set_ease(Tween.EASE_OUT)
 
 	# Blur: TODO ARREGLAR
-	if original_parent:
-		var blur_rect = original_parent.get_parent().get_node(\"BlurOverlay\")
-		blur_rect.modulate.a = 0.0
-		tween.tween_property(blur_rect, \"modulate:a\", 0.6, 0.8)
+	#if original_parent:
+	#	var blur_rect = original_parent.get_parent().get_node(\"BlurOverlay\")
+	#	blur_rect.modulate.a = 0.0
+	#	tween.tween_property(blur_rect, \"modulate:a\", 0.6, 0.8)
 
 	tween.tween_callback(func():
 		emit_signal(\"collapse_animation_finished\")
