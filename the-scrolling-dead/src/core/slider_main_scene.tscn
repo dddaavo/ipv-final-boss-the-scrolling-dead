@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=70 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://cvnp5s4qyyx10" path="res://assets/swipe/swipe_000.png" id="5_38k6h"]
 [ext_resource type="Texture2D" uid="uid://dtkq2lspcmm63" path="res://assets/screenSlider/2f80e031-c20f-48ad-a7c1-d2769c9e960a.jpeg" id="6_dyxjg"]
 [ext_resource type="Texture2D" uid="uid://d07dvlh1tge54" path="res://assets/swipe/swipe_001.png" id="6_madsm"]
-[ext_resource type="Script" uid="uid://cuvmc30vu32ny" path="res://src/core/spoiler_scroll_trigger.gd" id="7_7mcnc"]
 [ext_resource type="Texture2D" uid="uid://b03xxr3kd6cjt" path="res://assets/screenSlider/1.jpeg" id="7_lrnjy"]
 [ext_resource type="Texture2D" uid="uid://bvrjxnb1rlwax" path="res://assets/swipe/swipe_002.png" id="7_qket4"]
 [ext_resource type="Texture2D" uid="uid://cnhc65yo8oeby" path="res://assets/screenSlider/2.jpeg" id="8_dt6fh"]
@@ -263,7 +262,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.09803922, 0.13725491, 0.20392157, 1)
+color = Color(0.050283052, 0.0774143, 0.123544775, 1)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ScreensSlider/Pages/Tutorial"]
 texture_filter = 6
@@ -442,10 +441,6 @@ script = ExtResource("65_1lfd4")
 
 [node name="EventPage3" parent="ScreensSlider/Pages" instance=ExtResource("58_sxjdb")]
 layout_mode = 0
-
-[node name="SpoilerScrollTrigger" type="Node" parent="ScreensSlider" node_paths=PackedStringArray("slider")]
-script = ExtResource("7_7mcnc")
-slider = NodePath("..")
 
 [node name="StartGame" type="AudioStreamPlayer" parent="ScreensSlider"]
 stream = ExtResource("62_madsm")

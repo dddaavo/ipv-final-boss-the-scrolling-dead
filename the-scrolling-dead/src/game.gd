@@ -11,14 +11,15 @@ signal retry_triggered
 var game_started: bool = false
 var final_score: float
 
+@onready var user_status: Sprite2D = $MarcoCelular/FooterControl/UserStatus
+@onready var bg_music = $SliderMainScene/ScreensSlider/BackgroundMusic
+
 func _ready() -> void:
-	# Pass ScoreManager reference to ScoreScreen
+	user_status.collapse_triggered.connect(_on_collapse)
+	user_status.collapse_animation_finished.connect(_on_collapse_animation_finished)
+
 	if score_screen and score_manager:
 		score_screen.set_score_manager(score_manager)
-	
-	# Conectar señal de game over del score manager
-	if score_manager:
-		score_manager.game_over_with_score.connect(_on_game_over)
 	
 	# Conectar señal de retry del score screen
 	if score_screen:
@@ -33,6 +34,7 @@ func _ready() -> void:
 		slider_main_scene.first_scroll.connect(_on_first_scroll)
 		slider_main_scene.reset_requested.connect(_on_reset_requested)
 
+
 func _on_first_scroll():
 	"""Manejar el primer scroll del juego"""
 	print("First scroll detected - Starting game!")
@@ -44,6 +46,7 @@ func _on_first_scroll():
 	# Iniciar ScoreManager
 	if score_manager and score_manager.has_method("start_game"):
 		score_manager.start_game()
+
 
 func _on_reset_requested():
 	"""Manejar el reset - ir al segundo slide"""
@@ -58,15 +61,39 @@ func _on_reset_requested():
 			_on_first_scroll()
 
 
-func _on_game_over(score: float):
+func _on_user_collapse(kind: String):
+	var frame_index :int = kind == "low" if 0 else 6  # ejemplo según frames
+	user_status.play_collapse_animation(frame_index, func():
+		score_manager._on_game_over()   # <- acá disparás tu lógica real
+	)
+
+
+func _on_collapse(kind):
+	# Esperar animación → NO TRIGGER GAME OVER TODAVÍA
+	if kind == "low":
+		user_status.play_collapse_animation(0)
+	else:
+		user_status.play_collapse_animation(6)
+
+
+# ANIMACIÓN DE GAME OVER
+func _on_collapse_animation_finished():
+	score_manager._on_game_over()
+
+	# Espera 1 segundo antes del video
+	await get_tree().create_timer(1.0).timeout
+
+	if bg_music.playing:
+		bg_music.stop()
+
+	user_status.visible = false
 	game_over_video.visible = true
 	game_over_video.play()
-	final_score = score
-	emit_signal("game_over_triggered", score)
 
 
 func _on_retry_pressed():
-	
+	user_status.reset_state()
+	bg_music.play()
 	# Resetear el DopamineManager (es un autoload, no se reinicia con la escena)
 	if DopamineManager:
 		DopamineManager.reset_game()

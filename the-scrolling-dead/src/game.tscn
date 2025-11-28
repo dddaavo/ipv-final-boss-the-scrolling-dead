@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dv0a7bjrpnnag"]
+[gd_scene load_steps=13 format=3 uid="uid://dv0a7bjrpnnag"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_x2540"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_dlhd6"]
@@ -10,9 +10,16 @@
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="8_dlhd6"]
 [ext_resource type="VideoStream" uid="uid://pg2xylmprn0u" path="res://Video/GameOver.ogv" id="9_8c8jm"]
 [ext_resource type="VideoStream" uid="uid://dwvrd4mpoqrjn" path="res://Video/WinVideo.ogv" id="9_72vyi"]
+[ext_resource type="Script" uid="uid://du6m8oc3xeoxf" path="res://src/screen_effects.gd" id="11_qiocs"]
+[ext_resource type="Texture2D" uid="uid://b3wj3xps1r0gy" path="res://assets/screenUI/zombification.png" id="11_y2hwx"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_x2540")
+
+[node name="CollapseLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="CollapseContainer" type="Node2D" parent="CollapseLayer"]
 
 [node name="TestScreen" parent="." instance=ExtResource("2_dlhd6")]
 visible = false
@@ -31,6 +38,9 @@ offset_top = 89.0
 offset_right = 296.0
 offset_bottom = 153.0
 
+[node name="MarcoCelular" parent="." instance=ExtResource("8_5q0ih")]
+layer = -2
+
 [node name="SliderMainScene" parent="." instance=ExtResource("5_0rf6s")]
 z_index = -1
 anchors_preset = 7
@@ -42,6 +52,36 @@ offset_top = -1205.0
 offset_right = 360.0
 offset_bottom = -155.0
 grow_vertical = 0
+
+[node name="ScreenEffects" type="Control" parent="SliderMainScene"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_qiocs")
+
+[node name="DarkOverlay" type="ColorRect" parent="SliderMainScene/ScreenEffects"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ZombificationOverlay" type="TextureRect" parent="SliderMainScene/ScreenEffects"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_y2hwx")
 
 [node name="GameOverVideo" type="VideoStreamPlayer" parent="."]
 visible = false
@@ -102,9 +142,6 @@ expand = true
 [node name="ScoreScreen" parent="." instance=ExtResource("6_2fxc8")]
 visible = false
 z_index = 100
-
-[node name="MarcoCelular" parent="." instance=ExtResource("8_5q0ih")]
-layer = -2
 
 [connection signal="finished" from="GameOverVideo" to="." method="_on_game_over_video_finished"]
 [connection signal="finished" from="Top3Video" to="." method="_on_top3_video_finished"]

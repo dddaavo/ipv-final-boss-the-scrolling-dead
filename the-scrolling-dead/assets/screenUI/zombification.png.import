@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w2k3g8jyuahd"
-path="res://.godot/imported/7.png-f5ab2a8662f716300d328adf976cfd96.ctex"
+uid="uid://b3wj3xps1r0gy"
+path="res://.godot/imported/zombification.png-aad9f324552ec8a4ef526d09468f67b9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/icons/7.png"
-dest_files=["res://.godot/imported/7.png-f5ab2a8662f716300d328adf976cfd96.ctex"]
+source_file="res://assets/screenUI/zombification.png"
+dest_files=["res://.godot/imported/zombification.png-aad9f324552ec8a4ef526d09468f67b9.ctex"]
 
 [params]
 
