@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://dpa5cbcsj0mtt"]
+[gd_scene load_steps=4 format=3 uid="uid://dpa5cbcsj0mtt"]
 
 [ext_resource type="Texture2D" uid="uid://b0v7pkywj35dv" path="res://assets/DopaBarBrain.png" id="2_87man"]
 [ext_resource type="Script" uid="uid://fsnrrx331gp4" path="res://src/ui/DopamineBar.gd" id="2_qfo0y"]
+[ext_resource type="Script" uid="uid://noewog81yl53" path="res://src/ui/brain_bar_sprite.gd" id="3_87man"]
 
 [node name="DopamineBar" type="TextureRect"]
 anchors_preset = 5
@@ -13,21 +14,22 @@ offset_bottom = 64.0
 grow_horizontal = 2
 script = ExtResource("2_qfo0y")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="BrainBarSprite" type="Sprite2D" parent="."]
 position = Vector2(300, 34)
 texture = ExtResource("2_87man")
+script = ExtResource("3_87man")
 
 [node name="Target" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -82.5
+offset_left = -83.0
 offset_top = 7.0
-offset_right = 82.5
-offset_bottom = 60.0
+offset_right = 82.0
+offset_bottom = 62.0
 grow_horizontal = 2
-color = Color(0.11372549, 0.59607846, 0.29803923, 0.58431375)
+color = Color(0.9178626, 0.75089973, 0.78312415, 0.50980395)
 
 [node name="Indicator" type="ColorRect" parent="."]
 layout_mode = 1
@@ -39,4 +41,4 @@ offset_top = 2.0
 offset_right = 5.0
 offset_bottom = 66.0
 grow_horizontal = 2
-color = Color(0.6, 0, 0.1764706, 1)
+color = Color(0.8856463, 0.00012836471, 0.27743065, 1)

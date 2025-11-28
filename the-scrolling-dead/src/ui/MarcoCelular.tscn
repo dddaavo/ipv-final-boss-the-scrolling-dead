@@ -1,8 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0oil5f17c368"]
+[gd_scene load_steps=14 format=3 uid="uid://d0oil5f17c368"]
 
-[ext_resource type="Texture2D" uid="uid://crosegadfidlf" path="res://assets/Footer.png" id="1_fsa14"]
-[ext_resource type="Texture2D" uid="uid://ce16tqcy1nss0" path="res://assets/hora.png" id="2_o0a6g"]
-[ext_resource type="Texture2D" uid="uid://53yp3lca4tte" path="res://assets/bateria.png" id="3_w1dxq"]
+[ext_resource type="Texture2D" uid="uid://ckkjwolkdq2na" path="res://assets/screenUI/Footer.png" id="1_es6h6"]
+[ext_resource type="Texture2D" uid="uid://dbihq1rebm5l2" path="res://assets/icons/1.png" id="1_o0a6g"]
+[ext_resource type="Texture2D" uid="uid://b2qj758ctychk" path="res://assets/screenUI/Header.png" id="1_xp516"]
+[ext_resource type="Texture2D" uid="uid://brnkxfnas1tel" path="res://assets/icons/2.png" id="2_es6h6"]
+[ext_resource type="Script" uid="uid://dbhkoumesmffd" path="res://src/ui/glitch-texture-rect.gd" id="2_xp516"]
+[ext_resource type="Texture2D" uid="uid://fk0bt367ogc" path="res://assets/screenUI/header-with-glitch.png" id="3_l4ppv"]
+[ext_resource type="Texture2D" uid="uid://cdh4ld57wjhx3" path="res://assets/icons/3.png" id="3_xp516"]
+[ext_resource type="Texture2D" uid="uid://0p187ik5ca6p" path="res://assets/icons/4.png" id="4_l4ppv"]
+[ext_resource type="Texture2D" uid="uid://cyi40ir0eu101" path="res://assets/icons/5.png" id="5_kiqj7"]
+[ext_resource type="Texture2D" uid="uid://cchyaketjxte6" path="res://assets/screenUI/footer-with-glitch.png" id="6_jduka"]
+[ext_resource type="Texture2D" uid="uid://cpt8srktydt5h" path="res://assets/icons/6.png" id="6_qn86x"]
+[ext_resource type="Texture2D" uid="uid://w2k3g8jyuahd" path="res://assets/icons/7.png" id="7_jduka"]
+
+[sub_resource type="GDScript" id="GDScript_fsa14"]
+script/source = "extends Sprite2D
+
+@export var frames: Array[Texture2D] = []
+
+func _ready():
+	show_frame(3)
+
+func show_frame(index: int) -> void:
+	print(frames)
+	if index >= 0 and index < frames.size():
+		texture = frames[index]
+	else:
+		push_warning(\"Indice fuera de rango: %s\" % index)
+"
 
 [node name="MarcoCelular" type="CanvasLayer"]
 layer = -1
@@ -15,26 +40,42 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
-color = Color(0.15294118, 0.21568628, 0.27450982, 1)
+color = Color(0, 0, 0, 1)
 
-[node name="Header" type="ColorRect" parent="."]
-offset_left = -3.0
-offset_right = 725.0
-offset_bottom = 82.0
-size_flags_vertical = 0
-color = Color(0.0035191667, 0.0035191681, 0.0035191672, 1)
+[node name="Header" type="TextureRect" parent="."]
+texture_filter = 1
+offset_right = 720.0
+offset_bottom = 80.0
+texture = ExtResource("1_xp516")
+expand_mode = 1
+script = ExtResource("2_xp516")
+glitch_textures = Array[Texture2D]([ExtResource("3_l4ppv")])
 
-[node name="Footer" type="Sprite2D" parent="."]
-position = Vector2(360, 1201)
-texture = ExtResource("1_fsa14")
+[node name="FooterControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Hora" type="Sprite2D" parent="."]
-top_level = true
-position = Vector2(55.595455, 42.25)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("2_o0a6g")
+[node name="Footer" type="TextureRect" parent="FooterControl"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1092.0
+offset_right = 680.0
+offset_bottom = 1240.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_es6h6")
+script = ExtResource("2_xp516")
+glitch_textures = Array[Texture2D]([ExtResource("6_jduka")])
 
-[node name="Bateria" type="Sprite2D" parent="."]
-position = Vector2(649.00006, 43.000004)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_w1dxq")
+[node name="Sprite2D" type="Sprite2D" parent="FooterControl"]
+z_index = 100
+position = Vector2(361.75, 1207.75)
+scale = Vector2(0.40027782, 0.3959458)
+script = SubResource("GDScript_fsa14")
+frames = Array[Texture2D]([ExtResource("1_o0a6g"), ExtResource("2_es6h6"), ExtResource("3_xp516"), ExtResource("4_l4ppv"), ExtResource("5_kiqj7"), ExtResource("6_qn86x"), ExtResource("7_jduka")])

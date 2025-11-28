@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crosegadfidlf"
-path="res://.godot/imported/Footer.png-0ba455b21dcf65991405beee6c64b309.ctex"
+uid="uid://cxn75u5motjs1"
+path="res://.godot/imported/hourglass.png-6131d6f95066c176dcb22694e7aeaad6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Footer.png"
-dest_files=["res://.godot/imported/Footer.png-0ba455b21dcf65991405beee6c64b309.ctex"]
+source_file="res://assets/screenUI/hourglass.png"
+dest_files=["res://.godot/imported/hourglass.png-6131d6f95066c176dcb22694e7aeaad6.ctex"]
 
 [params]
 

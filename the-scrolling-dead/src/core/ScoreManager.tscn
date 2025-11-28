@@ -1,19 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://6f3bau0egof"]
+[gd_scene load_steps=6 format=3 uid="uid://6f3bau0egof"]
 
 [ext_resource type="Script" uid="uid://etoqcwktlrqg" path="res://src/core/ScoreManager.gd" id="1_4y0yy"]
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="2_6mkhf"]
-[ext_resource type="Texture2D" uid="uid://pkiw6cs8v6ts" path="res://assets/Share.png" id="2_8aake"]
 [ext_resource type="PackedScene" uid="uid://byyl8ofefmw2r" path="res://src/core/ScrollMeter.tscn" id="3_q8hnk"]
+[ext_resource type="Texture2D" uid="uid://ry4bwhh86yic" path="res://assets/screenUI/brain.png" id="5_gcehf"]
+[ext_resource type="Texture2D" uid="uid://cxn75u5motjs1" path="res://assets/screenUI/hourglass.png" id="6_2atdi"]
 
 [node name="ScoreManager" type="Node"]
 script = ExtResource("1_4y0yy")
-
-[node name="Share" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.5647059)
-top_level = true
-position = Vector2(661.00006, 772)
-scale = Vector2(0.6, 0.596)
-texture = ExtResource("2_8aake")
 
 [node name="ScrollMeter" parent="." instance=ExtResource("3_q8hnk")]
 
@@ -53,3 +47,14 @@ theme_override_font_sizes/font_size = 32
 text = "0.0m"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="BrainMeter" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(663, 647)
+scale = Vector2(0.18, 0.18)
+texture = ExtResource("5_gcehf")
+
+[node name="HourglassCounter" type="Sprite2D" parent="."]
+position = Vector2(663, 777)
+scale = Vector2(0.22, 0.22)
+texture = ExtResource("6_2atdi")
