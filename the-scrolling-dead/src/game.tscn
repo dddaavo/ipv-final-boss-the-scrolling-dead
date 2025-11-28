@@ -38,9 +38,6 @@ offset_top = 89.0
 offset_right = 296.0
 offset_bottom = 153.0
 
-[node name="MarcoCelular" parent="." instance=ExtResource("8_5q0ih")]
-layer = -2
-
 [node name="SliderMainScene" parent="." instance=ExtResource("5_0rf6s")]
 z_index = -1
 anchors_preset = 7
@@ -142,6 +139,9 @@ expand = true
 [node name="ScoreScreen" parent="." instance=ExtResource("6_2fxc8")]
 visible = false
 z_index = 100
+
+[node name="MarcoCelular" parent="." instance=ExtResource("8_5q0ih")]
+layer = -2
 
 [connection signal="finished" from="GameOverVideo" to="." method="_on_game_over_video_finished"]
 [connection signal="finished" from="Top3Video" to="." method="_on_top3_video_finished"]
