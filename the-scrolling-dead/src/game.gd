@@ -5,7 +5,6 @@ extends Node
 @onready var slider_main_scene = $SliderMainScene
 @onready var game_over_video: VideoStreamPlayer = $GameOverVideo
 
-signal game_over_triggered
 signal retry_triggered
 
 var game_started: bool = false

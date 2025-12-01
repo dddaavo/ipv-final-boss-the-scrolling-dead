@@ -19,7 +19,7 @@
 script/source = "extends Sprite2D
 
 @export var frames: Array[Texture2D] = []
-@export var fade_time := 0.25
+@export var fade_time := 0.15
 
 var current_frame_index := -1
 
@@ -28,11 +28,22 @@ signal collapse_animation_finished
 var collapse_active := false
 signal collapse_triggered(type: String) # \"low\" o \"high\"
 
+# PARA RETRY
 var original_parent: Node = null
 var original_position: Vector2
 var original_scale: Vector2
+var original_global_position: Vector2
+var original_global_scale: Vector2
+
 
 func _ready():
+	original_parent = get_parent()
+	original_position = position
+	original_scale = scale
+
+	original_global_position = global_position
+	original_global_scale = global_scale
+
 	_update_mood()
 	DopamineManager.value_changed.connect(_update_mood)
 
@@ -111,22 +122,28 @@ func reset_state():
 
 	# --- Volver al parent original ---
 	if original_parent and get_parent() != original_parent:
+		var gp = global_position
+		var gs = global_scale
+
 		get_parent().remove_child(self)
 		original_parent.add_child(self)
 
-	# Restaurar posición/escala original
-	scale = original_scale
-	position = original_position
+		# Mantener posicion global al reinsertar
+		global_position = gp
+		global_scale = gs
 
-	modulate.a = 1.0
+	# Restaurar transformaciones originales
+	global_position = original_global_position
+	global_scale = original_global_scale
 
-	# Reset blur
-	if original_parent:
-		var blur_rect = original_parent.get_parent().get_node(\"BlurOverlay\")
-		blur_rect.modulate.a = 0.0
+	modulate = Color.WHITE
+
+	# Reset blur - TODO FIX
+	#if original_parent:
+	#	var blur_rect = original_parent.get_parent().get_node(\"BlurOverlay\")
+	#	blur_rect.modulate.a = 0.0
 
 	_update_mood()
-
 
 
 func _trigger_extreme(kind: String, frame_index: int):
@@ -160,19 +177,10 @@ func _fade_to_frame(index: int):
 layer = 1000
 
 [node name="BlurOverlay" type="ColorRect" parent="."]
+visible = false
 material = SubResource("CanvasItemMaterial_l4ppv")
 offset_right = 40.0
 offset_bottom = 40.0
-color = Color(0, 0, 0, 1)
-
-[node name="Background" type="ColorRect" parent="."]
-top_level = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
 color = Color(0, 0, 0, 1)
 
 [node name="Header" type="TextureRect" parent="."]
@@ -207,9 +215,11 @@ script = ExtResource("2_xp516")
 glitch_textures = Array[Texture2D]([ExtResource("6_jduka")])
 
 [node name="UserStatus" type="Sprite2D" parent="FooterControl"]
+modulate = Color(1, 1, 1, 0.49803922)
+self_modulate = Color(1, 1, 1, 0.627451)
 z_index = 100
 z_as_relative = false
-position = Vector2(360, 1204)
-scale = Vector2(0.40027782, 0.3959458)
+position = Vector2(360, 1203)
+scale = Vector2(0.4, 0.4)
 script = SubResource("GDScript_fsa14")
 frames = Array[Texture2D]([ExtResource("1_o0a6g"), ExtResource("2_es6h6"), ExtResource("3_xp516"), ExtResource("4_l4ppv"), ExtResource("5_kiqj7"), ExtResource("6_qn86x"), ExtResource("7_jduka")])

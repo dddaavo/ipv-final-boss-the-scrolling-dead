@@ -20,6 +20,7 @@ script = ExtResource("1_x2540")
 layer = 10
 
 [node name="CollapseContainer" type="Node2D" parent="CollapseLayer"]
+z_index = 1000
 
 [node name="TestScreen" parent="." instance=ExtResource("2_dlhd6")]
 visible = false
@@ -37,6 +38,9 @@ offset_left = -304.0
 offset_top = 89.0
 offset_right = 296.0
 offset_bottom = 153.0
+
+[node name="MarcoCelular" parent="." instance=ExtResource("8_5q0ih")]
+layer = 0
 
 [node name="SliderMainScene" parent="." instance=ExtResource("5_0rf6s")]
 z_index = -1
@@ -83,6 +87,8 @@ texture = ExtResource("11_y2hwx")
 [node name="GameOverVideo" type="VideoStreamPlayer" parent="."]
 visible = false
 top_level = true
+z_index = 100
+z_as_relative = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -139,9 +145,6 @@ expand = true
 [node name="ScoreScreen" parent="." instance=ExtResource("6_2fxc8")]
 visible = false
 z_index = 100
-
-[node name="MarcoCelular" parent="." instance=ExtResource("8_5q0ih")]
-layer = -2
 
 [connection signal="finished" from="GameOverVideo" to="." method="_on_game_over_video_finished"]
 [connection signal="finished" from="Top3Video" to="." method="_on_top3_video_finished"]
