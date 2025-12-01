@@ -14,6 +14,13 @@ var final_score: float
 @onready var bg_music = $SliderMainScene/ScreensSlider/BackgroundMusic
 
 func _ready() -> void:
+	#score_screen.pause_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	score_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	game_over_video.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	#$RetryButton.pause_mode = Node.PAUSE_MODE_PROCESS  # o donde esté el botón
+	#$MarcoCelular.pause_mode = Node.PAUSE_MODE_PROCESS  # si también querés UI activa
+	
 	user_status.collapse_triggered.connect(_on_collapse)
 	user_status.collapse_animation_finished.connect(_on_collapse_animation_finished)
 
@@ -77,20 +84,28 @@ func _on_collapse(kind):
 
 # ANIMACIÓN DE GAME OVER
 func _on_collapse_animation_finished():
+	get_tree().paused = true   # <- congela TODO el juego
 	score_manager._on_game_over()
-
-	# Espera 1 segundo antes del video
-	await get_tree().create_timer(1.0).timeout
+	await wait_ignoring_pause(1.0)
 
 	if bg_music.playing:
 		bg_music.stop()
 
+	DopamineManager.reset_game()
 	user_status.visible = false
 	game_over_video.visible = true
 	game_over_video.play()
 
 
+func wait_ignoring_pause(seconds: float) -> void:
+	var time_passed := 0.0
+	while time_passed < seconds:
+		await get_tree().process_frame
+		time_passed += get_process_delta_time()  # este delta ignora pausa
+
+
 func _on_retry_pressed():
+	get_tree().paused = false
 	user_status.reset_state()
 	bg_music.play()
 	# Resetear el DopamineManager (es un autoload, no se reinicia con la escena)
