@@ -30,6 +30,7 @@ func _ready() -> void:
 	# Conectar señal de retry del score screen
 	if score_screen:
 		score_screen.retry_pressed.connect(_on_retry_pressed)
+		score_screen.volver_menu_pressed.connect(_on_volver_menu_pressed)
 	
 	# Conectar señal de scroll directamente al score manager
 	if slider_main_scene and score_manager:
@@ -133,3 +134,14 @@ func _on_retry_pressed():
 func _on_game_over_video_finished() -> void:
 	game_over_video.visible = false
 	score_screen.show_score_screen(final_score)
+
+
+func _on_volver_menu_pressed():
+	get_tree().paused = false
+	
+	# Resetear el DopamineManager
+	if DopamineManager:
+		DopamineManager.reset_game()
+	
+	# Recargar la escena principal (menú)
+	get_tree().change_scene_to_file("uid://c0wroa1sk1xif")
