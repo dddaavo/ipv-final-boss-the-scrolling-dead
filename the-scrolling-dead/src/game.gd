@@ -86,6 +86,7 @@ func _on_collapse(kind):
 func _on_collapse_animation_finished():
 	get_tree().paused = true   # <- congela TODO el juego
 	score_manager._on_game_over()
+	final_score = score_manager.current_score
 	await wait_ignoring_pause(1.0)
 
 	if bg_music.playing:
