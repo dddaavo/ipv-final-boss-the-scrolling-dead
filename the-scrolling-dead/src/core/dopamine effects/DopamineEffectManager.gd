@@ -3,12 +3,20 @@ extends Node
 class_name DopamineEffectManager
 
 var active_effects: Array[DopamineEffect] = []
+var game_started: bool = false
 
 func _ready():
 	set_process(true) #activo el procesamiento en cada frame
 
 func _process(delta):
-	_update_active_effects(delta)
+	if game_started:
+		_update_active_effects(delta)
+
+func start_game():
+	game_started = true
+
+func stop_game():
+	game_started = false
 
 func _update_active_effects(delta_time: float):
 	# Procesar todos los efectos activos

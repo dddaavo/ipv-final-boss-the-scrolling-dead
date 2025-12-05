@@ -1,27 +1,38 @@
 extends Control
 
 signal scrolled
+signal first_scroll  # Nueva señal para el primer scroll
+var scrolling := false
+signal reset_requested  # Nueva señal para resetear al segundo slide
+signal minigame_started(page: Control)
 
 @export var animation_time: float = 0.45
 @export var pages: Control
-@onready var button_next: Button = $Button
+const SCREEN_SLIDER_DIR := "res://assets/screenSlider"
+
+@onready var start_game_sound = $StartGame
+var screen_slider_textures: Array[Texture2D] = []
 
 var current_index := 0
 var total_pages := 0
+var game_started := false  # Nueva variable para controlar el inicio del juego
+@onready var tutorial: Control = $Pages/Tutorial
+var tutorial_removed := false  # Para saber si ya se eliminó el tutorial
 
 var swipe_start_pos := Vector2.ZERO
 var swipe_min_distance := 100.0
 var swipe_active := false
+@export var input_cooldown: float = 0.25
+var last_input_time: float = -100.0
 
 func _ready() -> void:
 	clip_contents = true
 
-	if button_next:
-		button_next.pressed.connect(_on_ButtonNext_pressed)
-
 	total_pages = pages.get_child_count()
 	_resize_pages()
 	_position_pages_initial()
+	_load_screen_slider_images()
+	_apply_random_image_to_page(pages.get_child(0) if pages.get_child_count() > 0 else null)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
@@ -37,37 +48,62 @@ func _resize_pages() -> void:
 			i += 1
 	pages.size = size * Vector2(1, total_pages)
 
+
+func _load_screen_slider_images():
+	var dir := DirAccess.open(SCREEN_SLIDER_DIR)
+	if not dir:
+		push_warning("No se pudo abrir " + SCREEN_SLIDER_DIR)
+		return
+	for file_name in dir.get_files():
+		var ext := file_name.get_extension().to_lower()
+		if ext in ["png", "jpg", "jpeg", "webp"]:
+			var tex: Texture2D = load(SCREEN_SLIDER_DIR + "/" + file_name)
+			if tex:
+				screen_slider_textures.append(tex)
+
+
+func _apply_random_image_to_page(page: Node):
+	if page == null:
+		return
+	if page.is_in_group("minigame_page"):
+		return
+	if screen_slider_textures.is_empty():
+		return
+	if page is TextureRect:
+		page.texture = screen_slider_textures.pick_random()
+
 func _position_pages_initial() -> void:
 	pages.position = Vector2.ZERO
 	current_index = 0
+	if pages.get_child_count() > 0:
+		_apply_random_image_to_page(pages.get_child(0))
 
 func go_next() -> void:
-	if total_pages == 0:
+	if total_pages == 0 or scrolling:
 		return
-
-	# "RENDER" de siguiente página
+	scrolling = true
 	_prepare_next_page()
-
-	var start_y := pages.position.y
-	var end_y := start_y - size.y
+	await get_tree().process_frame
 
 	var tween := create_tween()
-	tween.tween_property(pages, "position:y", end_y, animation_time) \
+	tween.tween_property(pages, "position:y", pages.position.y - size.y, animation_time) \
 		.set_ease(Tween.EASE_IN_OUT) \
 		.set_trans(Tween.TRANS_CUBIC)
+	tween.finished.connect(func():
+		scrolling = false
+		_on_scroll_finished()
+	)
+	scrolled.emit()
 
-	tween.finished.connect(_on_scroll_finished)
-	emit_signal("scrolled")
 
 func _prepare_next_page() -> void:
 	var last_child := pages.get_child(pages.get_child_count() - 1)
 	var new_page_index := (current_index + 1) % total_pages
 	var next_page := pages.get_child(new_page_index)
+	_apply_random_image_to_page(next_page)
 
 	next_page.position.y = last_child.position.y + size.y
 	_refresh_page(next_page)
-
-	await get_tree().process_frame
 
 
 func _on_scroll_finished() -> void:
@@ -83,6 +119,15 @@ func _on_scroll_finished() -> void:
 
 	pages.position.y = 0
 
+	# Activar evento si la nueva página visible es un EventPage
+	var current_page := pages.get_child(0)
+	if current_page is EventPage:
+		current_page.trigger_event_effect()
+
+	# Emitir cuando la página visible es un minijuego
+	if current_page.is_in_group("minigame_page"):
+		emit_signal("minigame_started", current_page)
+
 
 func _refresh_page(page: Control) -> void:
 	if page.has_method("reset_content"):
@@ -92,18 +137,47 @@ func _refresh_page(page: Control) -> void:
 
 
 func _on_ButtonNext_pressed() -> void:
+	# Si es el primer scroll, emitir señal
+	if not game_started:
+		game_started = true
+		first_scroll.emit()
+		_remove_tutorial()
+		start_game_sound.play()
+	
 	go_next()
-	var rand = randf_range(25, 300)
-	DopamineManager.increment(rand)
+	var diff := DopamineManager.get_difficulty_factor()
+	var base_gain := randf_range(12, 40)  # variación baja al inicio
+	var scaled_gain := base_gain * diff   # se vuelve más grande conforme sube la dificultad
+	DopamineManager.increment(scaled_gain)
 
+func _remove_tutorial():
+	#Elimina el nodo Tutorial si existe
+	if not tutorial_removed and pages:
+		if tutorial:
+			tutorial.queue_free()
+			tutorial_removed = true
+			# Recalcular el número de páginas
+			await get_tree().process_frame
+			total_pages = pages.get_child_count()
+			_resize_pages()
 
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
-		_on_ButtonNext_pressed()
-
+func reset_to_start():
+	"""Resetea el slider pero va al segundo slide"""
+	game_started = false
+	_position_pages_initial()
+	# Emitir señal para que el manager maneje la lógica
+	emit_signal("reset_requested")
 
 func _input(event: InputEvent) -> void:
-	if event is InputEventScreenTouch:
+	var now = Time.get_ticks_msec() / 1000.0
+	if now - last_input_time < input_cooldown:
+		return
+
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_WHEEL_UP and event.pressed:
+		_trigger_next()
+		last_input_time = now
+
+	elif event is InputEventScreenTouch:
 		if event.pressed:
 			swipe_start_pos = event.position
 			swipe_active = true
@@ -114,5 +188,9 @@ func _input(event: InputEvent) -> void:
 		var delta = event.position - swipe_start_pos
 		if abs(delta.y) > swipe_min_distance:
 			if delta.y < 0:
-				_on_ButtonNext_pressed()
+				_trigger_next()
+				last_input_time = now
 			swipe_active = false
+
+func _trigger_next() -> void:
+	_on_ButtonNext_pressed()

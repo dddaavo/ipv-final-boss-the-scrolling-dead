@@ -1,44 +1,46 @@
-[gd_scene load_steps=12 format=3 uid="uid://b6gxm6trluke2"]
+[gd_scene load_steps=11 format=3 uid="uid://b40ppn8waxsr4"]
 
-[ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_eewff"]
-[ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_3cfgd"]
-[ext_resource type="PackedScene" uid="uid://6f3bau0egof" path="res://src/core/ScoreManager.tscn" id="2_fyndt"]
-[ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="3_5q4o7"]
-[ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="4_3cfgd"]
-[ext_resource type="PackedScene" uid="uid://dgrwmhcn1kvrt" path="res://src/ui/SlideWarning.tscn" id="6_kmhfv"]
-[ext_resource type="PackedScene" uid="uid://dctldbokblq55" path="res://src/ui/ScoreScreen.tscn" id="7_score"]
-[ext_resource type="Texture2D" uid="uid://crosegadfidlf" path="res://assets/Footer.png" id="8_5mrjc"]
-[ext_resource type="Texture2D" uid="uid://pkiw6cs8v6ts" path="res://assets/Share.png" id="9_kf8lf"]
-[ext_resource type="Texture2D" uid="uid://ce16tqcy1nss0" path="res://assets/hora.png" id="10_uewes"]
-[ext_resource type="Texture2D" uid="uid://53yp3lca4tte" path="res://assets/bateria.png" id="11_kqbth"]
+[ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_x2540"]
+[ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_dlhd6"]
+[ext_resource type="PackedScene" uid="uid://6f3bau0egof" path="res://src/core/ScoreManager.tscn" id="3_72vyi"]
+[ext_resource type="PackedScene" uid="uid://dpa5cbcsj0mtt" path="res://src/ui/DopamineBar.tscn" id="4_at4if"]
+[ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="5_0rf6s"]
+[ext_resource type="PackedScene" uid="uid://dctldbokblq55" path="res://src/ui/ScoreScreen.tscn" id="6_2fxc8"]
+[ext_resource type="PackedScene" uid="uid://d0oil5f17c368" path="res://src/ui/MarcoCelular.tscn" id="8_5q0ih"]
+[ext_resource type="VideoStream" uid="uid://1osua30h3bsb" path="res://Video/sleepy2.ogv" id="9_72vyi"]
+[ext_resource type="Script" uid="uid://du6m8oc3xeoxf" path="res://src/screen_effects.gd" id="11_qiocs"]
+[ext_resource type="Texture2D" uid="uid://b3wj3xps1r0gy" path="res://assets/screenUI/zombification.png" id="11_y2hwx"]
 
-[node name="Main" type="Node"]
-script = ExtResource("1_eewff")
+[node name="Game" type="Node"]
+script = ExtResource("1_x2540")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-offset_left = -3.0
-offset_right = 725.0
-offset_bottom = 82.0
-color = Color(0.0035191667, 0.0035191681, 0.0035191672, 1)
+[node name="CollapseLayer" type="CanvasLayer" parent="."]
+layer = 10
 
-[node name="TestScreen" parent="." instance=ExtResource("2_3cfgd")]
+[node name="CollapseContainer" type="Node2D" parent="CollapseLayer"]
+z_index = 1000
+
+[node name="TestScreen" parent="." instance=ExtResource("2_dlhd6")]
 visible = false
 z_index = 1
 position = Vector2(44, 31)
 
 [node name="Home" type="Node" parent="."]
 
-[node name="ScoreManager" parent="Home" instance=ExtResource("2_fyndt")]
+[node name="ScoreManager" parent="Home" instance=ExtResource("3_72vyi")]
 
-[node name="DopamineBar" parent="Home" instance=ExtResource("3_5q4o7")]
-modulate = Color(1, 1, 1, 0.64705884)
+[node name="DopamineBar" parent="Home" instance=ExtResource("4_at4if")]
+modulate = Color(1, 1, 1, 0.8784314)
 top_level = true
 offset_left = -304.0
 offset_top = 89.0
 offset_right = 296.0
 offset_bottom = 153.0
 
-[node name="SliderMainScene" parent="." instance=ExtResource("4_3cfgd")]
+[node name="MarcoCelular" parent="." instance=ExtResource("8_5q0ih")]
+layer = 0
+
+[node name="SliderMainScene" parent="." instance=ExtResource("5_0rf6s")]
 z_index = -1
 anchors_preset = 7
 anchor_left = 0.5
@@ -50,30 +52,57 @@ offset_right = 360.0
 offset_bottom = -155.0
 grow_vertical = 0
 
-[node name="SlideWarning" parent="." instance=ExtResource("6_kmhfv")]
+[node name="ScreenEffects" type="Control" parent="SliderMainScene"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("11_qiocs")
 
-[node name="ScoreScreen" parent="." instance=ExtResource("7_score")]
+[node name="DarkOverlay" type="ColorRect" parent="SliderMainScene/ScreenEffects"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ZombificationOverlay" type="TextureRect" parent="SliderMainScene/ScreenEffects"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("11_y2hwx")
+
+[node name="GameOverVideo" type="VideoStreamPlayer" parent="."]
+top_level = true
+z_index = 100
+z_as_relative = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -560.0
+offset_right = 360.0
+offset_bottom = 484.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("9_72vyi")
+speed_scale = 1.2
+expand = true
+
+[node name="ScoreScreen" parent="." instance=ExtResource("6_2fxc8")]
 visible = false
 z_index = 100
 
-[node name="Footer" type="Sprite2D" parent="."]
-position = Vector2(360, 1201)
-texture = ExtResource("8_5mrjc")
-
-[node name="Share" type="Sprite2D" parent="."]
-modulate = Color(1, 1, 1, 0.5647059)
-top_level = true
-position = Vector2(635, 727.00006)
-scale = Vector2(0.7888888, 0.7835821)
-texture = ExtResource("9_kf8lf")
-
-[node name="Hora" type="Sprite2D" parent="."]
-top_level = true
-position = Vector2(55.595455, 42.25)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("10_uewes")
-
-[node name="Bateria" type="Sprite2D" parent="."]
-position = Vector2(649.00006, 43.000004)
-scale = Vector2(0.8, 0.8)
-texture = ExtResource("11_kqbth")
+[connection signal="finished" from="GameOverVideo" to="." method="_on_game_over_video_finished"]

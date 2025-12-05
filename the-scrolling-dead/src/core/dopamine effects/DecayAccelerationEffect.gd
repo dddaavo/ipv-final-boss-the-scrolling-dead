@@ -36,12 +36,10 @@ func apply():
 	time_since_start = 0.0
 	time_since_last_reset = 0.0
 	accumulated_time = 0.0
-	print("[DecayModifier] Applied - Base rate: ", base_decay_rate, 
-		  " | Max multiplier: x", max_multiplier, 
-		  " | Acceleration: ", acceleration_rate, "/s")
+	pass
 
 func remove():
-	print("[DecayModifier] Removed - Final multiplier was: x", "%.2f" % current_multiplier)
+	pass
 
 func process_effect(delta_time: float):
 	accumulated_time += delta_time
@@ -51,15 +49,9 @@ func process_effect(delta_time: float):
 		var decay_amount = base_decay_rate * current_multiplier
 		DopamineManager.decrement(decay_amount)
 		accumulated_time = 0.0
-		
-		# Debug cada 5 segundos
-		var current_second = int(time_since_last_reset)
-		if current_second > 0 and current_second % 5 == 0 and time_since_last_reset - delta_time < current_second:
-			print("[DecayModifier] Multiplier: x", "%.2f" % current_multiplier, 
-				  " | Time since reset: ", "%.1f" % time_since_last_reset, "s")
 
 func get_effect_type() -> String:
-	return "DecayModifierEffect"
+	return "DecayAccelerationEffect"
 
 func get_current_multiplier() -> float:
 	return current_multiplier

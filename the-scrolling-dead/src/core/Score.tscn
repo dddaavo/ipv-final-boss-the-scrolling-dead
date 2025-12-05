@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://cw2x0wd2ii3b1"]
+
+[ext_resource type="Script" uid="uid://etoqcwktlrqg" path="res://src/core/Score.gd" id="1_4y0yy"]
+[ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="2_6mkhf"]
+[ext_resource type="PackedScene" uid="uid://c5x3y8k2qr7tp" path="res://src/core/ScrollMeter.tscn" id="3_scroll"]
+
+[node name="ScoreManager" type="Node"]
+script = ExtResource("1_4y0yy")
+
+[node name="ScrollMeter" parent="." instance=ExtResource("3_scroll")]
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = 27.0
+offset_right = 16.0
+offset_bottom = 64.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("2_6mkhf")
+theme_override_font_sizes/font_size = 32
+text = "0"
+horizontal_alignment = 1

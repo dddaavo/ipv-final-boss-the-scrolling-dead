@@ -1,0 +1,225 @@
+[gd_scene load_steps=15 format=3 uid="uid://d0oil5f17c368"]
+
+[ext_resource type="Texture2D" uid="uid://ckkjwolkdq2na" path="res://assets/screenUI/Footer.png" id="1_es6h6"]
+[ext_resource type="Texture2D" uid="uid://dbihq1rebm5l2" path="res://assets/userStatus/1.png" id="1_o0a6g"]
+[ext_resource type="Texture2D" uid="uid://b2qj758ctychk" path="res://assets/screenUI/Header.png" id="1_xp516"]
+[ext_resource type="Texture2D" uid="uid://brnkxfnas1tel" path="res://assets/userStatus/2.png" id="2_es6h6"]
+[ext_resource type="Script" uid="uid://dbhkoumesmffd" path="res://src/ui/glitch-texture-rect.gd" id="2_xp516"]
+[ext_resource type="Texture2D" uid="uid://fk0bt367ogc" path="res://assets/screenUI/header-with-glitch.png" id="3_l4ppv"]
+[ext_resource type="Texture2D" uid="uid://cdh4ld57wjhx3" path="res://assets/userStatus/3.png" id="3_xp516"]
+[ext_resource type="Texture2D" uid="uid://0p187ik5ca6p" path="res://assets/userStatus/4.png" id="4_l4ppv"]
+[ext_resource type="Texture2D" uid="uid://cyi40ir0eu101" path="res://assets/userStatus/5.png" id="5_kiqj7"]
+[ext_resource type="Texture2D" uid="uid://cchyaketjxte6" path="res://assets/screenUI/footer-with-glitch.png" id="6_jduka"]
+[ext_resource type="Texture2D" uid="uid://cpt8srktydt5h" path="res://assets/userStatus/6.png" id="6_qn86x"]
+[ext_resource type="Texture2D" uid="uid://w2k3g8jyuahd" path="res://assets/userStatus/7.png" id="7_jduka"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_l4ppv"]
+
+[sub_resource type="GDScript" id="GDScript_fsa14"]
+script/source = "extends Sprite2D
+
+@export var frames: Array[Texture2D] = []
+@export var fade_time := 0.15
+
+var current_frame_index := -1
+
+signal collapse_animation_finished
+
+var collapse_active := false
+signal collapse_triggered(type: String) # \"low\" o \"high\"
+
+# PARA RETRY
+var original_parent: Node = null
+var original_position: Vector2
+var original_scale: Vector2
+var original_global_position: Vector2
+var original_global_scale: Vector2
+
+
+func _ready():
+	original_parent = get_parent()
+	original_position = position
+	original_scale = scale
+
+	original_global_position = global_position
+	original_global_scale = global_scale
+
+	_update_mood()
+	DopamineManager.value_changed.connect(_update_mood)
+
+
+func _update_mood():
+	var value := DopamineManager.get_current()
+	var maxv := DopamineManager.get_maxim()
+
+	# --- detectar colapso por abajo ---
+	if value <= -maxv:
+		if not collapse_active:
+			collapse_active = true
+			emit_signal(\"collapse_triggered\", \"low\")
+		return
+
+	# --- detectar colapso por arriba ---
+	if value >= maxv:
+		if not collapse_active:
+			collapse_active = true
+			emit_signal(\"collapse_triggered\", \"high\")
+		return
+
+	# Si está en rango normal, resetear estado crítico
+	if collapse_active:
+		collapse_active = false
+
+	# --- lógica normal ---
+	var normalized := (value + maxv) / (maxv * 2.0)
+	var index := int(round(normalized * (frames.size() - 1)))
+	index = clamp(index, 0, frames.size() - 1)
+
+	if index != current_frame_index:
+		current_frame_index = index
+		_fade_to_frame(index)
+
+
+func play_collapse_animation(frame_index: int):
+	texture = frames[frame_index]
+
+	original_parent = get_parent()
+	original_position = position
+	original_scale = scale
+
+	# Mover a CollapseLayer PARA SUPONERPONERSE EN LA PANTALLA
+	var collapse_container = get_tree().root.get_node(\"Game/CollapseLayer/CollapseContainer\")
+	original_parent.remove_child(self)
+	collapse_container.add_child(self)
+
+	scale = Vector2(0.4, 0.4)
+	position = Vector2(360, 1204)
+
+	var tween := create_tween()
+
+	tween.tween_property(self, \"position:y\", 800, 0.8)\\
+		.set_trans(Tween.TRANS_SINE)\\
+		.set_ease(Tween.EASE_OUT)
+
+	tween.tween_property(self, \"scale\", Vector2(2, 2), 0.8)\\
+		.set_trans(Tween.TRANS_SINE)\\
+		.set_ease(Tween.EASE_OUT)
+
+	# Blur: TODO ARREGLAR
+	#if original_parent:
+	#	var blur_rect = original_parent.get_parent().get_node(\"BlurOverlay\")
+	#	blur_rect.modulate.a = 0.0
+	#	tween.tween_property(blur_rect, \"modulate:a\", 0.6, 0.8)
+
+	tween.tween_callback(func():
+		emit_signal(\"collapse_animation_finished\")
+	)
+
+
+func reset_state():
+	visible = true
+	collapse_active = false
+
+	# --- Volver al parent original ---
+	if original_parent and get_parent() != original_parent:
+		var gp = global_position
+		var gs = global_scale
+
+		get_parent().remove_child(self)
+		original_parent.add_child(self)
+
+		# Mantener posicion global al reinsertar
+		global_position = gp
+		global_scale = gs
+
+	# Restaurar transformaciones originales
+	global_position = original_global_position
+	global_scale = original_global_scale
+
+	modulate = Color.WHITE
+
+	# Reset blur - TODO FIX
+	#if original_parent:
+	#	var blur_rect = original_parent.get_parent().get_node(\"BlurOverlay\")
+	#	blur_rect.modulate.a = 0.0
+
+	_update_mood()
+
+
+func _trigger_extreme(kind: String, frame_index: int):
+	# Cambiar frame inmediatamente
+	texture = frames[frame_index]
+
+	# Activar animación de agrandar + subir
+	var tween := create_tween()
+	tween.set_parallel(true)
+
+	# crecer
+	tween.tween_property(self, \"scale\", Vector2(2.8, 2.8), 0.8).set_ease(Tween.EASE_OUT)
+	# mover hacia arriba
+	tween.tween_property(self, \"position:y\", position.y - 120, 0.8).set_ease(Tween.EASE_OUT)
+
+	emit_signal(\"extreme_state_reached\", kind)  # avisar al padre
+
+
+func _fade_to_frame(index: int):
+	if index < 0 or index >= frames.size():
+		push_warning(\"Índice fuera de rango: %s\" % index)
+		return
+
+	var tween := create_tween()
+	tween.tween_property(self, \"modulate:a\", 0.0, fade_time * 0.5)  # fade-out
+	tween.tween_callback(func(): texture = frames[index])
+	tween.tween_property(self, \"modulate:a\", 1.0, fade_time * 0.5)  # fade-in
+"
+
+[node name="MarcoCelular" type="CanvasLayer"]
+layer = 1000
+
+[node name="BlurOverlay" type="ColorRect" parent="."]
+visible = false
+material = SubResource("CanvasItemMaterial_l4ppv")
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0, 0, 0, 1)
+
+[node name="Header" type="TextureRect" parent="."]
+texture_filter = 1
+offset_right = 720.0
+offset_bottom = 80.0
+texture = ExtResource("1_xp516")
+expand_mode = 1
+script = ExtResource("2_xp516")
+glitch_textures = Array[Texture2D]([ExtResource("3_l4ppv")])
+
+[node name="FooterControl" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Footer" type="TextureRect" parent="FooterControl"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1086.0
+offset_right = 680.0
+offset_bottom = 1240.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_es6h6")
+script = ExtResource("2_xp516")
+glitch_textures = Array[Texture2D]([ExtResource("6_jduka")])
+
+[node name="UserStatus" type="Sprite2D" parent="FooterControl"]
+modulate = Color(1, 1, 1, 0.49803922)
+self_modulate = Color(1, 1, 1, 0.627451)
+z_index = 100
+z_as_relative = false
+position = Vector2(360, 1203)
+scale = Vector2(0.4, 0.4)
+script = SubResource("GDScript_fsa14")
+frames = Array[Texture2D]([ExtResource("1_o0a6g"), ExtResource("2_es6h6"), ExtResource("3_xp516"), ExtResource("4_l4ppv"), ExtResource("5_kiqj7"), ExtResource("6_qn86x"), ExtResource("7_jduka")])
