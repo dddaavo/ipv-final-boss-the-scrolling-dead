@@ -145,8 +145,10 @@ func _on_ButtonNext_pressed() -> void:
 		start_game_sound.play()
 	
 	go_next()
-	var rand = randf_range(25, 300)  #TODO: llevar a DopamineManager lógia de random
-	DopamineManager.increment(rand)
+	var diff := DopamineManager.get_difficulty_factor()
+	var base_gain := randf_range(12, 40)  # variación baja al inicio
+	var scaled_gain := base_gain * diff   # se vuelve más grande conforme sube la dificultad
+	DopamineManager.increment(scaled_gain)
 
 func _remove_tutorial():
 	#Elimina el nodo Tutorial si existe

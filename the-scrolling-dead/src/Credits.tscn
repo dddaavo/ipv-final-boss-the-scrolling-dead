@@ -22,7 +22,7 @@ offset_bottom = 156.0
 grow_horizontal = 2
 theme_override_fonts/font = ExtResource("2_bnll1")
 theme_override_font_sizes/font_size = 40
-text = "CREDITOS"
+text = "CRÉDITOS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -42,7 +42,6 @@ offset_left = 21.0
 offset_top = 217.0
 offset_right = 703.0
 offset_bottom = 1005.0
-theme_override_fonts/normal_font = ExtResource("2_bnll1")
 theme_override_fonts/bold_font = ExtResource("2_bnll1")
 theme_override_fonts/bold_italics_font = ExtResource("2_bnll1")
 theme_override_fonts/italics_font = ExtResource("2_bnll1")

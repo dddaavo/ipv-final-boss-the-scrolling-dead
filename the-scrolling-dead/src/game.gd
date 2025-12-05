@@ -115,27 +115,34 @@ func wait_ignoring_pause(seconds: float) -> void:
 
 
 func _on_retry_pressed():
+	# Limpiar cualquier estado colgado de la ronda anterior
 	get_tree().paused = false
+	game_over_video.stop()
+	game_over_video.visible = false
+	user_status.visible = true
 	user_status.reset_state()
+	final_score = 0
+
 	bg_music.play()
+
 	# Resetear el DopamineManager (es un autoload, no se reinicia con la escena)
 	if DopamineManager:
 		DopamineManager.reset_game()
-	
+
 	# Resetear el score manager
 	if score_manager:
 		score_manager.reset_score()
-	
+
 	# Ocultar la pantalla de score
 	if score_screen:
 		score_screen.hide_score_screen()
-	
+
 	# Resetear el slider (esto emitirá la señal reset_requested)
 	if slider_main_scene and slider_main_scene.has_node("ScreensSlider"):
 		var screens_slider = slider_main_scene.get_node("ScreensSlider")
 		if screens_slider.has_method("reset_to_start"):
 			screens_slider.reset_to_start()
-	
+
 	emit_signal("retry_triggered")
 
 
