@@ -6,7 +6,7 @@ signal value_changed
 signal target_changed
 
 @export var start: float = 0
-@export var target: float = 150
+@export var target: float = 200
 @export var maxim: float = 1000
 
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dv0a7bjrpnnag"]
+[gd_scene load_steps=13 format=3 uid="uid://c7ujn0mhb5rl6"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_x2540"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_dlhd6"]
@@ -10,7 +10,7 @@
 [ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="8_dlhd6"]
 [ext_resource type="VideoStream" uid="uid://pg2xylmprn0u" path="res://Video/GameOver.ogv" id="9_8c8jm"]
 [ext_resource type="VideoStream" uid="uid://dwvrd4mpoqrjn" path="res://Video/WinVideo.ogv" id="9_72vyi"]
-[ext_resource type="Script" uid="uid://du6m8oc3xeoxf" path="res://src/screen_effects.gd" id="11_qiocs"]
+[ext_resource type="Script" path="res://src/screen_effects.gd" id="11_qiocs"]
 [ext_resource type="Texture2D" uid="uid://b3wj3xps1r0gy" path="res://assets/screenUI/zombification.png" id="11_y2hwx"]
 
 [node name="Game" type="Node"]
