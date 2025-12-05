@@ -8,10 +8,48 @@ signal minigame_started(page: Control)
 
 @export var animation_time: float = 0.45
 @export var pages: Control
-const SCREEN_SLIDER_DIR := "res://assets/screenSlider"
+
+# Pre-cargar todas las texturas manualmente para que funcione en HTML export
+const SCREEN_TEXTURES := [
+	preload("res://assets/screenSlider/0f1dbc9d-1c3a-490c-8e9f-a4197d854211.jpeg"),
+	preload("res://assets/screenSlider/1.jpeg"),
+	preload("res://assets/screenSlider/101ccf74-d379-420c-83c3-2c4b07196cec.jpeg"),
+	preload("res://assets/screenSlider/11.jpeg"),
+	preload("res://assets/screenSlider/2.jpeg"),
+	preload("res://assets/screenSlider/2f80e031-c20f-48ad-a7c1-d2769c9e960a.jpeg"),
+	preload("res://assets/screenSlider/3.jpeg"),
+	preload("res://assets/screenSlider/5.jpeg"),
+	preload("res://assets/screenSlider/5945c802-bd3e-427a-8433-60a745f126a3.jpeg"),
+	preload("res://assets/screenSlider/6.jpeg"),
+	preload("res://assets/screenSlider/7.jpeg"),
+	preload("res://assets/screenSlider/78dc84cf-3480-4a51-96f2-095b5daebd2c.jpeg"),
+	preload("res://assets/screenSlider/8.jpeg"),
+	preload("res://assets/screenSlider/8757b5ad-2b0e-4e4e-be70-767d452ae188.jpeg"),
+	preload("res://assets/screenSlider/8d0a33e0-d8f3-475c-a99d-c30e531637c3.jpeg"),
+	preload("res://assets/screenSlider/8ed000f4-d130-49cc-b226-1ce5c9f0a7fb.jpeg"),
+	preload("res://assets/screenSlider/90.jpeg"),
+	preload("res://assets/screenSlider/9302df42-ff6b-46e2-8bb5-695a481e4c5e.jpeg"),
+	preload("res://assets/screenSlider/989cfade-dc9a-4bfb-a838-7fa66ef5a187.jpeg"),
+	preload("res://assets/screenSlider/a30c7dbd-7f1f-4b56-a32f-db343e0a5e2d.jpeg"),
+	preload("res://assets/screenSlider/b38bd709-92ec-42db-bef5-1a08a6e179b0.jpeg"),
+	preload("res://assets/screenSlider/b765dbe0-134e-446f-9734-b88760e7b046.jpeg"),
+	preload("res://assets/screenSlider/c5b7d25c-b65e-4e41-8c48-28eb3ad4172a.jpeg"),
+	preload("res://assets/screenSlider/c77534b4-f949-4875-98e2-ceecaba88166.jpeg"),
+	preload("res://assets/screenSlider/cbcaa1c4-4c68-408d-b63e-1dcc48d53a43.jpeg"),
+	preload("res://assets/screenSlider/cd3dec76-b5a8-4eef-a07f-387251494076.jpeg"),
+	preload("res://assets/screenSlider/d4eae7d6-9193-4716-a5d0-31b4c780e347.jpeg"),
+	preload("res://assets/screenSlider/dac08f05-2b5f-4711-8614-ba630dfce7aa.jpeg"),
+	preload("res://assets/screenSlider/f17a28c9-3d9b-4261-8653-3442753fc3a3.jpeg"),
+	preload("res://assets/screenSlider/f59a1a08-cbe4-4ea4-8fde-cab07616a9f4.jpeg"),
+	preload("res://assets/screenSlider/gato.jpeg"),
+	preload("res://assets/screenSlider/perro.jpg"),
+	preload("res://assets/screenSlider/Sin título.jpeg"),
+	preload("res://assets/screenSlider/tralalero.jpeg"),
+]
 
 @onready var start_game_sound = $StartGame
 var screen_slider_textures: Array[Texture2D] = []
+var _available_textures: Array[Texture2D] = []
 
 var current_index := 0
 var total_pages := 0
@@ -27,6 +65,7 @@ var last_input_time: float = -100.0
 
 func _ready() -> void:
 	clip_contents = true
+	randomize()  
 
 	total_pages = pages.get_child_count()
 	_resize_pages()
@@ -50,16 +89,17 @@ func _resize_pages() -> void:
 
 
 func _load_screen_slider_images():
-	var dir := DirAccess.open(SCREEN_SLIDER_DIR)
-	if not dir:
-		push_warning("No se pudo abrir " + SCREEN_SLIDER_DIR)
-		return
-	for file_name in dir.get_files():
-		var ext := file_name.get_extension().to_lower()
-		if ext in ["png", "jpg", "jpeg", "webp"]:
-			var tex: Texture2D = load(SCREEN_SLIDER_DIR + "/" + file_name)
-			if tex:
-				screen_slider_textures.append(tex)
+	# Usar texturas pre-cargadas (funciona tanto en desktop como HTML export)
+	screen_slider_textures.assign(SCREEN_TEXTURES)
+	
+	# Inicializar bolsa aleatoria sin repetición
+	_reset_texture_bag()
+
+
+func _reset_texture_bag():
+	_available_textures = screen_slider_textures.duplicate()
+	if _available_textures.size() > 1:
+		_available_textures.shuffle()
 
 
 func _apply_random_image_to_page(page: Node):
@@ -69,8 +109,10 @@ func _apply_random_image_to_page(page: Node):
 		return
 	if screen_slider_textures.is_empty():
 		return
+	if _available_textures.is_empty():
+		_reset_texture_bag()
 	if page is TextureRect:
-		page.texture = screen_slider_textures.pick_random()
+		page.texture = _available_textures.pop_back()
 
 func _position_pages_initial() -> void:
 	pages.position = Vector2.ZERO

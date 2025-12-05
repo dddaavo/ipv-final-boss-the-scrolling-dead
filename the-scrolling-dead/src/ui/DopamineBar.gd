@@ -20,8 +20,8 @@ func _ready():
 
 	DopamineManager.value_changed.connect(_on_dopamine_value_changed)
 	DopamineManager.target_changed.connect(_on_targuet_value_changed)
-	# escuchar cambios de tamaño del Control (re-layout)
-	connect("size_changed", Callable(self, "_on_size_changed"))
+	# escuchar cambios de tamaño del Control (re-layout). En Godot 4 el evento es "resized".
+	connect("resized", Callable(self, "_on_size_changed"))
 
 func _on_size_changed() -> void:
 	_update_bar_dimensions()
