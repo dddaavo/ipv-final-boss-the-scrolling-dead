@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b40ppn8waxsr4"]
+[gd_scene load_steps=11 format=3 uid="uid://b40ppn8waxsr4"]
 
 [ext_resource type="Script" uid="uid://d2rybidtkblv0" path="res://src/game.gd" id="1_x2540"]
 [ext_resource type="PackedScene" uid="uid://ms3yff61u7l6" path="res://src/core/TestButtons.tscn" id="2_dlhd6"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://bbiq42pbxdkyx" path="res://src/core/slider_main_scene.tscn" id="5_0rf6s"]
 [ext_resource type="PackedScene" uid="uid://dctldbokblq55" path="res://src/ui/ScoreScreen.tscn" id="6_2fxc8"]
 [ext_resource type="PackedScene" uid="uid://d0oil5f17c368" path="res://src/ui/MarcoCelular.tscn" id="8_5q0ih"]
-[ext_resource type="FontFile" uid="uid://baqvpre2xhvpx" path="res://fonts/PublicPixel.ttf" id="8_dlhd6"]
 [ext_resource type="VideoStream" uid="uid://1osua30h3bsb" path="res://Video/sleepy2.ogv" id="9_72vyi"]
 [ext_resource type="Script" uid="uid://du6m8oc3xeoxf" path="res://src/screen_effects.gd" id="11_qiocs"]
 [ext_resource type="Texture2D" uid="uid://b3wj3xps1r0gy" path="res://assets/screenUI/zombification.png" id="11_y2hwx"]
@@ -93,50 +92,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -360.0
-offset_top = -558.0
+offset_top = -560.0
 offset_right = 360.0
-offset_bottom = 480.0
+offset_bottom = 484.0
 grow_horizontal = 2
 grow_vertical = 2
 stream = ExtResource("9_72vyi")
 speed_scale = 1.2
-expand = true
-
-[node name="GameOver" type="Label" parent="GameOverVideo"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -1022.0
-offset_top = 303.0
-offset_right = -572.0
-offset_bottom = 353.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.95686275)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = 5
-theme_override_constants/shadow_offset_y = 7
-theme_override_fonts/font = ExtResource("8_dlhd6")
-theme_override_font_sizes/font_size = 50
-text = "GAME OVER"
-
-[node name="Top3Video" type="VideoStreamPlayer" parent="."]
-visible = false
-top_level = true
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -422.5
-offset_top = -633.75
-offset_right = 422.5
-offset_bottom = 633.75
-grow_horizontal = 2
-grow_vertical = 2
 expand = true
 
 [node name="ScoreScreen" parent="." instance=ExtResource("6_2fxc8")]
@@ -144,4 +106,3 @@ visible = false
 z_index = 100
 
 [connection signal="finished" from="GameOverVideo" to="." method="_on_game_over_video_finished"]
-[connection signal="finished" from="Top3Video" to="." method="_on_top3_video_finished"]

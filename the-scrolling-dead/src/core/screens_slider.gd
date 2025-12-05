@@ -4,6 +4,7 @@ signal scrolled
 signal first_scroll  # Nueva señal para el primer scroll
 var scrolling := false
 signal reset_requested  # Nueva señal para resetear al segundo slide
+signal minigame_started(page: Control)
 
 @export var animation_time: float = 0.45
 @export var pages: Control
@@ -91,6 +92,10 @@ func _on_scroll_finished() -> void:
 	var current_page := pages.get_child(0)
 	if current_page is EventPage:
 		current_page.trigger_event_effect()
+
+	# Emitir cuando la página visible es un minijuego
+	if current_page.is_in_group("minigame_page"):
+		emit_signal("minigame_started", current_page)
 
 
 func _refresh_page(page: Control) -> void:
