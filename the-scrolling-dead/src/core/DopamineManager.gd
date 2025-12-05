@@ -20,6 +20,8 @@ var dopamine_level: DopamineLevel
 var effect_manager: DopamineEffectManager
 var difficulty_elapsed: float = 0.0
 var difficulty_active: bool = false
+var allow_game_over: bool = false
+var game_grace_until: float = 0.0  # ventana de gracia para evitar game over inmediato tras reset/start
 
 func _ready():
 	dopamine_level = DopamineLevel.new(start,target,maxim)
@@ -82,6 +84,12 @@ func _on_target_changed():
 	_check_events()
 
 func _check_events():
+	var now := Time.get_ticks_msec() / 1000.0
+	if not allow_game_over:
+		return
+	if now < game_grace_until:
+		return
+
 	if is_game_over():
 		emit_signal("game_over")
 	if is_on_target():
@@ -121,6 +129,8 @@ func reset_game():
 	dopamine_level.set_maximum(maxim)
 	difficulty_elapsed = 0.0
 	difficulty_active = false
+	allow_game_over = false
+	game_grace_until = Time.get_ticks_msec() / 1000.0 + 1.0
 	
 	# Resetear efectos
 	reset_effects()
@@ -135,3 +145,5 @@ func start_game():
 		effect_manager.start_game()
 	difficulty_elapsed = 0.0
 	difficulty_active = true
+	allow_game_over = true
+	game_grace_until = Time.get_ticks_msec() / 1000.0 + 0.5
