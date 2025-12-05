@@ -8,6 +8,7 @@ signal minigame_banner_requested
 @onready var slider = $ScreensSlider
 @onready var bgm: AudioStreamPlayer = $ScreensSlider/BackgroundMusic
 @onready var banner_label: Label = $MinigameBanner
+@onready var banner_bg: ColorRect = $MinigameBannerBg
 var _banner_tween: Tween
 
 func _ready() -> void:
@@ -60,13 +61,25 @@ func _show_lets_play_banner():
 	if _banner_tween:
 		_banner_tween.kill()
 
+	# Reset alpha and show both
+	if banner_bg:
+		banner_bg.modulate.a = 0.0
+		banner_bg.show()
 	banner_label.modulate.a = 0.0
 	banner_label.show()
 
 	_banner_tween = create_tween()
-	_banner_tween.tween_property(banner_label, "modulate:a", 1.0, 0.25)
+	if banner_bg:
+		_banner_tween.tween_property(banner_bg, "modulate:a", 1.0, 0.25)
+		_banner_tween.parallel().tween_property(banner_label, "modulate:a", 1.0, 0.25)
+	else:
+		_banner_tween.tween_property(banner_label, "modulate:a", 1.0, 0.25)
 	_banner_tween.tween_interval(0.6)
-	_banner_tween.tween_property(banner_label, "modulate:a", 0.0, 0.25)
+	if banner_bg:
+		_banner_tween.tween_property(banner_bg, "modulate:a", 0.0, 0.25)
+		_banner_tween.parallel().tween_property(banner_label, "modulate:a", 0.0, 0.25)
+	else:
+		_banner_tween.tween_property(banner_label, "modulate:a", 0.0, 0.25)
 	_banner_tween.finished.connect(_hide_banner)
 
 
@@ -76,5 +89,8 @@ func _hide_banner():
 	if _banner_tween:
 		_banner_tween.kill()
 		_banner_tween = null
+	if banner_bg:
+		banner_bg.modulate.a = 0.0
+		banner_bg.hide()
 	banner_label.modulate.a = 0.0
 	banner_label.hide()
