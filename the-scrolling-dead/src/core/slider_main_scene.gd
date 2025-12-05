@@ -7,7 +7,8 @@ signal minigame_banner_requested
 
 @onready var slider = $ScreensSlider
 @onready var bgm: AudioStreamPlayer = $ScreensSlider/BackgroundMusic
-@onready var font_pixel: Font = load("res://fonts/PublicPixel.ttf")
+@onready var banner_label: Label = $MinigameBanner
+var _banner_tween: Tween
 
 func _ready() -> void:
 	var game = get_parent()
@@ -35,6 +36,7 @@ func _on_retry_from_parent() -> void:
 func _on_slider_scrolled():
 	# Retransmitir la señal hacia arriba
 	emit_signal("scrolled")
+	_hide_banner()
 
 func _on_first_scroll():
 	# Retransmitir la señal hacia arriba
@@ -52,21 +54,27 @@ func _on_minigame_started(_page: Control):
 
 
 func _show_lets_play_banner():
-	var banner := Label.new()
-	banner.text = "¡A JUGAR!"
-	if font_pixel:
-		banner.add_theme_font_override("font", font_pixel)
-	banner.add_theme_font_size_override("font_size", 64)
-	banner.add_theme_constant_override("outline_size", 20)
-	banner.add_theme_color_override("font_outline_color", Color(0, 0, 0, 1))
-	banner.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	banner.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	banner.set_anchors_preset(Control.PRESET_FULL_RECT)
-	banner.modulate.a = 0.0
-	add_child(banner)
+	if not banner_label:
+		return
 
-	var tween := create_tween()
-	tween.tween_property(banner, "modulate:a", 1.0, 0.25)
-	tween.tween_interval(0.6)
-	tween.tween_property(banner, "modulate:a", 0.0, 0.25)
-	tween.finished.connect(banner.queue_free)
+	if _banner_tween:
+		_banner_tween.kill()
+
+	banner_label.modulate.a = 0.0
+	banner_label.show()
+
+	_banner_tween = create_tween()
+	_banner_tween.tween_property(banner_label, "modulate:a", 1.0, 0.25)
+	_banner_tween.tween_interval(0.6)
+	_banner_tween.tween_property(banner_label, "modulate:a", 0.0, 0.25)
+	_banner_tween.finished.connect(_hide_banner)
+
+
+func _hide_banner():
+	if not banner_label:
+		return
+	if _banner_tween:
+		_banner_tween.kill()
+		_banner_tween = null
+	banner_label.modulate.a = 0.0
+	banner_label.hide()
