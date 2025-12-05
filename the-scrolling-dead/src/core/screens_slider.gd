@@ -28,6 +28,7 @@ var last_input_time: float = -100.0
 
 func _ready() -> void:
 	clip_contents = true
+	randomize()  # asegúrate de que la bolsa se mezcle distinto en cada ejecución
 
 	total_pages = pages.get_child_count()
 	_resize_pages()

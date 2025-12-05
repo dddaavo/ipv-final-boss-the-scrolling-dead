@@ -24,11 +24,15 @@ func _on_start_button_pressed() -> void:
 	tween.tween_property(animated_sprite_2d, "scale", animated_sprite_2d.scale * 1.3, 0.8)
 	tween.parallel().tween_property(animated_sprite_2d, "modulate:a", 0.0, 0.8)
 	tween.parallel().tween_property(self, "modulate:a", 0.0, 0.9)
-	
-	tween.finished.connect(func ():
-		get_tree().change_scene_to_packed(main_scene)
-	)
+
 	$ClickSound.play()
+
+	await tween.finished
+	call_deferred("_go_to_main_scene")
+
+
+func _go_to_main_scene() -> void:
+	get_tree().change_scene_to_packed(main_scene)
 	
 
 func _on_options_pressed() -> void:
