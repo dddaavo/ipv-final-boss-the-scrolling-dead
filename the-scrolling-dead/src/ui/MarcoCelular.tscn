@@ -28,6 +28,9 @@ signal collapse_animation_finished
 var collapse_active := false
 signal collapse_triggered(type: String) # \"low\" o \"high\"
 
+# Grace tras un reset para evitar colapso inmediato
+var grace_until: float = 0.0
+
 # PARA RETRY
 var original_parent: Node = null
 var original_position: Vector2
@@ -49,6 +52,10 @@ func _ready():
 
 
 func _update_mood():
+	var now := Time.get_ticks_msec() / 1000.0
+	if now < grace_until:
+		return
+
 	var value := DopamineManager.get_current()
 	var maxv := DopamineManager.get_maxim()
 
@@ -119,6 +126,7 @@ func play_collapse_animation(frame_index: int):
 func reset_state():
 	visible = true
 	collapse_active = false
+	grace_until = Time.get_ticks_msec() / 1000.0 + 1.0
 
 	# --- Volver al parent original ---
 	if original_parent and get_parent() != original_parent:
