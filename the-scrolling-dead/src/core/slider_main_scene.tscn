@@ -333,7 +333,7 @@ offset_bottom = 548.1039
 mouse_filter = 2
 texture = ExtResource("5_5xma1")
 expand_mode = 5
-stretch_mode = 6
+stretch_mode = 5
 script = ExtResource("52_1lfd4")
 
 [node name="Page1" type="TextureRect" parent="ScreensSlider/Pages"]
@@ -342,7 +342,7 @@ offset_right = 449.0
 offset_bottom = 362.0
 mouse_filter = 2
 texture = ExtResource("6_dyxjg")
-stretch_mode = 3
+stretch_mode = 5
 script = ExtResource("53_ptj23")
 
 [node name="TapCoins" parent="ScreensSlider/Pages" node_paths=PackedStringArray("pages") instance=ExtResource("3_7mcnc")]
@@ -357,7 +357,7 @@ offset_right = 545.0
 offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("7_lrnjy")
-stretch_mode = 6
+stretch_mode = 5
 script = ExtResource("56_ltaej")
 
 [node name="EventPage1" parent="ScreensSlider/Pages" instance=ExtResource("58_sxjdb")]
@@ -369,7 +369,7 @@ offset_right = 545.0
 offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("8_dt6fh")
-stretch_mode = 6
+stretch_mode = 5
 script = ExtResource("58_seluu")
 
 [node name="GuessEmoji" type="Control" parent="ScreensSlider/Pages"]
@@ -440,7 +440,7 @@ offset_right = 545.0
 offset_bottom = 765.0
 mouse_filter = 2
 texture = ExtResource("9_4n2ai")
-stretch_mode = 6
+stretch_mode = 5
 script = ExtResource("60_8k2aw")
 
 [node name="EventPage2" parent="ScreensSlider/Pages" instance=ExtResource("58_sxjdb")]
@@ -452,6 +452,7 @@ offset_right = 784.0
 offset_bottom = 1168.0
 mouse_filter = 2
 texture = ExtResource("10_5xma1")
+stretch_mode = 5
 script = ExtResource("65_1lfd4")
 
 [node name="EventPage3" parent="ScreensSlider/Pages" instance=ExtResource("58_sxjdb")]
@@ -480,10 +481,6 @@ offset_bottom = 70.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.019607844, 0.019607844, 0.019607844, 0.8352941)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
 metadata/_edit_group_ = true
 
 [node name="MinigameBanner" type="Label" parent="."]

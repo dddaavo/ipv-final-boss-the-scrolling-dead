@@ -12,6 +12,7 @@ const SCREEN_SLIDER_DIR := "res://assets/screenSlider"
 
 @onready var start_game_sound = $StartGame
 var screen_slider_textures: Array[Texture2D] = []
+var _available_textures: Array[Texture2D] = []
 
 var current_index := 0
 var total_pages := 0
@@ -60,6 +61,13 @@ func _load_screen_slider_images():
 			var tex: Texture2D = load(SCREEN_SLIDER_DIR + "/" + file_name)
 			if tex:
 				screen_slider_textures.append(tex)
+	# Inicializar bolsa aleatoria sin repetición
+	_reset_texture_bag()
+
+
+func _reset_texture_bag():
+	_available_textures = screen_slider_textures.duplicate()
+	_available_textures.shuffle()
 
 
 func _apply_random_image_to_page(page: Node):
@@ -69,8 +77,10 @@ func _apply_random_image_to_page(page: Node):
 		return
 	if screen_slider_textures.is_empty():
 		return
+	if _available_textures.is_empty():
+		_reset_texture_bag()
 	if page is TextureRect:
-		page.texture = screen_slider_textures.pick_random()
+		page.texture = _available_textures.pop_back()
 
 func _position_pages_initial() -> void:
 	pages.position = Vector2.ZERO
