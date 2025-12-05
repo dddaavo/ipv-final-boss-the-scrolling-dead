@@ -15,6 +15,7 @@ script = ExtResource("1_score_screen")
 top_font_size = 43
 
 [node name="PantallaRota" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(361, 639.00006)
 scale = Vector2(1.4142582, 1.4142581)
 texture = ExtResource("2_idydw")
@@ -27,9 +28,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -544.0
+offset_top = -480.0
 offset_right = 300.0
-offset_bottom = 544.0
+offset_bottom = 480.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -52,7 +53,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 22
 
 [node name="TitleLabel" type="Label" parent="Panel/MarginContainer/VBoxContainer"]
 layout_mode = 2

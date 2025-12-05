@@ -113,7 +113,8 @@ func _update_display():
 func _calculate_final_score() -> float:
 	"""Calcula el score final como metros × segundos"""
 	var meters = scroll_meter.get_total_meters() if scroll_meter else 0.0
-	return meters * total_seconds_in_target
+	var seconds_multiplier = total_seconds_in_target if total_seconds_in_target > 0 else 1.0
+	return meters * seconds_multiplier
 
 func add_points(_points: int):
 	"""Función legacy - ya no se usa el sistema de puntos directos"""
