@@ -67,7 +67,7 @@ func _display_top_scores(current_final_score: float) -> Dictionary:
 	
 	# Use the reference instead of trying to find the node
 	if not score_manager_ref:
-		print("Warning: ScoreManager reference not set")
+		push_warning("ScoreManager reference not set")
 		return {"is_in_top10": false, "position": -1}
 	
 	var top_scores = score_manager_ref.get_top_scores(10)

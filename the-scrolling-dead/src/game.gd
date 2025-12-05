@@ -47,8 +47,6 @@ func _ready() -> void:
 
 func _on_first_scroll():
 	"""Manejar el primer scroll del juego"""
-	print("First scroll detected - Starting game!")
-	
 	# Iniciar DopamineManager
 	if DopamineManager:
 		DopamineManager.start_game()

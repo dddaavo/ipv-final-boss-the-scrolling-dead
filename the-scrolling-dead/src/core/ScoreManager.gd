@@ -4,8 +4,6 @@ class_name ScoreManager
 signal score_changed(new_score: float)
 signal high_score_achieved(new_high_score: float)
 signal meters_changed(meters: float)
-signal seconds_changed(seconds: float)
-signal game_over_with_score(final_score: float)
 
 # Configuración del scoring
 @export var save_file_path: String = "user://scores_history.save"
@@ -31,8 +29,6 @@ func _ready():
 	_connect_dopamine_signals()
 	_connect_scroll_meter_signals()
 	_start_new_game()
-	print("ScoreManager initialized - High Score: ", high_score)
-	print("Total games played: ", scores_history.size())
 
 func _process(delta):
 	if is_game_active and game_started:
@@ -46,16 +42,14 @@ func _process(delta):
 func _connect_dopamine_signals():
 	if DopamineManager:
 		DopamineManager.game_over.connect(_on_game_over)
-		print("Connected to DopamineManager signals")
 	else:
-		print("Warning: DopamineManager not found")
+		push_warning("DopamineManager not found")
 
 func _connect_scroll_meter_signals():
 	if scroll_meter:
 		scroll_meter.meters_changed.connect(_on_scroll_meter_changed)
-		print("Connected to ScrollMeter signals")
 	else:
-		print("Warning: ScrollMeter not found")
+		push_warning("ScrollMeter not found")
 
 func _on_scroll_meter_changed(meters: float):
 	"""Callback cuando el ScrollMeter actualiza los metros"""
@@ -78,7 +72,6 @@ func start_game():
 		game_started = true
 		is_game_active = true
 		game_start_time = Time.get_unix_time_from_system()
-		print("Game started!")
 
 func _check_target_status():
 	var currently_in_target = DopamineManager.is_on_target()
@@ -92,10 +85,10 @@ func _check_target_status():
 		is_in_target = currently_in_target
 
 func _on_target_entered():
-	print("Entered target zone - scoring started")
+	pass
 
 func _on_target_exited():
-	print("Exited target zone - scoring paused")
+	pass
 
 func add_scroll():
 	"""Llamar esta función cada vez que el jugador haga scroll"""
@@ -156,9 +149,6 @@ func _on_game_over():
 		scores_history = scores_history.slice(-max_scores_to_keep)
 	
 	save_scores_data()
-	print("Game Over - Final Score: ", current_score)
-	print("Meters: %.1f, Seconds in target: %.1f" % [meters, total_seconds_in_target])
-	print("Game Duration: ", game_record.duration, " seconds")
 
 func reset_score():
 	current_score = 0
@@ -166,7 +156,6 @@ func reset_score():
 	is_in_target = false
 	_start_new_game()
 	emit_signal("score_changed", current_score)
-	print("Score reset - New game started")
 
 func get_score() -> float:
 	return _calculate_final_score()
@@ -194,7 +183,6 @@ func save_scores_data():
 		}
 		save_file.store_string(JSON.stringify(save_data, "\t"))  # Con indentación para legibilidad
 		save_file.close()
-		print("Scores data saved (", scores_history.size(), " games)")
 
 func load_scores_data():
 	if FileAccess.file_exists(save_file_path):
@@ -210,9 +198,8 @@ func load_scores_data():
 				var save_data = json.data
 				high_score = save_data.get("high_score", 0)
 				scores_history = save_data.get("scores_history", [])
-				print("Loaded ", scores_history.size(), " game records")
 			else:
-				print("Error parsing save file")
+				push_warning("Error parsing save file")
 				_initialize_empty_data()
 	else:
 		_initialize_empty_data()
@@ -269,44 +256,3 @@ func get_stats_summary() -> Dictionary:
 		"total_playtime": get_total_playtime(),
 		"last_game": scores_history[-1] if not scores_history.is_empty() else null
 	}
-
-# Métodos de debug y utilidad
-func print_stats():
-	var stats = get_stats_summary()
-	print("=== SCORE STATISTICS ===")
-	print("Total Games: ", stats.total_games)
-	print("High Score: ", stats.high_score)
-	print("Average Score: ", "%.1f" % stats.average_score)
-	print("Total Playtime: ", "%.1f" % stats.total_playtime, " seconds")
-
-func export_scores_to_text() -> String:
-	var text = "Game Scores History\n"
-	text += "==================\n\n"
-	
-	var stats = get_stats_summary()
-	text += "Summary:\n"
-	text += "- Total Games: " + str(stats.total_games) + "\n"
-	text += "- High Score: " + str(stats.high_score) + "\n"
-	text += "- Average Score: " + ("%.1f" % stats.average_score) + "\n"
-	text += "- Total Playtime: " + ("%.1f" % stats.total_playtime) + " seconds\n\n"
-	
-	text += "Recent Games:\n"
-	text += "-------------\n"
-	
-	var recent = get_recent_scores(20)
-	for i in range(recent.size()):
-		var game = recent[i]
-		text += str(i + 1) + ". Score: " + str(game.score)
-		text += " | Duration: " + ("%.1f" % game.duration) + "s"
-		text += " | Date: " + str(game.date)
-		if game.get("was_high_score", false):
-			text += " [HIGH SCORE!]"
-		text += "\n"
-	
-	return text
-
-func clear_all_scores():
-	scores_history.clear()
-	high_score = 0
-	save_scores_data()
-	print("All scores cleared")
