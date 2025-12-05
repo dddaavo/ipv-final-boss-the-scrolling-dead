@@ -1,5 +1,8 @@
 extends Node
 
+const VIDEO_ZOMBIFICACION := preload("uid://c3ca6js6dftsb")
+const VIDEO_SLEEPY := preload("uid://1osua30h3bsb")
+
 @onready var score_manager = $Home/ScoreManager
 @onready var score_screen = $ScoreScreen
 @onready var slider_main_scene = $SliderMainScene
@@ -88,6 +91,7 @@ func _on_collapse_animation_finished():
 	get_tree().paused = true   # <- congela TODO el juego
 	score_manager._on_game_over()
 	final_score = score_manager.current_score
+	var dopamine_value := DopamineManager.get_current() if DopamineManager else 0.0
 	await wait_ignoring_pause(1.0)
 
 	if bg_music.playing:
@@ -96,6 +100,12 @@ func _on_collapse_animation_finished():
 	DopamineManager.reset_game()
 	user_status.visible = false
 	game_over_video.visible = true
+
+	# Elegir video según el nivel de dopamina al morir
+	var chosen_video = VIDEO_ZOMBIFICACION
+	if dopamine_value < 0:
+		chosen_video = VIDEO_SLEEPY
+	game_over_video.stream = chosen_video
 	game_over_video.play()
 
 
