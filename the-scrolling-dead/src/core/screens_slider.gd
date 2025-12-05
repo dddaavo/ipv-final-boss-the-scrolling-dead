@@ -8,8 +8,10 @@ signal minigame_started(page: Control)
 
 @export var animation_time: float = 0.45
 @export var pages: Control
+const SCREEN_SLIDER_DIR := "res://assets/screenSlider"
 
 @onready var start_game_sound = $StartGame
+var screen_slider_textures: Array[Texture2D] = []
 
 var current_index := 0
 var total_pages := 0
@@ -29,6 +31,8 @@ func _ready() -> void:
 	total_pages = pages.get_child_count()
 	_resize_pages()
 	_position_pages_initial()
+	_load_screen_slider_images()
+	_apply_random_image_to_page(pages.get_child(0) if pages.get_child_count() > 0 else null)
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_RESIZED:
@@ -44,9 +48,35 @@ func _resize_pages() -> void:
 			i += 1
 	pages.size = size * Vector2(1, total_pages)
 
+
+func _load_screen_slider_images():
+	var dir := DirAccess.open(SCREEN_SLIDER_DIR)
+	if not dir:
+		push_warning("No se pudo abrir " + SCREEN_SLIDER_DIR)
+		return
+	for file_name in dir.get_files():
+		var ext := file_name.get_extension().to_lower()
+		if ext in ["png", "jpg", "jpeg", "webp"]:
+			var tex: Texture2D = load(SCREEN_SLIDER_DIR + "/" + file_name)
+			if tex:
+				screen_slider_textures.append(tex)
+
+
+func _apply_random_image_to_page(page: Node):
+	if page == null:
+		return
+	if page.is_in_group("minigame_page"):
+		return
+	if screen_slider_textures.is_empty():
+		return
+	if page is TextureRect:
+		page.texture = screen_slider_textures.pick_random()
+
 func _position_pages_initial() -> void:
 	pages.position = Vector2.ZERO
 	current_index = 0
+	if pages.get_child_count() > 0:
+		_apply_random_image_to_page(pages.get_child(0))
 
 func go_next() -> void:
 	if total_pages == 0 or scrolling:
@@ -70,6 +100,7 @@ func _prepare_next_page() -> void:
 	var last_child := pages.get_child(pages.get_child_count() - 1)
 	var new_page_index := (current_index + 1) % total_pages
 	var next_page := pages.get_child(new_page_index)
+	_apply_random_image_to_page(next_page)
 
 	next_page.position.y = last_child.position.y + size.y
 	_refresh_page(next_page)
