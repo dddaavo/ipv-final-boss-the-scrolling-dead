@@ -1,11 +1,13 @@
 extends Node
 
+const VIDEO_ZOMBIFICACION := preload("uid://c3ca6js6dftsb")
+const VIDEO_SLEEPY := preload("uid://1osua30h3bsb")
+
 @onready var score_manager = $Home/ScoreManager
 @onready var score_screen = $ScoreScreen
 @onready var slider_main_scene = $SliderMainScene
 @onready var game_over_video: VideoStreamPlayer = $GameOverVideo
 
-signal game_over_triggered
 signal retry_triggered
 
 var game_started: bool = false
@@ -15,6 +17,13 @@ var final_score: float
 @onready var bg_music = $SliderMainScene/ScreensSlider/BackgroundMusic
 
 func _ready() -> void:
+	#score_screen.pause_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	score_screen.process_mode = Node.PROCESS_MODE_ALWAYS
+	game_over_video.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	#$RetryButton.pause_mode = Node.PAUSE_MODE_PROCESS  # o donde esté el botón
+	#$MarcoCelular.pause_mode = Node.PAUSE_MODE_PROCESS  # si también querés UI activa
+	
 	user_status.collapse_triggered.connect(_on_collapse)
 	user_status.collapse_animation_finished.connect(_on_collapse_animation_finished)
 
@@ -24,6 +33,7 @@ func _ready() -> void:
 	# Conectar señal de retry del score screen
 	if score_screen:
 		score_screen.retry_pressed.connect(_on_retry_pressed)
+		score_screen.volver_menu_pressed.connect(_on_volver_menu_pressed)
 	
 	# Conectar señal de scroll directamente al score manager
 	if slider_main_scene and score_manager:
@@ -37,8 +47,6 @@ func _ready() -> void:
 
 func _on_first_scroll():
 	"""Manejar el primer scroll del juego"""
-	print("First scroll detected - Starting game!")
-	
 	# Iniciar DopamineManager
 	if DopamineManager:
 		DopamineManager.start_game()
@@ -78,20 +86,36 @@ func _on_collapse(kind):
 
 # ANIMACIÓN DE GAME OVER
 func _on_collapse_animation_finished():
+	get_tree().paused = true   # <- congela TODO el juego
 	score_manager._on_game_over()
-
-	# Espera 1 segundo antes del video
-	await get_tree().create_timer(1.0).timeout
+	final_score = score_manager.current_score
+	var dopamine_value := DopamineManager.get_current() if DopamineManager else 0.0
+	await wait_ignoring_pause(1.0)
 
 	if bg_music.playing:
 		bg_music.stop()
 
+	DopamineManager.reset_game()
 	user_status.visible = false
 	game_over_video.visible = true
+
+	# Elegir video según el nivel de dopamina al morir
+	var chosen_video = VIDEO_ZOMBIFICACION
+	if dopamine_value < 0:
+		chosen_video = VIDEO_SLEEPY
+	game_over_video.stream = chosen_video
 	game_over_video.play()
 
 
+func wait_ignoring_pause(seconds: float) -> void:
+	var time_passed := 0.0
+	while time_passed < seconds:
+		await get_tree().process_frame
+		time_passed += get_process_delta_time()  # este delta ignora pausa
+
+
 func _on_retry_pressed():
+	get_tree().paused = false
 	user_status.reset_state()
 	bg_music.play()
 	# Resetear el DopamineManager (es un autoload, no se reinicia con la escena)
@@ -118,3 +142,14 @@ func _on_retry_pressed():
 func _on_game_over_video_finished() -> void:
 	game_over_video.visible = false
 	score_screen.show_score_screen(final_score)
+
+
+func _on_volver_menu_pressed():
+	get_tree().paused = false
+	
+	# Resetear el DopamineManager
+	if DopamineManager:
+		DopamineManager.reset_game()
+	
+	# Recargar la escena principal (menú)
+	get_tree().change_scene_to_file("uid://c0wroa1sk1xif")

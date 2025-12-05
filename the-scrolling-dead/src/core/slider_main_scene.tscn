@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://bbiq42pbxdkyx"]
+[gd_scene load_steps=71 format=3 uid="uid://bbiq42pbxdkyx"]
 
 [ext_resource type="Script" uid="uid://cunnekidhyere" path="res://src/core/slider_main_scene.gd" id="1_n7q6m"]
 [ext_resource type="Script" uid="uid://bvv7moxix1y4" path="res://src/core/screens_slider.gd" id="2_7mcnc"]
@@ -218,6 +218,8 @@ animations = [{
 "speed": 46.0
 }]
 
+[sub_resource type="Theme" id="Theme_1lfd4"]
+
 [node name="SliderMainScene" type="Control"]
 clip_contents = true
 layout_mode = 3
@@ -379,6 +381,19 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("58_ehk5b")
 
+[node name="ColorRect" type="ColorRect" parent="ScreensSlider/Pages/GuessEmoji"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4500.0
+offset_bottom = 4500.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_1lfd4")
+color = Color(0.050980393, 0.078431375, 0.1254902, 1)
+
 [node name="LabelQuestion" type="Label" parent="ScreensSlider/Pages/GuessEmoji"]
 layout_mode = 1
 anchors_preset = 5
@@ -448,3 +463,20 @@ stream = ExtResource("62_madsm")
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="ScreensSlider"]
 stream = ExtResource("63_qket4")
 parameters/looping = true
+
+[node name="MinigameBanner" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+top_level = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0.003921569, 0.003921569, 0.003921569, 0.9647059)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("52_madsm")
+theme_override_font_sizes/font_size = 60
+text = "¡A JUGAR!"
+horizontal_alignment = 1
+vertical_alignment = 1

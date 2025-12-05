@@ -6,7 +6,7 @@ signal value_changed
 signal target_changed
 
 @export var start: float = 0
-@export var target: float = 150
+@export var target: float = 200
 @export var maxim: float = 1000
 
 
@@ -49,7 +49,6 @@ func decrement(amount: float):
 	dopamine_level.add(-amount)
 
 func _on_value_changed():
-	print(dopamine_level.current)
 	emit_signal("value_changed")
 	_check_events()
 
@@ -103,9 +102,9 @@ func reset_game():
 	if effect_manager:
 		effect_manager.stop_game()
 	
-	print("DopamineManager reset - Current: ", dopamine_level.current, " Target: ", dopamine_level.target)
+	pass
 
 func start_game():
 	if effect_manager:
 		effect_manager.start_game()
-	print("DopamineManager started")
+	pass

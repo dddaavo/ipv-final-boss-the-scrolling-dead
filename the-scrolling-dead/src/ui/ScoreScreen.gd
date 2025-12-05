@@ -2,10 +2,12 @@ extends Control
 class_name ScoreScreen
 
 signal retry_pressed
+signal volver_menu_pressed
 
 @onready var current_score_label: Label = $Panel/MarginContainer/VBoxContainer/CurrentScoreContainer/CurrentScoreLabel
 @onready var top_scores_container: VBoxContainer = $Panel/MarginContainer/VBoxContainer/ScrollContainer/TopScoresContainer
 @onready var retry_button: Button = $Panel/MarginContainer/VBoxContainer/RetryButton
+@onready var volver_menu_button: Button = $Panel/MarginContainer/VBoxContainer/VolverMenu
 @onready var top10_message: Label = $Panel/MarginContainer/VBoxContainer/Top10Message
 
 @export var top_font_size:int = 30
@@ -16,6 +18,7 @@ var score_manager_ref: ScoreManager = null  # Reference passed from Game.gd
 
 func _ready():
 	retry_button.pressed.connect(_on_retry_button_pressed)
+	volver_menu_button.pressed.connect(_on_volver_menu_pressed)
 	if top10_message:
 		top10_message.hide()
 	
@@ -64,7 +67,7 @@ func _display_top_scores(current_final_score: float) -> Dictionary:
 	
 	# Use the reference instead of trying to find the node
 	if not score_manager_ref:
-		print("Warning: ScoreManager reference not set")
+		push_warning("ScoreManager reference not set")
 		return {"is_in_top10": false, "position": -1}
 	
 	var top_scores = score_manager_ref.get_top_scores(10)
@@ -143,4 +146,9 @@ func _on_retry_button_pressed():
 	hide()
 
 func hide_score_screen():
+	hide()
+
+
+func _on_volver_menu_pressed() -> void:
+	volver_menu_pressed.emit()
 	hide()

@@ -7,6 +7,7 @@ extends Control
 const labelsScene := preload("res://src/ui/LabelsGroup.tscn")
 
 func _ready() -> void:
+	add_to_group("minigame_page")
 	var labels_group = labelsScene.instantiate()
 	add_child(labels_group)
 	labels_group.set_texts(
