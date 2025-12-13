@@ -329,7 +329,7 @@ vertical_alignment = 1
 [node name="Page0" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
 offset_right = 412.0
-offset_bottom = 548.1039
+offset_bottom = 632.0
 mouse_filter = 2
 texture = ExtResource("5_5xma1")
 expand_mode = 5
@@ -338,8 +338,8 @@ script = ExtResource("52_1lfd4")
 
 [node name="Page1" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
-offset_right = 449.0
-offset_bottom = 362.0
+offset_right = 832.0
+offset_bottom = 1248.0
 mouse_filter = 2
 texture = ExtResource("6_dyxjg")
 stretch_mode = 3
@@ -352,8 +352,8 @@ offset_bottom = 0.0
 
 [node name="Page2" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
-offset_right = 545.0
-offset_bottom = 765.0
+offset_right = 784.0
+offset_bottom = 1190.0
 mouse_filter = 2
 texture = ExtResource("7_lrnjy")
 stretch_mode = 6
@@ -364,8 +364,8 @@ layout_mode = 0
 
 [node name="Page3" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
-offset_right = 545.0
-offset_bottom = 765.0
+offset_right = 784.0
+offset_bottom = 1190.0
 mouse_filter = 2
 texture = ExtResource("8_dt6fh")
 stretch_mode = 6
@@ -435,8 +435,8 @@ stretch_mode = 0
 
 [node name="Page4" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0
-offset_right = 545.0
-offset_bottom = 765.0
+offset_right = 784.0
+offset_bottom = 1180.0
 mouse_filter = 2
 texture = ExtResource("9_4n2ai")
 stretch_mode = 6
@@ -448,7 +448,7 @@ layout_mode = 0
 [node name="Page5" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 1
 offset_right = 784.0
-offset_bottom = 1168.0
+offset_bottom = 1185.0
 mouse_filter = 2
 texture = ExtResource("10_5xma1")
 script = ExtResource("65_1lfd4")

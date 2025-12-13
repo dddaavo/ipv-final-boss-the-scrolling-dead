@@ -14,7 +14,7 @@ offset_bottom = 890.0
 script = ExtResource("1_kq5d5")
 
 [node name="PageName" type="Label" parent="."]
-z_index = 200
+z_index = 1
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -32,7 +32,7 @@ theme_override_font_sizes/font_size = 36
 text = "Tap Coin!"
 
 [node name="PageDescription" type="Label" parent="."]
-z_index = 200
+z_index = 1
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -48,7 +48,7 @@ theme_override_font_sizes/font_size = 24
 text = "Las monedas doradas aumentan tu dopamina!!!"
 
 [node name="Hashtags" type="Label" parent="."]
-z_index = 200
+z_index = 1
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
