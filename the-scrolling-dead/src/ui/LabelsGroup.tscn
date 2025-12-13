@@ -14,6 +14,7 @@ offset_bottom = 890.0
 script = ExtResource("1_kq5d5")
 
 [node name="PageName" type="Label" parent="."]
+z_index = 200
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -23,6 +24,7 @@ offset_top = -2.0
 offset_right = 178.0
 offset_bottom = 45.0
 grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("1_jwh3y")
@@ -30,6 +32,7 @@ theme_override_font_sizes/font_size = 36
 text = "Tap Coin!"
 
 [node name="PageDescription" type="Label" parent="."]
+z_index = 200
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -39,11 +42,13 @@ offset_top = 70.0
 offset_right = 554.0
 offset_bottom = 102.0
 grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_kq5d5")
 theme_override_font_sizes/font_size = 24
 text = "Las monedas doradas aumentan tu dopamina!!!"
 
 [node name="Hashtags" type="Label" parent="."]
+z_index = 200
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -53,6 +58,7 @@ offset_top = 105.0
 offset_right = 347.0
 offset_bottom = 142.0
 grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 1
 theme_override_fonts/font = ExtResource("2_kq5d5")

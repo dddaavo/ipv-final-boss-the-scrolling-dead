@@ -64,6 +64,7 @@ func _next_question():
 		option_buttons[i].modulate = Color(1, 1, 1)  # Restablecer color
 
 func _on_Option_pressed(button: TextureButton):
+	print("SELECCIÓN")
 	var chosen_texture = button.texture_normal.resource_path
 
 	if chosen_texture == current_question.correct:

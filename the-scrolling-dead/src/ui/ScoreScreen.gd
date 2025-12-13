@@ -4,6 +4,9 @@ class_name ScoreScreen
 signal retry_pressed
 signal volver_menu_pressed
 
+@onready var zombie_result: TextureRect = $ZombieFinal
+@onready var sleepy_result: TextureRect = $SleepyFinal
+
 @onready var current_score_label: Label = $Panel/MarginContainer/VBoxContainer/CurrentScoreContainer/CurrentScoreLabel
 @onready var top_scores_container: VBoxContainer = $Panel/MarginContainer/VBoxContainer/ScrollContainer/TopScoresContainer
 @onready var retry_button: Button = $Panel/MarginContainer/VBoxContainer/RetryButton
@@ -31,8 +34,13 @@ func set_score_manager(manager: ScoreManager):
 	"""Set the ScoreManager reference from Game.gd"""
 	score_manager_ref = manager
 
-func show_score_screen(final_score: float):
+func show_score_screen(final_score: float, zombie_final: bool):
 	last_final_score = final_score
+	print(zombie_final)
+	if zombie_final:
+		zombie_result.show()
+	else:
+		sleepy_result.show()
 	
 	# Mostrar puntaje actual con decimales y unidad Metros
 	current_score_label.text = "%.1f Metros" % final_score
@@ -143,11 +151,18 @@ func _display_top_scores(current_final_score: float) -> Dictionary:
 
 func _on_retry_button_pressed():
 	retry_pressed.emit()
+	_reset_final_visuals()
 	hide()
 
 func hide_score_screen():
+	_reset_final_visuals()
 	hide()
-
+	
+func _reset_final_visuals():
+	if zombie_result:
+		zombie_result.hide()
+	if sleepy_result:
+		sleepy_result.hide()
 
 func _on_volver_menu_pressed() -> void:
 	volver_menu_pressed.emit()
