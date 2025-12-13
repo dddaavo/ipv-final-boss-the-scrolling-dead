@@ -2,7 +2,6 @@ extends Control
 
 @export var coin_scene: PackedScene
 @onready var spawn_timer: Timer = Timer.new()
-@export var pages: Control
 
 const labelsScene := preload("res://src/ui/LabelsGroup.tscn")
 

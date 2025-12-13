@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhckldtl7e8cx"
-path="res://.godot/imported/perro.jpg-509ff610467464831ccb3789ab690413.ctex"
+uid="uid://dx2ruqo2wa335"
+path="res://.godot/imported/finalBored.png-5c32419daeec68c9d395bd263011e9c4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/screenSlider/perro.jpg"
-dest_files=["res://.godot/imported/perro.jpg-509ff610467464831ccb3789ab690413.ctex"]
+source_file="res://assets/screenUI/finalBored.png"
+dest_files=["res://.godot/imported/finalBored.png-5c32419daeec68c9d395bd263011e9c4.ctex"]
 
 [params]
 

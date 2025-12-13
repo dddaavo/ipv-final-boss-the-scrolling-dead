@@ -3,6 +3,8 @@ extends Node
 const VIDEO_ZOMBIFICACION := preload("uid://c3ca6js6dftsb")
 const VIDEO_SLEEPY := preload("uid://1osua30h3bsb")
 
+var chosen_video
+
 @onready var score_manager = $Home/ScoreManager
 @onready var score_screen = $ScoreScreen
 @onready var slider_main_scene = $SliderMainScene
@@ -16,14 +18,11 @@ var final_score: float
 @onready var user_status: Sprite2D = $MarcoCelular/FooterControl/UserStatus
 @onready var bg_music = $SliderMainScene/ScreensSlider/BackgroundMusic
 
+
 func _ready() -> void:
-	#score_screen.pause_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	score_screen.process_mode = Node.PROCESS_MODE_ALWAYS
 	game_over_video.process_mode = Node.PROCESS_MODE_ALWAYS
 
-	#$RetryButton.pause_mode = Node.PAUSE_MODE_PROCESS  # o donde esté el botón
-	#$MarcoCelular.pause_mode = Node.PAUSE_MODE_PROCESS  # si también querés UI activa
-	
 	user_status.collapse_triggered.connect(_on_collapse)
 	user_status.collapse_animation_finished.connect(_on_collapse_animation_finished)
 
@@ -47,11 +46,9 @@ func _ready() -> void:
 
 func _on_first_scroll():
 	"""Manejar el primer scroll del juego"""
-	# Iniciar DopamineManager
 	if DopamineManager:
 		DopamineManager.start_game()
 	
-	# Iniciar ScoreManager
 	if score_manager and score_manager.has_method("start_game"):
 		score_manager.start_game()
 
@@ -70,9 +67,9 @@ func _on_reset_requested():
 
 
 func _on_user_collapse(kind: String):
-	var frame_index :int = kind == "low" if 0 else 6  # ejemplo según frames
+	var frame_index :int = kind == "low" if 0 else 6
 	user_status.play_collapse_animation(frame_index, func():
-		score_manager._on_game_over()   # <- acá disparás tu lógica real
+		score_manager._on_game_over()
 	)
 
 
@@ -100,7 +97,7 @@ func _on_collapse_animation_finished():
 	game_over_video.visible = true
 
 	# Elegir video según el nivel de dopamina al morir
-	var chosen_video = VIDEO_ZOMBIFICACION
+	chosen_video = VIDEO_ZOMBIFICACION
 	if dopamine_value < 0:
 		chosen_video = VIDEO_SLEEPY
 	game_over_video.stream = chosen_video
@@ -141,7 +138,7 @@ func _on_retry_pressed():
 
 func _on_game_over_video_finished() -> void:
 	game_over_video.visible = false
-	score_screen.show_score_screen(final_score)
+	score_screen.show_score_screen(final_score, chosen_video == VIDEO_ZOMBIFICACION)
 
 
 func _on_volver_menu_pressed():

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c345tomdwtlby"
-path="res://.godot/imported/gato.jpeg-e0b0669e033090b5930af35bd3896e76.ctex"
+uid="uid://bmcmrwsdryiro"
+path="res://.godot/imported/finalZombie.png-39a2553b074713646c1e3409a8093622.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/screenSlider/gato.jpeg"
-dest_files=["res://.godot/imported/gato.jpeg-e0b0669e033090b5930af35bd3896e76.ctex"]
+source_file="res://assets/screenUI/finalZombie.png"
+dest_files=["res://.godot/imported/finalZombie.png-39a2553b074713646c1e3409a8093622.ctex"]
 
 [params]
 

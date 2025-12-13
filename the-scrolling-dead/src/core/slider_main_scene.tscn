@@ -345,11 +345,10 @@ texture = ExtResource("6_dyxjg")
 stretch_mode = 3
 script = ExtResource("53_ptj23")
 
-[node name="TapCoins" parent="ScreensSlider/Pages" node_paths=PackedStringArray("pages") instance=ExtResource("3_7mcnc")]
+[node name="TapCoins" parent="ScreensSlider/Pages" instance=ExtResource("3_7mcnc")]
 layout_mode = 1
 offset_right = 0.0
 offset_bottom = 0.0
-pages = NodePath("..")
 
 [node name="Page2" type="TextureRect" parent="ScreensSlider/Pages"]
 layout_mode = 0

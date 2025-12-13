@@ -83,37 +83,38 @@ func _update_mood():
 func play_collapse_animation(frame_index: int):
 	texture = frames[frame_index]
 
+	# Guardar estado
 	original_parent = get_parent()
-	original_position = position
-	original_scale = scale
+	original_global_position = global_position
+	original_global_scale = global_scale
 
-	# Mover a CollapseLayer PARA SUPONERPONERSE EN LA PANTALLA
+	# Llevar al layer superior
 	var collapse_container = get_tree().root.get_node(\"Game/CollapseLayer/CollapseContainer\")
 	original_parent.remove_child(self)
 	collapse_container.add_child(self)
 
+	# Estado inicial
 	scale = Vector2(0.4, 0.4)
 	position = Vector2(360, 1204)
 
 	var tween := create_tween()
+	tween.set_parallel(true)
 
+	# Subir
 	tween.tween_property(self, \"position:y\", 800, 0.8)\\
 		.set_trans(Tween.TRANS_SINE)\\
 		.set_ease(Tween.EASE_OUT)
 
-	tween.tween_property(self, \"scale\", Vector2(2, 2), 0.8)\\
+	# Agrandarse AL MISMO TIEMPO
+	tween.tween_property(self, \"scale\", Vector2(2.0, 2.0), 0.8)\\
 		.set_trans(Tween.TRANS_SINE)\\
 		.set_ease(Tween.EASE_OUT)
 
-	# Blur: TODO ARREGLAR
-	#if original_parent:
-	#	var blur_rect = original_parent.get_parent().get_node(\"BlurOverlay\")
-	#	blur_rect.modulate.a = 0.0
-	#	tween.tween_property(blur_rect, \"modulate:a\", 0.6, 0.8)
+	# Esperar a que termine COMPLETAMENTE
+	await tween.finished
 
-	tween.tween_callback(func():
-		emit_signal(\"collapse_animation_finished\")
-	)
+	emit_signal(\"collapse_animation_finished\")
+
 
 
 func reset_state():
@@ -217,7 +218,7 @@ glitch_textures = Array[Texture2D]([ExtResource("6_jduka")])
 [node name="UserStatus" type="Sprite2D" parent="FooterControl"]
 modulate = Color(1, 1, 1, 0.49803922)
 self_modulate = Color(1, 1, 1, 0.627451)
-z_index = 100
+z_index = 4096
 z_as_relative = false
 position = Vector2(360, 1203)
 scale = Vector2(0.4, 0.4)
